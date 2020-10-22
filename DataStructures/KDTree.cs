@@ -4,107 +4,63 @@ using System.Linq;
 
 namespace DataStructures
 {
-    public class KDTree<TKey, TValue> where TKey : notnull, IComparable<TKey>
+    public class KDTree<T>
     {
-        public int NumberOfDimensions { get; }
+        public int Count { get; private set; } = 0;
 
-        private KDTreeNode<TKey, TValue> _root;
+        private readonly Comparer<T>[] _comparers;
 
-        public KDTree(int numberOfDimensions)
+        private readonly int _numberOfDimensions;
+
+        private KDTreeNode<T> _root;
+
+        /// <summary>
+        /// TODO: Add comments to every public method
+        /// </summary>
+        /// <param name="comparers"></param>
+        public KDTree(params Comparer<T>[] comparers)
         {
-            NumberOfDimensions = numberOfDimensions;
+            if (comparers == null)
+            {
+                throw new ArgumentNullException(nameof(comparers));
+            }
+            if (comparers.Length == 0)
+            {
+                throw new ArgumentException(nameof(comparers), $"Empty parameter {nameof(comparers)}.");
+            }
+            _comparers = comparers;
+            _numberOfDimensions = comparers.Length;
         }
 
-        //public KDTree(Dictionary<TKey[], TValue> values)
-        //{
-        //    if (values == null)
-        //        throw new ArgumentNullException(nameof(values));
-
-        //    if (values.Count <= 0)
-        //        throw new ArgumentException("Empty dictionary - cannot initialize NumberOfDimensions.", nameof(values));
-
-        //    NumberOfDimensions = values.First().Key.Length;
-
-        //    for (int i = 0; i < NumberOfDimensions; i++)
-        //    {
-        //        //var median = GetMedian(values.ToList(), i);
-        //        //-----
-        //        //var sortedByIthDimen = values.OrderBy(x => x.Key[i]).ToList();
-        //        //var medianIndex = values.Count / 2;
-
-        //        //Add(sortedByIthDimen[medianIndex].Value, sortedByIthDimen[medianIndex].Key);
-        //    }
-        //}
-
-        //private KeyValuePair<TKey[], TValue> GetMedian(List<KeyValuePair<TKey[], TValue>> values, int byDimension)
-        //{
-        //    var medianPos = values.Count / 2;
-        //    Sort(ref values, medianPos, byDimension);
-        //    return values[medianPos];
-        //}
-
-        //private void Sort(ref List<KeyValuePair<TKey[], TValue>> values, int upTo, int byDimension)
-        //{
-        //    if (values.Count <= 1)
-        //        return;
-
-        //    int i = 1;
-        //    while (true)
-        //    {
-        //        if (i > upTo)
-        //        {
-
-        //        }
-        //    }
-        //}
-
-        public void AddRecursively(TValue data, params TKey[] position)
+        public KDTree(IEnumerable<T> data, params Comparer<T>[] comparers) : this(comparers)
         {
-            if (position == null)
-                throw new ArgumentNullException(nameof(position));
-
-            if (position.Length != NumberOfDimensions)
-                throw new ArgumentException(nameof(position), $"Wrong number of dimensions in parameter {nameof(position)}.");
-
-            var newNode = new KDTreeNode<TKey, TValue>(position, data);
-            if (_root == null)
-            {
-                _root = newNode;
-            }
-            else
-            {
-                _root.AddRecursively(newNode, 0);
-            }
+            AddRange(data);
         }
 
-        public void Add(TValue data, params TKey[] position)
+        public void Add(T data)
         {
-            CheckPosition(position);
-
-            var newNode = new KDTreeNode<TKey, TValue>(position, data);
+            var newNode = new KDTreeNode<T>(data);
 
             if (_root == null)
             {
                 _root = newNode;
+                Count++;
                 return;
             }
 
-            int byDimension = 0;
+            int currDimension = 0;
             var node = _root;
 
             while (true)
             {
-                if (byDimension >= node.Position.Length)
-                {
-                    byDimension = 0;
-                }
-                if (newNode.Position[byDimension].CompareTo(node.Position[byDimension]) <= 0)
+                currDimension %= _numberOfDimensions;
+
+                if (_comparers[currDimension].Compare(newNode.Data, node.Data) <= 0)
                 {
                     if (node.LeftNode == null)
                     {
                         node.LeftNode = newNode;
-                        newNode.Parent = node;
-                        return;
+                        break;
                     }
                     else node = node.LeftNode;
                 }
@@ -113,123 +69,89 @@ namespace DataStructures
                     if (node.RightNode == null)
                     {
                         node.RightNode = newNode;
-                        newNode.Parent = node;
-                        return;
+                        break;
                     }
                     else node = node.RightNode;
                 }
-                byDimension++;
+                currDimension++;
             }
+            newNode.Parent = node;
+            Count++;
         }
 
-        public TValue this[params TKey[] position]
+        private void AddRange(IEnumerable<T> dataCollection)
         {
-            get
-            {
-                var node = GetNode(position);
-                if (node != null)
-                {
-                    return node.Data;
-                }
-                throw new KeyNotFoundException($"Key '[{string.Join(",", position)}]' was not present in the KDTree.");
-            }
-            set
-            {
-                var node = GetNode(position);
-                if (node != null)
-                {
-                    node.Data = value;
-                }
-                throw new KeyNotFoundException($"Key '[{string.Join(",", position)}]' was not present in the KDTree.");
-            }
+            // Add by Medians !
+            throw new NotImplementedException(); // TODO
         }
 
-        private KDTreeNode<TKey, TValue> GetNode(TKey[] position)
+        public T Find(T exactData)
         {
-            CheckPosition(position);
-
-            var node = _root;
-            int byDimension = 0;
-
-            while (true)
+            foreach (var data in FindAt(exactData))
             {
-                if (node == null) break;
-
-                if (position.SequenceEqual(node.Position))
+                if (data.Equals(exactData))
                 {
-                    return node;
+                    return data;
                 }
-                if (byDimension >= node.Position.Length)
-                {
-                    byDimension = 0;
-                }
-                if (position[byDimension].CompareTo(node.Position[byDimension]) <= 0)
-                {
-                    node = node.LeftNode;
-                }
-                else
-                {
-                    node = node.RightNode;
-                }
-                byDimension++;
             }
-            return null;
+            throw new Exception("Exact data not found.");
         }
 
-        public TValue[] this[TKey[] posLowerBound, TKey[] posUpperBound]
+        public ICollection<T> FindAt(T dataPosition)
         {
-            get
+            return FindInRange(dataPosition, dataPosition);
+        }
+
+        public ICollection<T> FindInRange(T posLowerBound, T posUpperBound)
+        {
+            return FindNodes(posLowerBound, posUpperBound).Select(x => x.Data).ToList();
+        }
+
+        private ICollection<KDTreeNode<T>> FindNodes(T posLowerBound, T posUpperBound)
+        {
+            var foundNodes = new List<KDTreeNode<T>>();
+
+            if (_root != null)
             {
-                CheckPosition(posLowerBound);
-                CheckPosition(posUpperBound);
+                var nodeStack = new Stack<KDTreeNode<T>>();
+                var nodeDimensionStack = new Stack<int>();
+                nodeStack.Push(_root);
+                nodeDimensionStack.Push(0);
 
-                var foundNodes = new List<KDTreeNode<TKey, TValue>>();
-
-                if (_root != null)
+                while (nodeStack.Count > 0)
                 {
-                    var nodeStack = new Stack<KDTreeNode<TKey, TValue>>();
-                    var nodeDimensionStack = new Stack<int>();
-                    nodeStack.Push(_root);
-                    nodeDimensionStack.Push(0);
+                    var node = nodeStack.Pop();
+                    int currDimension = nodeDimensionStack.Pop();
 
-                    while (nodeStack.Count > 0)
+                    currDimension %= _numberOfDimensions;
+
+                    bool higherThanLowerBound = _comparers[currDimension].Compare(node.Data, posLowerBound) >= 0;
+                    if (higherThanLowerBound && node.LeftNode != null)
                     {
-                        var node = nodeStack.Pop();
-                        int currDimension = nodeDimensionStack.Pop();
+                        nodeStack.Push(node.LeftNode);
+                        nodeDimensionStack.Push(currDimension + 1);
+                    }
+                    bool lowerThanUpperBound = _comparers[currDimension].Compare(node.Data, posUpperBound) < 0;
+                    if (lowerThanUpperBound && node.RightNode != null)
+                    {
+                        nodeStack.Push(node.RightNode);
+                        nodeDimensionStack.Push(currDimension + 1);
+                    }
 
-                        if (currDimension >= node.Position.Length)
-                            currDimension = 0;
-                        else if (currDimension < 0)
-                            currDimension = node.Position.Length - 1;
-
-                        bool higherThanLowerBound = node.Position[currDimension].CompareTo(posLowerBound[currDimension]) >= 0;
-                        if (higherThanLowerBound && node.LeftNode != null)
-                        {
-                            nodeStack.Push(node.LeftNode);
-                            nodeDimensionStack.Push(currDimension + 1);
-                        }
-                        bool lowerThanUpperBound = node.Position[currDimension].CompareTo(posUpperBound[currDimension]) < 0;
-                        if (lowerThanUpperBound && node.RightNode != null)
-                        {
-                            nodeStack.Push(node.RightNode);
-                            nodeDimensionStack.Push(currDimension + 1);
-                        }
-
-                        if (IsInBounds(node.Position, posLowerBound, posUpperBound))
-                        {
-                            foundNodes.Add(node);
-                        }
+                    if (IsInBounds(node.Data, posLowerBound, posUpperBound))
+                    {
+                        foundNodes.Add(node);
                     }
                 }
-                return foundNodes.Select(x => x.Data).ToArray();
             }
+            return foundNodes;
         }
 
-        private bool IsInBounds(TKey[] position, TKey[] posLowerBound, TKey[] posUpperBound)
+        private bool IsInBounds(T nodeData, T posLowerBound, T posUpperBound)
         {
-            for (int i = 0; i < position.Length; i++)
+            for (int i = 0; i < _comparers.Length; i++)
             {
-                if (position[i].CompareTo(posLowerBound[i]) < 0 || position[i].CompareTo(posUpperBound[i]) > 0)
+                if (_comparers[i].Compare(nodeData, posLowerBound) < 0 || _comparers[i].Compare(nodeData, posUpperBound) > 0)
                 {
                     return false;
                 }
@@ -237,36 +159,115 @@ namespace DataStructures
             return true;
         }
 
-        public bool Remove(params TKey[] position)
+        public int Contains(T exactData)
         {
-            CheckPosition(position);
+            int c = 0;
+            foreach (var data in FindAt(exactData))
+            {
+                if (data.Equals(exactData))
+                    c++;
+            }
+            return c;
+        }
 
-            var node = GetNode(position);
+        public int ContainsAt(T dataPosition)
+        {
+            return ContainsInRange(dataPosition, dataPosition);
+        }
 
-            if (node == null)
-                return false;
+        public int ContainsInRange(T posLowerBound, T posUpperBound)
+        {
+            return FindNodes(posLowerBound, posUpperBound).Count;
+        }
 
+        public int Remove(T exactData)
+        {
+            // remove exact Data -> can be more exact matches
+            throw new NotImplementedException();
+            //Count -= removedNodes.Count;
+        }
+
+        public int RemoveAt(T dataPosition)
+        {
+            return RemoveRange(dataPosition, dataPosition);
+        }
+
+        public int RemoveRange(T posLowerBound, T posUpperBound)
+        {
+            var nodesToRemove = FindNodes(posLowerBound, posUpperBound);
+            foreach (var node in nodesToRemove)
+            {
+                RemmoveNode(node);
+            }
+            Count -= nodesToRemove.Count;
+            return nodesToRemove.Count;
+        }
+
+        private void RemmoveNode(KDTreeNode<T> node)
+        {
             if (node.IsLeaf())
             {
                 var parent = node.Parent;
-                if (parent.LeftNode == node)
+                if (parent.LeftNode == node) // TODO: what if parent is null ???
                 {
                     parent.LeftNode = null;
                 }
-                else if (parent.RightNode == node)
+                else
                 {
                     parent.RightNode = null;
                 }
-                else throw new Exception("Remove - you should not get here.");
+                return;
             }
-            // TODO if its not a leaf
-            return true;
+            else if (node.HasOneChild())
+            {
+                var parent = node.Parent;
+                var child = node.LeftNode ?? node.RightNode;
+                if (parent.LeftNode == node)
+                {
+                    parent.LeftNode = child;
+                }
+                else
+                {
+                    parent.RightNode = child;
+                }
+                child.Parent = parent;
+                return;
+            }
+            else
+            {
+                // ????
+                // FindClosestGap(node) ??
+                if (node.LeftNode.IsLeaf() || node.LeftNode.HasOneChild())
+                {
+
+                }
+                else if (node.RightNode.IsLeaf() || node.RightNode.HasOneChild())
+                {
+
+                }
+            }
         }
 
-        public List<KDTreeNode<TKey, TValue>> LevelOrderTraversal()
+        public void Clear()
         {
-            var ret = new List<KDTreeNode<TKey, TValue>>();
-            var nodesToTraverse = new Queue<KDTreeNode<TKey, TValue>>();
+            _root = null;
+            Count = 0;
+        }
+
+        public IList<T> ToList()
+        {
+            return LevelOrderTraversal().Select(x => x.Data).ToList();
+        }
+
+        public T[] ToArray()
+        {
+            return LevelOrderTraversal().Select(x => x.Data).ToArray();
+        }
+
+        private IList<KDTreeNode<T>> LevelOrderTraversal() // InOrderTraversal, PostOrderTraversal
+        {
+            var ret = new List<KDTreeNode<T>>(Count);
+            var nodesToTraverse = new Queue<KDTreeNode<T>>();
             nodesToTraverse.Enqueue(_root);
 
             while (nodesToTraverse.Count != 0)
@@ -287,7 +288,7 @@ namespace DataStructures
             var height = GetHeight();
             var indentations = GetIndentations(height);
 
-            var nodesToTraverse = new Queue<KDTreeNode<TKey, TValue>>();
+            var nodesToTraverse = new Queue<KDTreeNode<T>>();
             nodesToTraverse.Enqueue(_root);
 
             for (int h = 0; h < height; h++)
@@ -329,21 +330,9 @@ namespace DataStructures
             }
         }
 
-        private void CheckPosition(TKey[] position)
-        {
-            if (position == null)
-            {
-                throw new ArgumentNullException(nameof(position));
-            }
-            if (position.Length != NumberOfDimensions)
-            {
-                throw new ArgumentException(nameof(position), $"Wrong number of dimensions in parameter {nameof(position)}.");
-            }
-        }
-
         private int GetHeight() => GetHeight(_root);
 
-        private int GetHeight(KDTreeNode<TKey, TValue> node)
+        private int GetHeight(KDTreeNode<T> node)
         {
             if (node == null)
             {
@@ -351,8 +340,8 @@ namespace DataStructures
             }
             else
             {
-                int leftHeight = GetHeight(node.LeftNode); // Rekurzia
-                int rightHeight = GetHeight(node.RightNode); // Rekurzia
+                int leftHeight = GetHeight(node.LeftNode); // Recursion -> TODO: REMAKE
+                int rightHeight = GetHeight(node.RightNode); // Recursion
 
                 if (leftHeight > rightHeight)
                 {
