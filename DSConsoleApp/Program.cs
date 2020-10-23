@@ -39,7 +39,7 @@ namespace DSConsoleApp
             //var lists = tree.FindInRange(new TownPosition(12, 40), new TownPosition(27, 44));
 
 
-            var b = tree.RemoveAt(new TownPosition(23, 35));
+            var b = tree.RemoveAt(new TownPosition(24, 40));
             Console.WriteLine(b);
 
             tree.PrintTree();

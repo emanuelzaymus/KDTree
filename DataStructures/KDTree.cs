@@ -53,7 +53,7 @@ namespace DataStructures
 
             while (true)
             {
-                currDimension %= _numberOfDimensions;
+                currDimension = ToDimension(currDimension);
 
                 if (_comparers[currDimension].Compare(newNode.Data, node.Data) <= 0)
                 {
@@ -124,7 +124,7 @@ namespace DataStructures
                     var node = nodeStack.Pop();
                     int currDimension = nodeDimensionStack.Pop();
 
-                    currDimension %= _numberOfDimensions;
+                    currDimension = ToDimension(currDimension);
 
                     bool higherThanLowerBound = _comparers[currDimension].Compare(node.Data, posLowerBound) >= 0;
                     if (higherThanLowerBound && node.HasLeftChild())
@@ -233,38 +233,15 @@ namespace DataStructures
                     }
                     break;
                 }
-                else // Has at least one child 
+                else // nodeToRemove has at least one child 
                 {
                     DimensionalKDTreeNode<T> foundDimensionalNode = nodeToRemove.HasLeftChild()
                         ? FindMaxDimensionNode(nodeToRemove.LeftChild, nodeDimension) // Find MAXimal-dimension node in the left subtree
                         : FindMinDimensionNode(nodeToRemove.RightChild, nodeDimension); // Find MINimal-dimension node in the right subtree
-                    var replacementNode = foundDimensionalNode.Node; // TODO: only switch Data property !!!
+                    var replacementNode = foundDimensionalNode.Node;
 
                     // Replace modeToRemove with found node (replacementNode)
-                    var parent = nodeToRemove.Parent;
-                    var leftChild = nodeToRemove.LeftChild;
-                    var rightChild = nodeToRemove.RightChild;
-
-                    if (parent != null) // if (nodeToRemove == _root) then parent == null
-                    {
-                        if (nodeToRemove.IsLeftChild())
-                            parent.LeftChild = replacementNode;
-                        else
-                            parent.RightChild = replacementNode;
-                    }
-                    replacementNode.Parent = parent;
-
-                    if (leftChild != null)
-                    {
-                        leftChild.Parent = replacementNode;
-                    }
-                    replacementNode.LeftChild = leftChild;
-
-                    if (rightChild != null)
-                    {
-                        rightChild.Parent = replacementNode;
-                    }
-                    replacementNode.RightChild = rightChild;
+                    nodeToRemove.Data = replacementNode.Data;
 
                     // Remove found node (foundDimensionalNode)
                     dimensionalNodeToRemove = foundDimensionalNode;
@@ -275,17 +252,17 @@ namespace DataStructures
         private DimensionalKDTreeNode<T> FindMaxDimensionNode(KDTreeNode<T> leftSubtreeRoot, int byDimension)
         {
             var maxDimensionNode = leftSubtreeRoot;
-            int maxDimenNodeDimension = byDimension;
+            int maxDimenNodeDimension = ToDimension(byDimension + 1);
 
             var nodesToSearch = new Queue<KDTreeNode<T>>();
-            nodesToSearch.Enqueue(leftSubtreeRoot);
+            nodesToSearch.Enqueue(maxDimensionNode);
             var nodeDimensions = new Queue<int>();
-            nodeDimensions.Enqueue(byDimension);
+            nodeDimensions.Enqueue(maxDimenNodeDimension);
 
             while (nodesToSearch.Count > 0)
             {
                 var currNode = nodesToSearch.Dequeue();
-                var currDimension = nodeDimensions.Dequeue() % _numberOfDimensions;
+                var currDimension = ToDimension(nodeDimensions.Dequeue());
 
                 if (_comparers[byDimension].Compare(currNode.Data, maxDimensionNode.Data) > 0)
                 {
@@ -309,17 +286,17 @@ namespace DataStructures
         private DimensionalKDTreeNode<T> FindMinDimensionNode(KDTreeNode<T> rightSubtreeRoot, int byDimension)
         {
             var minDimensionNode = rightSubtreeRoot;
-            int minDimenNodeDimension = byDimension;
+            int minDimenNodeDimension = ToDimension(byDimension + 1);
 
             var nodesToSearch = new Queue<KDTreeNode<T>>();
-            nodesToSearch.Enqueue(rightSubtreeRoot);
+            nodesToSearch.Enqueue(minDimensionNode);
             var nodeDimensions = new Queue<int>();
-            nodeDimensions.Enqueue(byDimension);
+            nodeDimensions.Enqueue(minDimenNodeDimension);
 
             while (nodesToSearch.Count > 0)
             {
                 var currNode = nodesToSearch.Dequeue();
-                var currDimension = nodeDimensions.Dequeue() % _numberOfDimensions;
+                var currDimension = ToDimension(nodeDimensions.Dequeue());
 
                 if (_comparers[byDimension].Compare(currNode.Data, minDimensionNode.Data) < 0)
                 {
@@ -421,6 +398,8 @@ namespace DataStructures
                 Console.WriteLine('\n');
             }
         }
+
+        private int ToDimension(int possibleDimension) => possibleDimension % _numberOfDimensions;
 
         private int GetHeight() => GetHeight(_root);
 
