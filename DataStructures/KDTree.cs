@@ -105,12 +105,12 @@ namespace DataStructures
 
         public ICollection<T> FindInRange(T posLowerBound, T posUpperBound)
         {
-            return FindNodes(posLowerBound, posUpperBound).Select(x => x.Data).ToList();
+            return FindNodes(posLowerBound, posUpperBound).Select(x => x.Node.Data).ToList();
         }
 
-        private ICollection<KDTreeNode<T>> FindNodes(T posLowerBound, T posUpperBound)
+        private ICollection<DimensionalKDTreeNode<T>> FindNodes(T posLowerBound, T posUpperBound)
         {
-            var foundNodes = new List<KDTreeNode<T>>();
+            var foundNodes = new List<DimensionalKDTreeNode<T>>();
 
             if (_root != null)
             {
@@ -141,7 +141,7 @@ namespace DataStructures
 
                     if (IsInBounds(node.Data, posLowerBound, posUpperBound))
                     {
-                        foundNodes.Add(node);
+                        foundNodes.Add(new DimensionalKDTreeNode<T>(currDimension, node));
                     }
                 }
             }
@@ -178,11 +178,11 @@ namespace DataStructures
         public int Remove(T exactData)
         {
             int removedCount = 0;
-            foreach (var node in FindNodes(exactData, exactData))
+            foreach (var dimensionalNode in FindNodes(exactData, exactData))
             {
-                if (node.Equals(exactData))
+                if (dimensionalNode.Node.Data.Equals(exactData))
                 {
-                    RemoveNode(node);
+                    RemoveNode(dimensionalNode);
                     removedCount++;
                 }
             }
@@ -197,74 +197,89 @@ namespace DataStructures
 
         public int RemoveRange(T posLowerBound, T posUpperBound)
         {
-            var nodesToRemove = FindNodes(posLowerBound, posUpperBound);
-            foreach (var node in nodesToRemove)
+            var dimensionalNodesToRemove = FindNodes(posLowerBound, posUpperBound);
+            foreach (var dimensionalNode in dimensionalNodesToRemove)
             {
-                RemoveNode(node);
+                RemoveNode(dimensionalNode);
             }
-            Count -= nodesToRemove.Count;
-            return nodesToRemove.Count;
+            Count -= dimensionalNodesToRemove.Count;
+            return dimensionalNodesToRemove.Count;
         }
 
-        private void RemoveNode(KDTreeNode<T> node)
+        private void RemoveNode(DimensionalKDTreeNode<T> dimensionalNodeToRemove)
         {
-            if (node == _root)
+            while (dimensionalNodeToRemove != null)
             {
-                if (_root.IsLeaf())
-                {
-                    _root = null;
-                }
-                else if (_root.HasOneChild()) // wrong
-                {
-                    var child = _root.LeftChild ?? _root.RightChild;
-                    child.Parent = null;
-                    _root = child;
-                }
-                else
-                {
-                    // TODO: ...
-                }
-            }
-            else if (node.IsLeaf())
-            {
-                if (node.IsLeftChild())
-                {
-                    node.Parent.LeftChild = null;
-                }
-                else if (node.IsRigthChild())
-                {
-                    node.Parent.RightChild = null;
-                }
-                else throw new Exception("You should not get here - node is probably the root.");
-            }
-            else if (node.HasOneChild()) // wrong
-            {
-                var parent = node.Parent;
-                var child = node.LeftChild ?? node.RightChild;
-                if (node.IsLeftChild())
-                {
-                    parent.LeftChild = child;
-                }
-                else
-                {
-                    parent.RightChild = child;
-                }
-                child.Parent = parent;
-            }
-            else
-            {
-                // TODO: implement removing
-                // ????
-                // FindClosestGap(node) ??
-                if (node.LeftChild.IsLeaf() || node.LeftChild.HasOneChild())
-                {
+                var nodeToRemove = dimensionalNodeToRemove.Node;
+                int nodeDimension = dimensionalNodeToRemove.Dimension;
 
-                }
-                else if (node.RightChild.IsLeaf() || node.RightChild.HasOneChild())
+                if (nodeToRemove.IsLeaf())
                 {
+                    if (nodeToRemove == _root)
+                    {
+                        _root = null;
+                    }
+                    else
+                    {
+                        if (nodeToRemove.IsLeftChild())
+                        {
+                            nodeToRemove.Parent.LeftChild = null;
+                        }
+                        else if (nodeToRemove.IsRigthChild())
+                        {
+                            nodeToRemove.Parent.RightChild = null;
+                        }
+                        else throw new Exception("You should not get here - node is probably the root.");
+                    }
+                    break;
+                }
+                else // Has at least one child 
+                {
+                    DimensionalKDTreeNode<T> foundDimensionalNode = nodeToRemove.HasLeftChild()
+                        ? FindMaxDimensionNode(nodeToRemove.LeftChild, nodeDimension) // Find MAXimal-dimension node in the left subtree
+                        : FindMinDimensionNode(nodeToRemove.RightChild, nodeDimension); // Find MINimal-dimension node in the right subtree
+                    var replacementNode = foundDimensionalNode.Node;
 
+                    // Replace modeToRemove with found node (replacementNode)
+                    var parent = nodeToRemove.Parent;
+                    var leftChild = nodeToRemove.LeftChild;
+                    var rightChild = nodeToRemove.RightChild;
+
+                    if (parent != null) // if (nodeToRemove == _root) then parent == null
+                    {
+                        if (nodeToRemove.IsLeftChild())
+                            parent.LeftChild = replacementNode;
+                        else
+                            parent.RightChild = replacementNode;
+                    }
+                    replacementNode.Parent = parent;
+
+                    if (leftChild != null)
+                    {
+                        leftChild.Parent = replacementNode;
+                    }
+                    replacementNode.LeftChild = leftChild;
+
+                    if (rightChild != null)
+                    {
+                        rightChild.Parent = replacementNode;
+                    }
+                    replacementNode.RightChild = rightChild;
+
+                    // Remove found node (foundDimensionalNode)
+                    dimensionalNodeToRemove = foundDimensionalNode;
                 }
             }
+        }
+
+        private DimensionalKDTreeNode<T> FindMaxDimensionNode(KDTreeNode<T> leftSubtree, int byDimension)
+        {
+            throw new NotImplementedException();
+        }
+
+        private DimensionalKDTreeNode<T> FindMinDimensionNode(KDTreeNode<T> rightSubtree, int byDimension)
+        {
+            throw new NotImplementedException();
         }
 
         public void Clear()
