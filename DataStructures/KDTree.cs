@@ -57,21 +57,21 @@ namespace DataStructures
 
                 if (_comparers[currDimension].Compare(newNode.Data, node.Data) <= 0)
                 {
-                    if (node.LeftNode == null)
+                    if (!node.HasLeftChild())
                     {
-                        node.LeftNode = newNode;
+                        node.LeftChild = newNode;
                         break;
                     }
-                    else node = node.LeftNode;
+                    else node = node.LeftChild;
                 }
                 else
                 {
-                    if (node.RightNode == null)
+                    if (!node.HasRightChild())
                     {
-                        node.RightNode = newNode;
+                        node.RightChild = newNode;
                         break;
                     }
-                    else node = node.RightNode;
+                    else node = node.RightChild;
                 }
                 currDimension++;
             }
@@ -81,20 +81,21 @@ namespace DataStructures
 
         private void AddRange(IEnumerable<T> dataCollection)
         {
-            // Add by Medians !
-            throw new NotImplementedException(); // TODO
+            // TODO: Add by Medians !
+            throw new NotImplementedException();
         }
 
-        public T Find(T exactData)
+        public ICollection<T> Find(T exactData)
         {
+            var exactMatches = new List<T>();
             foreach (var data in FindAt(exactData))
             {
                 if (data.Equals(exactData))
                 {
-                    return data;
+                    exactMatches.Add(data);
                 }
             }
-            throw new Exception("Exact data not found.");
+            return exactMatches;
         }
 
         public ICollection<T> FindAt(T dataPosition)
@@ -126,15 +127,15 @@ namespace DataStructures
                     currDimension %= _numberOfDimensions;
 
                     bool higherThanLowerBound = _comparers[currDimension].Compare(node.Data, posLowerBound) >= 0;
-                    if (higherThanLowerBound && node.LeftNode != null)
+                    if (higherThanLowerBound && node.HasLeftChild())
                     {
-                        nodeStack.Push(node.LeftNode);
+                        nodeStack.Push(node.LeftChild);
                         nodeDimensionStack.Push(currDimension + 1);
                     }
                     bool lowerThanUpperBound = _comparers[currDimension].Compare(node.Data, posUpperBound) < 0;
-                    if (lowerThanUpperBound && node.RightNode != null)
+                    if (lowerThanUpperBound && node.HasRightChild())
                     {
-                        nodeStack.Push(node.RightNode);
+                        nodeStack.Push(node.RightChild);
                         nodeDimensionStack.Push(currDimension + 1);
                     }
 
@@ -161,13 +162,7 @@ namespace DataStructures
 
         public int Contains(T exactData)
         {
-            int c = 0;
-            foreach (var data in FindAt(exactData))
-            {
-                if (data.Equals(exactData))
-                    c++;
-            }
-            return c;
+            return Find(exactData).Count;
         }
 
         public int ContainsAt(T dataPosition)
@@ -182,9 +177,17 @@ namespace DataStructures
 
         public int Remove(T exactData)
         {
-            // remove exact Data -> can be more exact matches
-            throw new NotImplementedException();
-            //Count -= removedNodes.Count;
+            int removedCount = 0;
+            foreach (var node in FindNodes(exactData, exactData))
+            {
+                if (node.Equals(exactData))
+                {
+                    RemoveNode(node);
+                    removedCount++;
+                }
+            }
+            Count -= removedCount;
+            return removedCount;
         }
 
         public int RemoveAt(T dataPosition)
@@ -197,51 +200,67 @@ namespace DataStructures
             var nodesToRemove = FindNodes(posLowerBound, posUpperBound);
             foreach (var node in nodesToRemove)
             {
-                RemmoveNode(node);
+                RemoveNode(node);
             }
             Count -= nodesToRemove.Count;
             return nodesToRemove.Count;
         }
 
-        private void RemmoveNode(KDTreeNode<T> node)
+        private void RemoveNode(KDTreeNode<T> node)
         {
-            if (node.IsLeaf())
+            if (node == _root)
             {
-                var parent = node.Parent;
-                if (parent.LeftNode == node) // TODO: what if parent is null ???
+                if (_root.IsLeaf())
                 {
-                    parent.LeftNode = null;
+                    _root = null;
+                }
+                else if (_root.HasOneChild()) // wrong
+                {
+                    var child = _root.LeftChild ?? _root.RightChild;
+                    child.Parent = null;
+                    _root = child;
                 }
                 else
                 {
-                    parent.RightNode = null;
+                    // TODO: ...
                 }
-                return;
             }
-            else if (node.HasOneChild())
+            else if (node.IsLeaf())
+            {
+                if (node.IsLeftChild())
+                {
+                    node.Parent.LeftChild = null;
+                }
+                else if (node.IsRigthChild())
+                {
+                    node.Parent.RightChild = null;
+                }
+                else throw new Exception("You should not get here - node is probably the root.");
+            }
+            else if (node.HasOneChild()) // wrong
             {
                 var parent = node.Parent;
-                var child = node.LeftNode ?? node.RightNode;
-                if (parent.LeftNode == node)
+                var child = node.LeftChild ?? node.RightChild;
+                if (node.IsLeftChild())
                 {
-                    parent.LeftNode = child;
+                    parent.LeftChild = child;
                 }
                 else
                 {
-                    parent.RightNode = child;
+                    parent.RightChild = child;
                 }
                 child.Parent = parent;
-                return;
             }
             else
             {
+                // TODO: implement removing
                 // ????
                 // FindClosestGap(node) ??
-                if (node.LeftNode.IsLeaf() || node.LeftNode.HasOneChild())
+                if (node.LeftChild.IsLeaf() || node.LeftChild.HasOneChild())
                 {
 
                 }
-                else if (node.RightNode.IsLeaf() || node.RightNode.HasOneChild())
+                else if (node.RightChild.IsLeaf() || node.RightChild.HasOneChild())
                 {
 
                 }
@@ -264,7 +283,7 @@ namespace DataStructures
             return LevelOrderTraversal().Select(x => x.Data).ToArray();
         }
 
-        private IList<KDTreeNode<T>> LevelOrderTraversal() // InOrderTraversal, PostOrderTraversal
+        private IList<KDTreeNode<T>> LevelOrderTraversal() // InOrderTraversal, PreOrderTraversal, PostOrderTraversal
         {
             var ret = new List<KDTreeNode<T>>(Count);
             var nodesToTraverse = new Queue<KDTreeNode<T>>();
@@ -276,8 +295,8 @@ namespace DataStructures
                 if (node != null)
                 {
                     ret.Add(node);
-                    nodesToTraverse.Enqueue(node.LeftNode);
-                    nodesToTraverse.Enqueue(node.RightNode);
+                    nodesToTraverse.Enqueue(node.LeftChild);
+                    nodesToTraverse.Enqueue(node.RightChild);
                 }
             }
             return ret;
@@ -316,8 +335,8 @@ namespace DataStructures
                     var node = nodesToTraverse.Dequeue();
                     if (node != null)
                     {
-                        nodesToTraverse.Enqueue(node.LeftNode);
-                        nodesToTraverse.Enqueue(node.RightNode);
+                        nodesToTraverse.Enqueue(node.LeftChild);
+                        nodesToTraverse.Enqueue(node.RightChild);
                     }
                     else
                     {
@@ -340,8 +359,8 @@ namespace DataStructures
             }
             else
             {
-                int leftHeight = GetHeight(node.LeftNode); // Recursion -> TODO: REMAKE
-                int rightHeight = GetHeight(node.RightNode); // Recursion
+                int leftHeight = GetHeight(node.LeftChild); // TODO: REMAKE Recursion
+                int rightHeight = GetHeight(node.RightChild); // Recursion
 
                 if (leftHeight > rightHeight)
                 {
