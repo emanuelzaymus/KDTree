@@ -401,28 +401,36 @@ namespace DataStructures
 
         private int ToDimension(int possibleDimension) => possibleDimension % _numberOfDimensions;
 
-        private int GetHeight() => GetHeight(_root);
+        private int GetHeight() => GetHeight(_root, 1);
 
-        private int GetHeight(KDTreeNode<T> node)
+        private int GetHeight(KDTreeNode<T> subtreeRootNode, int nodeHeight)
         {
-            if (node == null)
-            {
-                return 0;
-            }
-            else
-            {
-                int leftHeight = GetHeight(node.LeftChild); // TODO: REMAKE Recursion
-                int rightHeight = GetHeight(node.RightChild); // Recursion
+            int maxHeight = 0;
 
-                if (leftHeight > rightHeight)
+            var nodeQueue = new Queue<KDTreeNode<T>>();
+            nodeQueue.Enqueue(subtreeRootNode);
+            var heightQueue = new Queue<int>();
+            heightQueue.Enqueue(nodeHeight);
+
+            while (nodeQueue.Count > 0)
+            {
+                var node = nodeQueue.Dequeue();
+                int height = heightQueue.Dequeue();
+
+                if (node != null)
                 {
-                    return leftHeight + 1;
-                }
-                else
-                {
-                    return rightHeight + 1;
+                    if (height > maxHeight)
+                    {
+                        maxHeight = height;
+                    }
+                    nodeQueue.Enqueue(node.LeftChild);
+                    heightQueue.Enqueue(height + 1);
+
+                    nodeQueue.Enqueue(node.RightChild);
+                    heightQueue.Enqueue(height + 1);
                 }
             }
+            return maxHeight;
         }
 
         private int[] GetIndentations(int treeHeight)
