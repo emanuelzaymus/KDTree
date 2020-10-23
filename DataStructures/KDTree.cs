@@ -208,7 +208,7 @@ namespace DataStructures
 
         private void RemoveNode(DimensionalKDTreeNode<T> dimensionalNodeToRemove)
         {
-            while (dimensionalNodeToRemove != null)
+            while (true)
             {
                 var nodeToRemove = dimensionalNodeToRemove.Node;
                 int nodeDimension = dimensionalNodeToRemove.Dimension;
@@ -238,7 +238,7 @@ namespace DataStructures
                     DimensionalKDTreeNode<T> foundDimensionalNode = nodeToRemove.HasLeftChild()
                         ? FindMaxDimensionNode(nodeToRemove.LeftChild, nodeDimension) // Find MAXimal-dimension node in the left subtree
                         : FindMinDimensionNode(nodeToRemove.RightChild, nodeDimension); // Find MINimal-dimension node in the right subtree
-                    var replacementNode = foundDimensionalNode.Node;
+                    var replacementNode = foundDimensionalNode.Node; // TODO: only switch Data property !!!
 
                     // Replace modeToRemove with found node (replacementNode)
                     var parent = nodeToRemove.Parent;
@@ -272,14 +272,72 @@ namespace DataStructures
             }
         }
 
-        private DimensionalKDTreeNode<T> FindMaxDimensionNode(KDTreeNode<T> leftSubtree, int byDimension)
+        private DimensionalKDTreeNode<T> FindMaxDimensionNode(KDTreeNode<T> leftSubtreeRoot, int byDimension)
         {
-            throw new NotImplementedException();
+            var maxDimensionNode = leftSubtreeRoot;
+            int maxDimenNodeDimension = byDimension;
+
+            var nodesToSearch = new Queue<KDTreeNode<T>>();
+            nodesToSearch.Enqueue(leftSubtreeRoot);
+            var nodeDimensions = new Queue<int>();
+            nodeDimensions.Enqueue(byDimension);
+
+            while (nodesToSearch.Count > 0)
+            {
+                var currNode = nodesToSearch.Dequeue();
+                var currDimension = nodeDimensions.Dequeue() % _numberOfDimensions;
+
+                if (_comparers[byDimension].Compare(currNode.Data, maxDimensionNode.Data) > 0)
+                {
+                    maxDimensionNode = currNode;
+                    maxDimenNodeDimension = currDimension;
+                }
+                if (currDimension != byDimension && currNode.HasLeftChild())
+                {
+                    nodesToSearch.Enqueue(currNode.LeftChild);
+                    nodeDimensions.Enqueue(currDimension + 1);
+                }
+                if (currNode.HasRightChild())
+                {
+                    nodesToSearch.Enqueue(currNode.RightChild);
+                    nodeDimensions.Enqueue(currDimension + 1);
+                }
+            }
+            return new DimensionalKDTreeNode<T>(maxDimenNodeDimension, maxDimensionNode);
         }
 
-        private DimensionalKDTreeNode<T> FindMinDimensionNode(KDTreeNode<T> rightSubtree, int byDimension)
+        private DimensionalKDTreeNode<T> FindMinDimensionNode(KDTreeNode<T> rightSubtreeRoot, int byDimension)
         {
-            throw new NotImplementedException();
+            var minDimensionNode = rightSubtreeRoot;
+            int minDimenNodeDimension = byDimension;
+
+            var nodesToSearch = new Queue<KDTreeNode<T>>();
+            nodesToSearch.Enqueue(rightSubtreeRoot);
+            var nodeDimensions = new Queue<int>();
+            nodeDimensions.Enqueue(byDimension);
+
+            while (nodesToSearch.Count > 0)
+            {
+                var currNode = nodesToSearch.Dequeue();
+                var currDimension = nodeDimensions.Dequeue() % _numberOfDimensions;
+
+                if (_comparers[byDimension].Compare(currNode.Data, minDimensionNode.Data) < 0)
+                {
+                    minDimensionNode = currNode;
+                    minDimenNodeDimension = currDimension;
+                }
+                if (currDimension != byDimension && currNode.HasRightChild())
+                {
+                    nodesToSearch.Enqueue(currNode.RightChild);
+                    nodeDimensions.Enqueue(currDimension + 1);
+                }
+                if (currNode.HasLeftChild())
+                {
+                    nodesToSearch.Enqueue(currNode.LeftChild);
+                    nodeDimensions.Enqueue(currDimension + 1);
+                }
+            }
+            return new DimensionalKDTreeNode<T>(minDimenNodeDimension, minDimensionNode);
         }
 
         public void Clear()

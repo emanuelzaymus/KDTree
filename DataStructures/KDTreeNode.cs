@@ -21,12 +21,6 @@
 
         public bool HasRightChild() => RightChild != null;
 
-        public bool HasOneChild() =>
-            HasLeftChild() && !HasRightChild() ||
-            !HasLeftChild() && HasRightChild();
-
-        public bool HasBothChildren() => HasLeftChild() && HasRightChild();
-
         public bool IsLeftChild()
         {
             if (Parent == null)
@@ -44,8 +38,6 @@
             }
             return Parent.RightChild == this;
         }
-
-        public bool IsRoot() => Parent == null;
 
         public override string ToString()
         {

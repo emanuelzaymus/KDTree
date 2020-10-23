@@ -36,16 +36,16 @@ namespace DSConsoleApp
 
             // x <12,27>
             // y <40,44> hodonin trnava novaky bosany
-            var lists = tree.FindInRange(new TownPosition(12, 40), new TownPosition(27, 44));
+            //var lists = tree.FindInRange(new TownPosition(12, 40), new TownPosition(27, 44));
 
 
-            var b = tree.RemoveAt(new TownPosition(24, 40));
+            var b = tree.RemoveAt(new TownPosition(23, 35));
             Console.WriteLine(b);
 
             tree.PrintTree();
 
-            List<string> l = new List<string>();
 
+            //List<string> l = new List<string>();
             //l.
         }
     }
