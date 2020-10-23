@@ -1,6 +1,6 @@
 ﻿namespace DataStructures
 {
-    public class KDTreeNode<T>
+    class KDTreeNode<T>
     {
         public T Data { get; set; }
 
