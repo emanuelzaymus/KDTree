@@ -7,20 +7,23 @@ namespace CustomCalculations.Tests
     public class MediansTests
     {
         [TestMethod]
-        public void Select()
+        public void QuickSelectMedian_OddNumberOfParameters_ReturnsMedian()
         {
-            int[] list = new int[] { 7, 1, 4, 3, 6, 8, 2, 9, 5 };
-            int left = 0;
-            int right = 8;
-            int pivotIndex = 4;
-
-            int res = Medians.QuickSelect(list, left, right, pivotIndex);
-
+            int[] array = new int[] { 7, 1, 4, 3, 6, 8, 2, 9, 5 };
+            int res = Medians.QuickSelectMedian<int>(array);
             Assert.AreEqual(5, res);
         }
 
         [TestMethod]
-        public void Select_FuzzyData_ReturnsMedian()
+        public void QuickSelectMedian_EvenNumberOfParameters_ReturnsMedian()
+        {
+            int[] array = new int[] { 7, 1, 4, 3, 6, 8, 2, 9, 5, 10 };
+            int res = Medians.QuickSelectMedian<int>(array);
+            Assert.AreEqual(6, res);
+        }
+
+        [TestMethod]
+        public void QuickSelect_FuzzyData_ReturnsMedians()
         {
             Random r = new Random();
             for (int i = 0; i < 100; i++)
@@ -29,11 +32,11 @@ namespace CustomCalculations.Tests
                 int surroundingNumberOfData = r.Next(100000);
                 int scale = r.Next(10, 1000);
 
-                Select_Parameters_ReturnsMedians(median, surroundingNumberOfData, scale);
+                QuickSelect_Parameters_ReturnsMedians(median, surroundingNumberOfData, scale);
             }
         }
 
-        private void Select_Parameters_ReturnsMedians(int median = 500, int surroundingNumberOfData = 100, int scale = 10)
+        private void QuickSelect_Parameters_ReturnsMedians(int median = 500, int surroundingNumberOfData = 100, int scale = 10)
         {
             // Prepare
             Random r = new Random();
@@ -54,7 +57,7 @@ namespace CustomCalculations.Tests
             list[r.Next(surroundingNumberOfData, dataCount)] = median; // Insert the median 500
 
             // Act
-            var actualRes = Medians.QuickSelect(list, left: 0, right: (list.Length - 1), k: (list.Length / 2));
+            var actualRes = Medians.QuickSelect<int>(list, left: 0, right: (list.Length - 1), k: (list.Length / 2));
 
             // Test
             Assert.AreEqual(median, actualRes);

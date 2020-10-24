@@ -1,4 +1,5 @@
-﻿using CustomExtensions;
+﻿using CustomCalculations;
+using CustomExtensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,23 +81,6 @@ namespace DataStructures
             Count++;
         }
 
-        private struct MedianRange
-        {
-            public int StartIndex { get; }
-            public int EndIndex { get; }
-            public int ByDimension { get; }
-            public int MedianIndex => StartIndex + (EndIndex - StartIndex + 1) / 2;
-
-            public MedianRange(int startIndex, int endIndex, int byDimension)
-            {
-                StartIndex = startIndex;
-                EndIndex = endIndex;
-                ByDimension = byDimension;
-            }
-
-            public bool IsValid() => (StartIndex <= EndIndex);
-        }
-
         private void AddRange(T[] dataArray)
         {
             var rangesQueue = new Queue<MedianRange>();
@@ -112,19 +96,13 @@ namespace DataStructures
                     int medianIndex = range.MedianIndex;
                     int byDimension = range.ByDimension;
 
-                    T median = GetMedian(dataArray, startIndex, endIndex, medianIndex, _comparers[byDimension]);
+                    T median = Medians.QuickSelect(dataArray, startIndex, endIndex, medianIndex, _comparers[byDimension].Compare);
                     Add(median);
 
                     rangesQueue.Enqueue(new MedianRange(startIndex, medianIndex - 1, ToDimension(byDimension + 1)));
                     rangesQueue.Enqueue(new MedianRange(medianIndex + 1, endIndex, ToDimension(byDimension + 1)));
                 }
             }
-        }
-
-        //Ciastocne sortovanie
-        private T GetMedian(T[] dataArray, int startIndex, int endIndex, int medianIndex, Comparer<T> comparer)
-        {
-            throw new NotImplementedException();
         }
 
         public ICollection<T> Find(T exactData)
@@ -490,6 +468,23 @@ namespace DataStructures
                 levelIndent = levelIndent * 2 + 1;
             }
             return indentations;
+        }
+
+        private struct MedianRange
+        {
+            public int StartIndex { get; }
+            public int EndIndex { get; }
+            public int ByDimension { get; }
+            public int MedianIndex => StartIndex + (EndIndex - StartIndex + 1) / 2;
+
+            public MedianRange(int startIndex, int endIndex, int byDimension)
+            {
+                StartIndex = startIndex;
+                EndIndex = endIndex;
+                ByDimension = byDimension;
+            }
+
+            public bool IsValid() => (StartIndex <= EndIndex);
         }
 
     }
