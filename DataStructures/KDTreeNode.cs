@@ -1,4 +1,7 @@
-﻿namespace DataStructures
+﻿using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
+
+namespace DataStructures
 {
     class KDTreeNode<T>
     {
@@ -41,10 +44,14 @@
 
         public override string ToString()
         {
-            string parent = Parent != null ? Parent.Data.ToString() : "null";
-            string left = LeftChild != null ? LeftChild.Data.ToString() : "null";
-            string right = RightChild != null ? RightChild.Data.ToString() : "null";
-            return $"Data:{Data}, Parent:{parent}, Left:{left}, Right:{right}";
+            return $"Data:{DataToStr(this)}, Parent:{DataToStr(Parent)}, Left:{DataToStr(LeftChild)}, Right:{DataToStr(RightChild)}";
+
+            string DataToStr(KDTreeNode<T> node)
+            {
+                return node != null
+                    ? (node.Data != null ? node.Data.ToString() : "NULL")
+                    : "null";
+            }
         }
 
     }

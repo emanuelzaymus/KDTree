@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCalculations.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomExtensions", "CustomExtensions\CustomExtensions.csproj", "{84CE9059-3734-42FA-9C27-C177D05B77E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructures.Tests", "DataStructures.Tests\DataStructures.Tests.csproj", "{6B0A706C-134C-48BD-B6B0-38D64CE16D19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{84CE9059-3734-42FA-9C27-C177D05B77E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84CE9059-3734-42FA-9C27-C177D05B77E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84CE9059-3734-42FA-9C27-C177D05B77E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B0A706C-134C-48BD-B6B0-38D64CE16D19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B0A706C-134C-48BD-B6B0-38D64CE16D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B0A706C-134C-48BD-B6B0-38D64CE16D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B0A706C-134C-48BD-B6B0-38D64CE16D19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

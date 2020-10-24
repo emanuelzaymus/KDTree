@@ -1,6 +1,6 @@
-﻿namespace DSConsoleApp
+﻿namespace DataStructures.Tests
 {
-    class TownPosition : Town
+    public class TownPosition : Town
     {
         public TownPosition(int x, int y) : base(null, x, y)
         {

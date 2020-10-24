@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace DSConsoleApp
+namespace DataStructures.Tests
 {
-    class Town
+    public class Town
     {
         public string Name { get; set; }
 

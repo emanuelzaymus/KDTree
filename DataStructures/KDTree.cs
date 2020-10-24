@@ -110,7 +110,7 @@ namespace DataStructures
             var exactMatches = new List<T>();
             foreach (var data in FindAt(exactData))
             {
-                if (data.Equals(exactData))
+                if (data != null && data.Equals(exactData) || data == null && exactData == null)
                 {
                     exactMatches.Add(data);
                 }
@@ -200,7 +200,8 @@ namespace DataStructures
             int removedCount = 0;
             foreach (var dimensionalNode in FindNodes(exactData, exactData))
             {
-                if (dimensionalNode.Node.Data.Equals(exactData))
+                var foundData = dimensionalNode.Node.Data;
+                if (foundData != null && foundData.Equals(exactData) || foundData == null && exactData == null)
                 {
                     RemoveNode(dimensionalNode);
                     removedCount++;
@@ -345,12 +346,17 @@ namespace DataStructures
 
         public IList<T> ToList()
         {
-            return LevelOrderTraversal().Select(x => x.Data).ToList();
+            return ToLevelOrderTraversalList();
         }
 
         public T[] ToArray()
         {
             return LevelOrderTraversal().Select(x => x.Data).ToArray();
+        }
+
+        public IList<T> ToLevelOrderTraversalList()
+        {
+            return LevelOrderTraversal().Select(x => x.Data).ToList();
         }
 
         private IList<KDTreeNode<T>> LevelOrderTraversal() // InOrderTraversal, PreOrderTraversal, PostOrderTraversal
@@ -387,7 +393,11 @@ namespace DataStructures
 
                 foreach (var node in nodesToTraverse)
                 {
-                    var nodeRepres = node != null ? node.Data.ToString().Substring(0, 4) : " -- ";
+                    var nodeRepres = (node != null)
+                        ? (node.Data != null
+                            ? node.Data.ToString().Substring(0, 4)
+                            : "NULL")
+                        : " -- ";
                     if (firstTime)
                     {
                         Console.Write(nodeRepres);
