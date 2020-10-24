@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CustomExtensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -34,7 +35,7 @@ namespace DataStructures
 
         public KDTree(IEnumerable<T> data, params Comparer<T>[] comparers) : this(comparers)
         {
-            AddRange(data);
+            AddRange(data.ToArray());
         }
 
         public void Add(T data)
@@ -79,9 +80,50 @@ namespace DataStructures
             Count++;
         }
 
-        private void AddRange(IEnumerable<T> dataCollection)
+        private struct MedianRange
         {
-            // TODO: Add by Medians !
+            public int StartIndex { get; }
+            public int EndIndex { get; }
+            public int ByDimension { get; }
+            public int MedianIndex => StartIndex + (EndIndex - StartIndex + 1) / 2;
+
+            public MedianRange(int startIndex, int endIndex, int byDimension)
+            {
+                StartIndex = startIndex;
+                EndIndex = endIndex;
+                ByDimension = byDimension;
+            }
+
+            public bool IsValid() => (StartIndex <= EndIndex);
+        }
+
+        private void AddRange(T[] dataArray)
+        {
+            var rangesQueue = new Queue<MedianRange>();
+            rangesQueue.Enqueue(new MedianRange(0, dataArray.Length - 1, byDimension: 0)); // The whole range
+
+            while (rangesQueue.Count > 0)
+            {
+                var range = rangesQueue.Dequeue();
+                if (range.IsValid())
+                {
+                    int startIndex = range.StartIndex;
+                    int endIndex = range.EndIndex;
+                    int medianIndex = range.MedianIndex;
+                    int byDimension = range.ByDimension;
+
+                    T median = GetMedian(dataArray, startIndex, endIndex, medianIndex, _comparers[byDimension]);
+                    Add(median);
+
+                    rangesQueue.Enqueue(new MedianRange(startIndex, medianIndex - 1, ToDimension(byDimension + 1)));
+                    rangesQueue.Enqueue(new MedianRange(medianIndex + 1, endIndex, ToDimension(byDimension + 1)));
+                }
+            }
+        }
+
+        //Ciastocne sortovanie
+        private T GetMedian(T[] dataArray, int startIndex, int endIndex, int medianIndex, Comparer<T> comparer)
+        {
             throw new NotImplementedException();
         }
 
