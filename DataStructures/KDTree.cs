@@ -81,7 +81,7 @@ namespace DataStructures
             Count++;
         }
 
-        private void AddRange(T[] dataArray)
+        public void AddRange(T[] dataArray)
         {
             var rangesQueue = new Queue<MedianRange>();
             rangesQueue.Enqueue(new MedianRange(0, dataArray.Length - 1, byDimension: 0)); // The whole range
@@ -197,18 +197,23 @@ namespace DataStructures
 
         public int Remove(T exactData)
         {
-            int removedCount = 0;
-            foreach (var dimensionalNode in FindNodes(exactData, exactData))
+            int countRemoved = 0;
+            var dimensionalNodesToRemove = FindNodes(exactData, exactData);
+            while (dimensionalNodesToRemove.Count != 0)
             {
-                var foundData = dimensionalNode.Node.Data;
-                if (foundData != null && foundData.Equals(exactData) || foundData == null && exactData == null)
+                foreach (var dimensionalNode in dimensionalNodesToRemove)
                 {
-                    RemoveNode(dimensionalNode);
-                    removedCount++;
+                    var foundData = dimensionalNode.Node.Data;
+                    if (foundData != null && foundData.Equals(exactData) || foundData == null && exactData == null)
+                    {
+                        if (RemoveNode(dimensionalNode))
+                            countRemoved++;
+                    }
                 }
+                dimensionalNodesToRemove = FindNodes(exactData, exactData);
             }
-            Count -= removedCount;
-            return removedCount;
+            Count -= countRemoved;
+            return countRemoved;
         }
 
         public int RemoveAt(T dataPosition)
@@ -218,16 +223,22 @@ namespace DataStructures
 
         public int RemoveRange(T posLowerBound, T posUpperBound)
         {
+            int countRemoved = 0;
             var dimensionalNodesToRemove = FindNodes(posLowerBound, posUpperBound);
-            foreach (var dimensionalNode in dimensionalNodesToRemove)
+            while (dimensionalNodesToRemove.Count != 0)
             {
-                RemoveNode(dimensionalNode);
+                foreach (var dimensionalNode in dimensionalNodesToRemove)
+                {
+                    if (RemoveNode(dimensionalNode))
+                        countRemoved++;
+                }
+                dimensionalNodesToRemove = FindNodes(posLowerBound, posUpperBound);
             }
-            Count -= dimensionalNodesToRemove.Count;
-            return dimensionalNodesToRemove.Count;
+            Count -= countRemoved;
+            return countRemoved;
         }
 
-        private void RemoveNode(DimensionalKDTreeNode<T> dimensionalNodeToRemove)
+        private bool RemoveNode(DimensionalKDTreeNode<T> dimensionalNodeToRemove)
         {
             while (true)
             {
@@ -250,9 +261,9 @@ namespace DataStructures
                         {
                             nodeToRemove.Parent.RightChild = null;
                         }
-                        else throw new Exception("You should not get here - node is probably the root.");
+                        else return false;
                     }
-                    break;
+                    return true;
                 }
                 else // nodeToRemove has at least one child 
                 {
@@ -285,7 +296,7 @@ namespace DataStructures
                 var currNode = nodesToSearch.Dequeue();
                 var currDimension = ToDimension(nodeDimensions.Dequeue());
 
-                if (_comparers[byDimension].Compare(currNode.Data, maxDimensionNode.Data) > 0)
+                if (_comparers[byDimension].Compare(currNode.Data, maxDimensionNode.Data) >= 0)
                 {
                     maxDimensionNode = currNode;
                     maxDimenNodeDimension = currDimension;
@@ -319,7 +330,7 @@ namespace DataStructures
                 var currNode = nodesToSearch.Dequeue();
                 var currDimension = ToDimension(nodeDimensions.Dequeue());
 
-                if (_comparers[byDimension].Compare(currNode.Data, minDimensionNode.Data) < 0)
+                if (_comparers[byDimension].Compare(currNode.Data, minDimensionNode.Data) <= 0)
                 {
                     minDimensionNode = currNode;
                     minDimenNodeDimension = currDimension;
@@ -394,8 +405,10 @@ namespace DataStructures
                 foreach (var node in nodesToTraverse)
                 {
                     var nodeRepres = (node != null)
-                        ? (node.Data != null
-                            ? node.Data.ToString().Substring(0, 4)
+                        ? ((node.Data != null)
+                            ? ((node.Data.ToString().Length > 4)
+                                ? node.Data.ToString().Substring(0, 4)
+                                : node.Data.ToString())
                             : "NULL")
                         : " -- ";
                     if (firstTime)

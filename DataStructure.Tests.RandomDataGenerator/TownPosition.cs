@@ -1,4 +1,6 @@
-﻿namespace DataStructures.Tests
+﻿using DataStructure.Tests.RandomDataGenerator;
+
+namespace DataStructures.Tests
 {
     public class TownPosition : Town
     {

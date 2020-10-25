@@ -1,4 +1,5 @@
-﻿using DataStructures;
+﻿using DataStructure.Tests.RandomDataGenerator;
+using DataStructures;
 using DataStructures.Tests;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,27 @@ namespace DSConsoleApp
     {
         static void Main()
         {
+            var t2 = new KDTree<int?>(new int?[] { null, 50, 25, null, 75, 10, 30, 60, 80, null }, Comparer<int?>.Default);
+
+            t2.PrintTree();
+
+            return;
+
+            var t = new KDTree<int>(new int[] { 50, 25, 75, 10, 30, 60, 80 }, Comparer<int>.Default);
+            t.PrintTree();
+            Console.WriteLine(t.Remove(0));
+            t.PrintTree();
+            Console.WriteLine(t.Remove(25));
+            t.PrintTree();
+            t.Add(75);
+            t.PrintTree();
+            t.Add(75);
+            t.PrintTree();
+            Console.WriteLine(t.Remove(75));
+            t.PrintTree();
+            return;
+
+
             var xComparer = Comparer<Town>.Create((t1, t2) => t1.X.CompareTo(t2.X));
             var yComparer = Comparer<Town>.Create((t1, t2) => t1.Y.CompareTo(t2.Y));
             var tree = new KDTree<Town>(xComparer, yComparer);

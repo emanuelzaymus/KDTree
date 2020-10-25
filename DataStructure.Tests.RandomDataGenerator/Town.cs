@@ -1,6 +1,6 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
-namespace DataStructures.Tests
+namespace DataStructure.Tests.RandomDataGenerator
 {
     public class Town
     {
@@ -32,7 +32,11 @@ namespace DataStructures.Tests
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Name, X, Y);
+            int hashCode = 1764330041;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + X.GetHashCode();
+            hashCode = hashCode * -1521134295 + Y.GetHashCode();
+            return hashCode;
         }
 
     }
