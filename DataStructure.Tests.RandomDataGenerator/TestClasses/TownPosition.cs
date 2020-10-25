@@ -1,6 +1,4 @@
-﻿using DataStructure.Tests.RandomDataGenerator;
-
-namespace DataStructures.Tests
+﻿namespace DataStructure.Tests.RandomDataGenerator.TestClasses
 {
     public class TownPosition : Town
     {

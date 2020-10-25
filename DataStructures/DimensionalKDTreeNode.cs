@@ -12,5 +12,10 @@
             Node = node;
         }
 
+        public override string ToString()
+        {
+            return $"Dimension:{Dimension}, Node:({Node})";
+        }
+
     }
 }

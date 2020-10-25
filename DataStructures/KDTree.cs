@@ -120,10 +120,10 @@ namespace DataStructures
 
         public ICollection<T> FindAt(T dataPosition)
         {
-            return FindInRange(dataPosition, dataPosition);
+            return FindRange(dataPosition, dataPosition);
         }
 
-        public ICollection<T> FindInRange(T posLowerBound, T posUpperBound)
+        public ICollection<T> FindRange(T posLowerBound, T posUpperBound)
         {
             return FindNodes(posLowerBound, posUpperBound).Select(x => x.Node.Data).ToList();
         }
@@ -135,8 +135,8 @@ namespace DataStructures
             if (_root != null)
             {
                 var nodeStack = new Stack<KDTreeNode<T>>();
-                var nodeDimensionStack = new Stack<int>();
                 nodeStack.Push(_root);
+                var nodeDimensionStack = new Stack<int>();
                 nodeDimensionStack.Push(0);
 
                 while (nodeStack.Count > 0)
@@ -146,8 +146,8 @@ namespace DataStructures
 
                     currDimension = ToDimension(currDimension);
 
-                    bool higherThanLowerBound = _comparers[currDimension].Compare(node.Data, posLowerBound) >= 0;
-                    if (higherThanLowerBound && node.HasLeftChild())
+                    bool higherOrEqualThanLowerBound = _comparers[currDimension].Compare(node.Data, posLowerBound) >= 0;
+                    if (higherOrEqualThanLowerBound && node.HasLeftChild())
                     {
                         nodeStack.Push(node.LeftChild);
                         nodeDimensionStack.Push(currDimension + 1);
@@ -166,6 +166,44 @@ namespace DataStructures
                 }
             }
             return foundNodes;
+        }
+
+        private DimensionalKDTreeNode<T> FindFirst(T posLowerBound, T posUpperBound)
+        {
+            if (_root != null)
+            {
+                var nodeStack = new Stack<KDTreeNode<T>>();
+                nodeStack.Push(_root);
+                var nodeDimensionStack = new Stack<int>();
+                nodeDimensionStack.Push(0);
+
+                while (nodeStack.Count > 0)
+                {
+                    var node = nodeStack.Pop();
+                    int currDimension = nodeDimensionStack.Pop();
+
+                    currDimension = ToDimension(currDimension);
+
+                    bool higherOrEqualThanLowerBound = _comparers[currDimension].Compare(node.Data, posLowerBound) >= 0;
+                    if (higherOrEqualThanLowerBound && node.HasLeftChild())
+                    {
+                        nodeStack.Push(node.LeftChild);
+                        nodeDimensionStack.Push(currDimension + 1);
+                    }
+                    bool lowerThanUpperBound = _comparers[currDimension].Compare(node.Data, posUpperBound) < 0;
+                    if (lowerThanUpperBound && node.HasRightChild())
+                    {
+                        nodeStack.Push(node.RightChild);
+                        nodeDimensionStack.Push(currDimension + 1);
+                    }
+
+                    if (IsInBounds(node.Data, posLowerBound, posUpperBound))
+                    {
+                        return new DimensionalKDTreeNode<T>(currDimension, node);
+                    }
+                }
+            }
+            return null;
         }
 
         private bool IsInBounds(T nodeData, T posLowerBound, T posUpperBound)
@@ -187,10 +225,10 @@ namespace DataStructures
 
         public int ContainsAt(T dataPosition)
         {
-            return ContainsInRange(dataPosition, dataPosition);
+            return ContainsRange(dataPosition, dataPosition);
         }
 
-        public int ContainsInRange(T posLowerBound, T posUpperBound)
+        public int ContainsRange(T posLowerBound, T posUpperBound)
         {
             return FindNodes(posLowerBound, posUpperBound).Count;
         }
@@ -198,22 +236,19 @@ namespace DataStructures
         public int Remove(T exactData)
         {
             int countRemoved = 0;
-            var dimensionalNodesToRemove = FindNodes(exactData, exactData);
-            while (dimensionalNodesToRemove.Count != 0)
+            var dimensionalNodeToRemove = FindFirst(exactData, exactData);
+            while (dimensionalNodeToRemove != null && DataEqual(dimensionalNodeToRemove.Node.Data, exactData))
             {
-                foreach (var dimensionalNode in dimensionalNodesToRemove)
-                {
-                    var foundData = dimensionalNode.Node.Data;
-                    if (foundData != null && foundData.Equals(exactData) || foundData == null && exactData == null)
-                    {
-                        if (RemoveNode(dimensionalNode))
-                            countRemoved++;
-                    }
-                }
-                dimensionalNodesToRemove = FindNodes(exactData, exactData);
+                if (RemoveNode(dimensionalNodeToRemove))
+                    countRemoved++;
+
+                dimensionalNodeToRemove = FindFirst(exactData, exactData);
             }
             Count -= countRemoved;
             return countRemoved;
+
+            bool DataEqual(T foundData, T exactData) =>
+                foundData != null && foundData.Equals(exactData) || foundData == null && exactData == null;
         }
 
         public int RemoveAt(T dataPosition)
@@ -224,15 +259,13 @@ namespace DataStructures
         public int RemoveRange(T posLowerBound, T posUpperBound)
         {
             int countRemoved = 0;
-            var dimensionalNodesToRemove = FindNodes(posLowerBound, posUpperBound);
-            while (dimensionalNodesToRemove.Count != 0)
+            var dimensionalNodeToRemove = FindFirst(posLowerBound, posUpperBound);
+            while (dimensionalNodeToRemove != null)
             {
-                foreach (var dimensionalNode in dimensionalNodesToRemove)
-                {
-                    if (RemoveNode(dimensionalNode))
-                        countRemoved++;
-                }
-                dimensionalNodesToRemove = FindNodes(posLowerBound, posUpperBound);
+                if (RemoveNode(dimensionalNodeToRemove))
+                    countRemoved++;
+
+                dimensionalNodeToRemove = FindFirst(posLowerBound, posUpperBound);
             }
             Count -= countRemoved;
             return countRemoved;
@@ -355,7 +388,7 @@ namespace DataStructures
             Count = 0;
         }
 
-        public IList<T> ToList()
+        public List<T> ToList()
         {
             return ToLevelOrderTraversalList();
         }
@@ -365,12 +398,12 @@ namespace DataStructures
             return LevelOrderTraversal().Select(x => x.Data).ToArray();
         }
 
-        public IList<T> ToLevelOrderTraversalList()
+        public List<T> ToLevelOrderTraversalList()
         {
             return LevelOrderTraversal().Select(x => x.Data).ToList();
         }
 
-        private IList<KDTreeNode<T>> LevelOrderTraversal() // InOrderTraversal, PreOrderTraversal, PostOrderTraversal
+        private List<KDTreeNode<T>> LevelOrderTraversal() // InOrderTraversal, PreOrderTraversal, PostOrderTraversal
         {
             var ret = new List<KDTreeNode<T>>(Count);
             var nodesToTraverse = new Queue<KDTreeNode<T>>();

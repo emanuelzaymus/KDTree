@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DataStructure.Tests.RandomDataGenerator
+namespace DataStructure.Tests.RandomDataGenerator.TestClasses
 {
     public class Town
     {
@@ -15,6 +15,13 @@ namespace DataStructure.Tests.RandomDataGenerator
             Name = name;
             X = x;
             Y = y;
+        }
+
+        public static Comparer<Town>[] GetComparers()
+        {
+            var xComparer = Comparer<Town>.Create((t1, t2) => t1.X.CompareTo(t2.X));
+            var yComparer = Comparer<Town>.Create((t1, t2) => t1.Y.CompareTo(t2.Y));
+            return new Comparer<Town>[] { xComparer, yComparer };
         }
 
         public override string ToString()
