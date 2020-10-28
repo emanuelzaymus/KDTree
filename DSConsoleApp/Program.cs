@@ -37,8 +37,6 @@ namespace DSConsoleApp
             Console.WriteLine(actual);
 
             t.PrintTree();
-
-        
         }
     }
 }
