@@ -39,6 +39,22 @@ namespace DataStructures.Tests
 
         [TestMethod]
         [Timeout(20000)]
+        public void KDTree_Town_FuzzyFind()
+        {
+            var r = new Random(1);
+            int count = 1000000;
+            var tree = new KDTree<Town>(Town.GetComparers());
+            var towns = RandomDataGenerator.GenerateTowns(count).ToArray();
+            tree.AddRange(towns);
+            for (int i = 0; i < 100000; i++)
+            {
+                var expected = towns[r.Next(count)];
+                Assert.AreSame(expected, tree.Find(expected).First());
+            }
+        }
+
+        [TestMethod]
+        [Timeout(20000)]
         public void KDTree_Town_FuzzyFindRemove()
         {
             Random r = new Random(9876);
