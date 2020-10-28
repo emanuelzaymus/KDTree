@@ -28,7 +28,7 @@ namespace DataStructures.Tests
         }
 
         [TestMethod]
-        [Timeout(10000)]
+        [Timeout(20000)]
         public void KDTree_Town_FuzzyAddRange()
         {
             var tree = new KDTree<Town>(Town.GetComparers());

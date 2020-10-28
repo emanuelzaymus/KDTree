@@ -508,5 +508,24 @@ namespace DataStructures.Tests
             Assert.AreEqual(0, t.RemoveRange(new TownPosition(-12, 30), new TownPosition(11, 40)));
         }
 
+        [TestMethod]
+        public void Remove_DataThatHasTheSameDimensionKeyInItsRightSubtree_ShouldMoveSameDimensionKeyNodesToLeftSubtreeAndRemoveTheNode()
+        {
+            var t = GetTownKDTree();
+            t.Add(new Town("Senica", 22, 39));
+            t.Add(new Town("Urad-Tlamac", 24, 36));
+            t.Add(new Town("Tlamac", 24, 36));
+            t.Add(new Town("Parkovisko-Tlamac", 24, 40));
+            t.Add(new Town("Nemocnica-Tlamac", 24, 35));
+            t.Add(new Town("Levice", 30, 33));
+            t.Add(new Town("Bojnice", 29, 46));
+            t.Add(new Town("Novaky", 27, 43));
+
+            Assert.AreEqual(1, t.Remove(new Town("Senica", 22, 39)));
+            Assert.AreEqual(7, t.Count);
+            var expected = new[] { new Town("Urad-Tlamac", 24, 36) };
+            CollectionAssert.AreEqual(expected, t.ToLevelOrderTraversalList());
+        }
+
     }
 }
