@@ -47,7 +47,7 @@ namespace DataStructures.Tests
             t.Add(100);
             Assert.AreEqual(3, t.Count);
 
-            CollectionAssert.AreEqual(new List<int>() { 54, 22, 100 }, t.ToLevelOrderTraversalList().ToList());
+            CollectionAssert.AreEqual(new List<int>() { 54, 22, 100 }, t.ToLevelOrderTraversalList());
         }
 
         [TestMethod]
@@ -60,12 +60,12 @@ namespace DataStructures.Tests
             t.AddRange(expected.ToArray());
 
             expected.Reverse();
-            CollectionAssert.AreEqual(expected, t.ToLevelOrderTraversalList().ToList());
+            CollectionAssert.AreEqual(expected, t.ToLevelOrderTraversalList());
 
             var ordered = expected.OrderBy(x => x);
             t = new KDTree<int>(ordered, Comparer<int>.Default);
 
-            CollectionAssert.AreEqual(expected, t.ToLevelOrderTraversalList().ToList());
+            CollectionAssert.AreEqual(expected, t.ToLevelOrderTraversalList());
         }
 
         [TestMethod]
@@ -74,10 +74,10 @@ namespace DataStructures.Tests
             var t = GetIntKDTreeFilled(); // 50, 25, 75, 10, 30, 60, 80
 
             t.Find(10);
-            CollectionAssert.AreEquivalent(new int[] { 10 }, t.Find(10).ToArray());
+            CollectionAssert.AreEquivalent(new[] { 10 }, t.Find(10).ToArray());
 
             t.Add(10); t.Add(10);
-            CollectionAssert.AreEquivalent(new int[] { 10, 10, 10 }, t.Find(10).ToArray());
+            CollectionAssert.AreEquivalent(new[] { 10, 10, 10 }, t.Find(10).ToArray());
         }
 
         [TestMethod]
@@ -85,11 +85,11 @@ namespace DataStructures.Tests
         {
             var t = GetIntKDTreeFilled(); // 50, 25, 75, 10, 30, 60, 80
 
-            CollectionAssert.AreEquivalent(new int[] { 10, 25, 50, 30 }, t.FindRange(10, 50).ToArray());
-            CollectionAssert.AreEquivalent(new int[] { 60 }, t.FindRange(60, 60).ToArray());
+            CollectionAssert.AreEquivalent(new[] { 10, 25, 50, 30 }, t.FindRange(10, 50).ToArray());
+            CollectionAssert.AreEquivalent(new[] { 60 }, t.FindRange(60, 60).ToArray());
 
             t.Add(75); t.Add(60);
-            CollectionAssert.AreEquivalent(new int[] { 60, 60, 75, 75, 80 }, t.FindRange(60, 10000).ToArray());
+            CollectionAssert.AreEquivalent(new[] { 60, 60, 75, 75, 80 }, t.FindRange(60, 10000).ToArray());
         }
 
         [TestMethod]
@@ -126,11 +126,11 @@ namespace DataStructures.Tests
 
             Assert.AreEqual(0, t.Remove(0));
             Assert.AreEqual(1, t.Remove(25));
-            CollectionAssert.AreEqual(new List<int>() { 50, 10, 75, 30, 60, 80 }, t.ToLevelOrderTraversalList().ToList());
+            CollectionAssert.AreEqual(new[] { 50, 10, 75, 30, 60, 80 }, t.ToLevelOrderTraversalList());
 
             t.Add(75); t.Add(75);
             Assert.AreEqual(3, t.Remove(75));
-            CollectionAssert.AreEqual(new List<int>() { 50, 10, 60, 30, 80 }, t.ToLevelOrderTraversalList().ToList());
+            CollectionAssert.AreEqual(new[] { 50, 10, 60, 30, 80 }, t.ToLevelOrderTraversalList());
         }
 
         [TestMethod]
@@ -140,7 +140,7 @@ namespace DataStructures.Tests
             t.Add(26); t.Add(26);
 
             Assert.AreEqual(5, t.RemoveRange(10, 49));
-            CollectionAssert.AreEqual(new List<int>() { 50, 75, 60, 80 }, t.ToLevelOrderTraversalList().ToList());
+            CollectionAssert.AreEqual(new[] { 50, 75, 60, 80 }, t.ToLevelOrderTraversalList());
         }
 
         [TestMethod]
@@ -151,17 +151,17 @@ namespace DataStructures.Tests
             t.Clear();
 
             Assert.AreEqual(0, t.Count);
-            CollectionAssert.AreEqual(new int[0], t.ToLevelOrderTraversalList().ToArray());
+            CollectionAssert.AreEqual(new int[0], t.ToLevelOrderTraversalList());
         }
 
         [TestMethod]
         public void ToLevelOrderTraversalList_ShouldReturnOrderedList()
         {
             var t = GetIntKDTree();
-            CollectionAssert.AreEqual(new int[0], t.ToLevelOrderTraversalList().ToArray());
+            CollectionAssert.AreEqual(new int[0], t.ToLevelOrderTraversalList());
 
             t.Add(50); t.Add(25); t.Add(75); t.Add(10); t.Add(30); t.Add(60); t.Add(80);
-            CollectionAssert.AreEqual(new int[] { 50, 25, 75, 10, 30, 60, 80 }, t.ToLevelOrderTraversalList().ToArray());
+            CollectionAssert.AreEqual(new[] { 50, 25, 75, 10, 30, 60, 80 }, t.ToLevelOrderTraversalList());
         }
 
         private KDTree<int?> GetNullableIntKDTree()
@@ -186,7 +186,7 @@ namespace DataStructures.Tests
             Assert.AreEqual(2, t.Count);
 
             t.Add(-12); t.Add(100);
-            CollectionAssert.AreEqual(new int?[] { null, 45, -12, 100 }, t.ToLevelOrderTraversalList().ToArray());
+            CollectionAssert.AreEqual(new int?[] { null, 45, -12, 100 }, t.ToLevelOrderTraversalList());
         }
 
         [TestMethod]
@@ -199,13 +199,13 @@ namespace DataStructures.Tests
             t.AddRange(expected.ToArray());
 
             expected.Reverse();
-            CollectionAssert.AreEqual(expected, t.ToLevelOrderTraversalList().ToList());
+            CollectionAssert.AreEqual(expected, t.ToLevelOrderTraversalList());
 
             var ordered = expected.OrderBy(x => x);
             t = GetNullableIntKDTree();
             t.AddRange(ordered.ToArray());
 
-            CollectionAssert.AreEqual(expected, t.ToLevelOrderTraversalList().ToList());
+            CollectionAssert.AreEqual(expected, t.ToLevelOrderTraversalList());
         }
 
         [TestMethod]
@@ -263,6 +263,7 @@ namespace DataStructures.Tests
         {
             var t = GetNullableIntKDTreeFilled(); // 30, null, 75, null, 25, 60, 80, null, 10, 50
             Assert.AreEqual(3, t.Remove(null));
+            CollectionAssert.AreEqual(new int?[] { 30, 25, 75, 10, 60, 80, 50 }, t.ToLevelOrderTraversalList());
         }
 
         [TestMethod]
@@ -270,6 +271,7 @@ namespace DataStructures.Tests
         {
             var t = GetNullableIntKDTreeFilled(); // 30, null, 75, null, 25, 60, 80, null, 10, 50
             Assert.AreEqual(3, t.RemoveAt(null));
+            CollectionAssert.AreEqual(new int?[] { 30, 25, 75, 10, 60, 80, 50 }, t.ToLevelOrderTraversalList());
         }
 
         [TestMethod]
@@ -277,10 +279,13 @@ namespace DataStructures.Tests
         {
             var t = GetNullableIntKDTreeFilled(); // 30, null, 75, null, 25, 60, 80, null, 10, 50
             Assert.AreEqual(3, t.RemoveRange(null, null));
+            CollectionAssert.AreEqual(new int?[] { 30, 25, 75, 10, 60, 80, 50 }, t.ToLevelOrderTraversalList());
             t = GetNullableIntKDTreeFilled();
             Assert.AreEqual(10, t.RemoveRange(null, 1000));
+            Assert.AreEqual(0, t.Count);
             t = GetNullableIntKDTreeFilled();
             Assert.AreEqual(7, t.RemoveRange(-1000, 1000));
+            CollectionAssert.AreEqual(new int?[] { null, null, null }, t.ToLevelOrderTraversalList());
             t = GetNullableIntKDTreeFilled();
             Assert.AreEqual(0, t.RemoveRange(-1000, null));
             Assert.AreEqual(0, t.RemoveRange(1000, null));
@@ -330,14 +335,14 @@ namespace DataStructures.Tests
         public void AddRange_Object_ShouldAddRangeByMedians()
         {
             var t = GetTownKDTree();
-            var towns = new Town[] {
+            var towns = new[] {
                 new Town("Nitra", 23, 35), new Town("Sered", 20, 33), new Town("Topolcianky", 25, 36),
                 new Town("Galanta", 16, 31), new Town("Senica", 14, 39), new Town("Tlmace", 28, 34),
                 new Town("Bosany", 24, 40), new Town("Bratislava", 13, 32),new Town("Hodonin", 12, 41),
                 new Town("Trnava", 17, 42), new Town("Moravce", 26, 35),new Town("Levice", 30, 33),
                 new Town("Bojnice", 29, 46),new Town("Novaky", 27, 43)
                 };
-            var expected = new Town[] {
+            var expected = new[] {
                 new Town("Bosany", 24, 40),
                 new Town("Nitra", 23, 35),
                 new Town("Topolcianky", 25, 36),
@@ -356,17 +361,17 @@ namespace DataStructures.Tests
 
             t.AddRange(towns);
 
-            CollectionAssert.AreEqual(expected, t.ToLevelOrderTraversalList().ToArray());
+            CollectionAssert.AreEqual(expected, t.ToLevelOrderTraversalList());
         }
 
         [TestMethod]
         public void Find_PresentExactObjectData_ShouldReturnExactData()
         {
             var t = GetTownKDTreeFilled();
-            CollectionAssert.AreEquivalent(new Town[] { new Town("Novaky", 27, 43) }, t.Find(new Town("Novaky", 27, 43)).ToArray());
+            CollectionAssert.AreEquivalent(new[] { new Town("Novaky", 27, 43) }, t.Find(new Town("Novaky", 27, 43)).ToArray());
 
             t.Add(new Town("Sered", 20, 33));
-            CollectionAssert.AreEquivalent(new Town[] { new Town("Sered", 20, 33), new Town("Sered", 20, 33) }, t.Find(new Town("Sered", 20, 33)).ToArray());
+            CollectionAssert.AreEquivalent(new[] { new Town("Sered", 20, 33), new Town("Sered", 20, 33) }, t.Find(new Town("Sered", 20, 33)).ToArray());
         }
 
         [TestMethod]
@@ -381,7 +386,7 @@ namespace DataStructures.Tests
         {
             var t = GetTownKDTreeFilled();
             t.Add(new Town("Praha", 27, 43)); t.Add(new Town("Brno", 27, 43));
-            CollectionAssert.AreEquivalent(new Town[] { new Town("Novaky", 27, 43), new Town("Praha", 27, 43), new Town("Brno", 27, 43) },
+            CollectionAssert.AreEquivalent(new[] { new Town("Novaky", 27, 43), new Town("Praha", 27, 43), new Town("Brno", 27, 43) },
                 t.FindAt(new TownPosition(27, 43)).ToArray());
         }
 
@@ -396,7 +401,7 @@ namespace DataStructures.Tests
         public void FindRange_PresentObjectDataPosition_ShouldReturnAllElementsBetweenPositions()
         {
             var t = GetTownKDTreeFilled();
-            var expected = new Town[] {
+            var expected = new[] {
                 new Town("Galanta", 16, 31),
                 new Town("Sered", 20, 33),
                 new Town("Nitra", 23, 35),
@@ -465,9 +470,34 @@ namespace DataStructures.Tests
         public void Remove_PresentExactObjectData_ShouldReturnCountOfRemovedElements()
         {
             var t = GetTownKDTreeFilled();
-            t.Add(new Town("Bosany", 24, 40));
-            Assert.AreEqual(2, t.Remove(new Town("Bosany", 24, 40)));
+            // ("Nitra", 23, 35), ("Sered", 20, 33), ("Topolcianky", 25, 36), ("Galanta", 16, 31), ("Senica", 14, 39), 
+            // ("Tlmace", 28, 34), ("Bosany", 24, 40), ("Bratislava", 13, 32), ("Hodonin", 12, 41), ("Trnava", 17, 42), 
+            // ("Moravce", 26, 35), ("Levice", 30, 33), ("Bojnice", 29, 46), ("Novaky", 27, 43)
+
+            var expected = new[] {
+                new Town("Sered", 20, 33),
+
+                new Town("Bratislava", 13, 32),
+                new Town("Topolcianky", 25, 36),
+
+                new Town("Galanta", 16, 31),
+                new Town("Senica", 14, 39),
+                new Town("Tlmace", 28, 34),
+                new Town("Bosany", 24, 40),
+
+                new Town("Hodonin", 12, 41),
+                new Town("Trnava", 17, 42),
+                new Town("Moravce", 26, 35),
+                new Town("Levice", 30, 33),
+                new Town("Bojnice", 29, 46),
+
+                new Town("Novaky", 27, 43)
+            };
+
+            t.Add(new Town("Nitra", 23, 35));
+            Assert.AreEqual(2, t.Remove(new Town("Nitra", 23, 35)));
             Assert.AreEqual(13, t.Count);
+            CollectionAssert.AreEqual(expected, t.ToLevelOrderTraversalList());
         }
 
         [TestMethod]
@@ -482,8 +512,32 @@ namespace DataStructures.Tests
         public void RemoveAt_PresentObjectDataPosition_ShouldReturnCountOfRemovedElements()
         {
             var t = GetTownKDTreeFilled();
+            // ("Nitra", 23, 35), ("Sered", 20, 33), ("Topolcianky", 25, 36), ("Galanta", 16, 31), ("Senica", 14, 39), 
+            // ("Tlmace", 28, 34), ("Bosany", 24, 40), ("Bratislava", 13, 32), ("Hodonin", 12, 41), ("Trnava", 17, 42), 
+            // ("Moravce", 26, 35), ("Levice", 30, 33), ("Bojnice", 29, 46), ("Novaky", 27, 43)
+
+            var expected = new[] {
+                new Town("Nitra", 23, 35),
+
+                new Town("Sered", 20, 33),
+                new Town("Topolcianky", 25, 36),
+
+                new Town("Galanta", 16, 31),
+                new Town("Senica", 14, 39),
+                new Town("Tlmace", 28, 34),
+                new Town("Bojnice", 29, 46),
+
+                new Town("Bratislava", 13, 32),
+                new Town("Hodonin", 12, 41),
+                new Town("Trnava", 17, 42),
+                new Town("Moravce", 26, 35),
+                new Town("Levice", 30, 33),
+                new Town("Novaky", 27, 43)
+            };
+
             t.Add(new Town("TOWN", 24, 40));
-            Assert.AreEqual(2, t.RemoveAt(new TownPosition(24, 40)));
+            Assert.AreEqual(2, t.RemoveAt(new TownPosition(24, 40))); // new Town("Bosany", 24, 40)
+            CollectionAssert.AreEqual(expected, t.ToLevelOrderTraversalList());
         }
 
         [TestMethod]
@@ -497,8 +551,23 @@ namespace DataStructures.Tests
         public void RemoveRange_PresentObjectDataPosition_ShouldReturnCountOfRemovedElements()
         {
             var t = GetTownKDTreeFilled();
+            // ("Nitra", 23, 35), ("Sered", 20, 33), ("Topolcianky", 25, 36), ("Galanta", 16, 31), ("Senica", 14, 39), 
+            // ("Tlmace", 28, 34), ("Bosany", 24, 40), ("Bratislava", 13, 32), ("Hodonin", 12, 41), ("Trnava", 17, 42), 
+            // ("Moravce", 26, 35), ("Levice", 30, 33), ("Bojnice", 29, 46), ("Novaky", 27, 43)
+
+            var expected = new[] {
+                new Town("Trnava", 17, 42),
+                new Town("Bratislava", 13, 32),
+                new Town("Levice", 30, 33),
+                new Town("Senica", 14, 39),
+                new Town("Bojnice", 29, 46),
+                new Town("Hodonin", 12, 41),
+                new Town("Novaky", 27, 43)
+            };
             var actual = t.RemoveRange(new TownPosition(15, 0), new TownPosition(29, 40));
             Assert.AreEqual(7, actual);
+            CollectionAssert.AreEquivalent(expected, t.ToLevelOrderTraversalList());
+            CollectionAssert.AreEqual(expected, t.ToLevelOrderTraversalList());
         }
 
         [TestMethod]
@@ -525,6 +594,7 @@ namespace DataStructures.Tests
             Assert.AreEqual(7, t.Count);
             var expected = new[] { new Town("Levice", 30, 33), new Town("Urad-Tlamac", 24, 36), new Town("Tlamac", 24, 36),
                 new Town("Parkovisko-Tlamac", 24, 40), new Town("Nemocnica-Tlamac", 24, 35), new Town("Bojnice", 29, 46), new Town("Novaky", 27, 43) };
+            CollectionAssert.AreEquivalent(expected.ToList(), t.ToLevelOrderTraversalList());
             CollectionAssert.AreEqual(expected.ToList(), t.ToLevelOrderTraversalList());
         }
 
