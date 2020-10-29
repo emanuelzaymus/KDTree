@@ -1,4 +1,5 @@
-using DataStructure.Tests.RandomDataGenerator.TestClasses;
+using DataStructures.KDTree;
+using DataStructures.Tests.TestClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;

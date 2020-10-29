@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DataStructure.Tests.RandomDataGenerator.TestClasses
+namespace DataStructures.Tests.TestClasses
 {
     public class Town
     {

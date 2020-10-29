@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataStructures
+namespace DataStructures.KDTree
 {
     public class KDTree<T>
     {
@@ -412,12 +412,12 @@ namespace DataStructures
 
                 foreach (var node in nodesToTraverse)
                 {
-                    var nodeRepres = (node != null)
-                        ? ((node.Data != null)
-                            ? ((node.Data.ToString().Length > 4)
+                    var nodeRepres = node != null
+                        ? node.Data != null
+                            ? node.Data.ToString().Length > 4
                                 ? node.Data.ToString().Substring(0, 4)
-                                : node.Data.ToString())
-                            : "NULL")
+                                : node.Data.ToString()
+                            : "NULL"
                         : " -- ";
                     if (firstTime)
                     {
@@ -515,7 +515,7 @@ namespace DataStructures
                 ByDimension = byDimension;
             }
 
-            public bool IsValid() => (StartIndex <= EndIndex);
+            public bool IsValid() => StartIndex <= EndIndex;
         }
 
     }

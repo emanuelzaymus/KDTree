@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomAlgorithms.Tests", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStructures.Tests", "DataStructures.Tests\DataStructures.Tests.csproj", "{6B0A706C-134C-48BD-B6B0-38D64CE16D19}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStructure.Tests.RandomDataGenerator", "DataStructure.Tests.RandomDataGenerator\DataStructure.Tests.RandomDataGenerator.csproj", "{E696A02D-8E5B-4D5D-A97B-16C1D101FD18}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeodeticPDA", "GeodeticPDA\GeodeticPDA.csproj", "{5E598300-8074-497E-8534-72E6FD380F18}"
 EndProject
 Global
@@ -43,10 +41,6 @@ Global
 		{6B0A706C-134C-48BD-B6B0-38D64CE16D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B0A706C-134C-48BD-B6B0-38D64CE16D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B0A706C-134C-48BD-B6B0-38D64CE16D19}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E696A02D-8E5B-4D5D-A97B-16C1D101FD18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E696A02D-8E5B-4D5D-A97B-16C1D101FD18}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E696A02D-8E5B-4D5D-A97B-16C1D101FD18}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E696A02D-8E5B-4D5D-A97B-16C1D101FD18}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5E598300-8074-497E-8534-72E6FD380F18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5E598300-8074-497E-8534-72E6FD380F18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E598300-8074-497E-8534-72E6FD380F18}.Release|Any CPU.ActiveCfg = Release|Any CPU

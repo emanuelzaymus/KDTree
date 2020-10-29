@@ -1,4 +1,4 @@
-﻿using DataStructures;
+﻿using DataStructures.KDTree;
 using System;
 using System.Collections.Generic;
 using System.Linq;

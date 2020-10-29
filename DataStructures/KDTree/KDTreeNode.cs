@@ -1,7 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-
-namespace DataStructures
+﻿namespace DataStructures.KDTree
 {
     class KDTreeNode<T>
     {
@@ -49,7 +46,7 @@ namespace DataStructures
             string DataToStr(KDTreeNode<T> node)
             {
                 return node != null
-                    ? (node.Data != null ? node.Data.ToString() : "NULL")
+                    ? node.Data != null ? node.Data.ToString() : "NULL"
                     : "null";
             }
         }

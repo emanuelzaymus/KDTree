@@ -1,4 +1,5 @@
-﻿using DataStructure.Tests.RandomDataGenerator.TestClasses;
+﻿using DataStructures.KDTree;
+using DataStructures.Tests.TestClasses;
 using System;
 
 namespace DataStructures.ConsoleApp

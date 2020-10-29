@@ -1,9 +1,9 @@
-﻿using DataStructure.Tests.RandomDataGenerator.TestClasses;
+﻿using DataStructures.Tests.TestClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataStructure.Tests.RandomDataGenerator
+namespace DataStructures.Tests.DataGeneration
 {
     public class RandomDataGenerator
     {
