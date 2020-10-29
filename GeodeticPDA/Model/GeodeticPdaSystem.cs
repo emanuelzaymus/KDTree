@@ -15,6 +15,11 @@ namespace GeodeticPDA.Model
 
         public GeodeticPdaSystem(IEnumerable<Property> properties, IEnumerable<Parcel> parcels)
         {
+            Populate(properties, parcels);
+        }
+
+        public void Populate(IEnumerable<Property> properties, IEnumerable<Parcel> parcels)
+        {
             _properties.AddRange(properties.ToArray());
             _parcels.AddRange(parcels.ToArray());
 

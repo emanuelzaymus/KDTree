@@ -5,25 +5,52 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace GeodeticPDA.Presenter
 {
-    class GeodeticPdaPresenter
+    public class GeodeticPdaPresenter
     {
-        private readonly GeodeticPdaSystem _pdaSystem;
+        private readonly GeodeticPdaSystem _pdaSystem = new GeodeticPdaSystem();
 
-        public GeodeticPdaPresenter(bool initializeWithRandomData = true)
+        public GpsLocationObject choosedObject { get; set; }
+
+        public void Populate()
         {
-            if (initializeWithRandomData)
+            var randomProperties = RandomDataGenerator.GenerateProperties(1000);
+            var randomParcels = RandomDataGenerator.GenerateParcels(1000);
+            _pdaSystem.Populate(randomProperties, randomParcels);
+        }
+
+        public ICollection<Property> FindProperties(string latitudeStr, string longitudeStr)
+        {
+            var gps = GetGpsCoordinates(latitudeStr, longitudeStr);
+            if (gps != null)
             {
-                var randomProperties = RandomDataGenerator.GenerateProperties(1000);
-                var randomParcels = RandomDataGenerator.GenerateParcels(1000);
-                _pdaSystem = new GeodeticPdaSystem(randomProperties, randomParcels);
+                return _pdaSystem.FindProperties(gps);
             }
-            else
+            return new Property[0];
+        }
+
+        public ICollection<Property> FindProperties(string latitudeStr, string longitudeStr,
+            string latitude2Str, string longitude2Str)
+        {
+            var gps = GetGpsCoordinates(latitudeStr, longitudeStr);
+            var gps2 = GetGpsCoordinates(latitude2Str, longitude2Str);
+            if (gps != null && gps2 != null)
             {
-                _pdaSystem = new GeodeticPdaSystem();
+                return _pdaSystem.FindProperties(gps, gps2);
             }
+            return new Property[0];
+        }
+
+        private GpsCoordinates GetGpsCoordinates(string latitudeStr, string longitudeStr)
+        {
+            if (double.TryParse(latitudeStr, out double latitude) && double.TryParse(longitudeStr, out double longitude))
+            {
+                return new GpsCoordinates(latitude, longitude);
+            }
+            return null;
         }
 
     }
