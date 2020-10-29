@@ -1,5 +1,5 @@
-﻿using CustomCalculations;
-using CustomExtensions;
+﻿using CustomAlgorithms.Extensions;
+using CustomAlgorithms.Statistics;
 using System;
 using System.Collections.Generic;
 using System.Linq;

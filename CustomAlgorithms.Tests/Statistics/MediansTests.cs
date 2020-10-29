@@ -1,7 +1,8 @@
+using CustomAlgorithms.Statistics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace CustomCalculations.Tests
+namespace CustomAlgorithms.Tests.Statistics
 {
     [TestClass]
     public class MediansTests
@@ -10,7 +11,7 @@ namespace CustomCalculations.Tests
         public void QuickSelectMedian_OddNumberOfParameters_ReturnsMedian()
         {
             int[] array = new int[] { 7, 1, 4, 3, 6, 8, 2, 9, 5 };
-            int res = Medians.QuickSelectMedian<int>(array);
+            int res = Medians.QuickSelectMedian(array);
             Assert.AreEqual(5, res);
         }
 
@@ -18,7 +19,7 @@ namespace CustomCalculations.Tests
         public void QuickSelectMedian_EvenNumberOfParameters_ReturnsMedian()
         {
             int[] array = new int[] { 7, 1, 4, 3, 6, 8, 2, 9, 5, 10 };
-            int res = Medians.QuickSelectMedian<int>(array);
+            int res = Medians.QuickSelectMedian(array);
             Assert.AreEqual(6, res);
         }
 
@@ -57,7 +58,7 @@ namespace CustomCalculations.Tests
             list[r.Next(surroundingNumberOfData, dataCount)] = median; // Insert the median 500
 
             // Act
-            var actualRes = Medians.QuickSelect<int>(list, left: 0, right: (list.Length - 1), k: (list.Length / 2));
+            var actualRes = Medians.QuickSelect(list, left: 0, right: list.Length - 1, k: list.Length / 2);
 
             // Test
             Assert.AreEqual(median, actualRes);

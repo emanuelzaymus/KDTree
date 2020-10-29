@@ -1,7 +1,7 @@
-﻿using CustomExtensions;
+﻿using CustomAlgorithms.Extensions;
 using System;
 
-namespace CustomCalculations
+namespace CustomAlgorithms.Statistics
 {
     public class Medians
     {
@@ -13,7 +13,7 @@ namespace CustomCalculations
         /// <returns>Median of the <paramref name="array"/></returns>
         public static T QuickSelectMedian<T>(T[] array) where T : IComparable<T>
         {
-            return QuickSelect<T>(array, 0, array.Length - 1, array.Length / 2);
+            return QuickSelect(array, 0, array.Length - 1, array.Length / 2);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace CustomCalculations
         /// and <paramref name="right"/> inclusive</returns>
         public static T QuickSelect<T>(T[] array, int left, int right, int k) where T : IComparable<T>
         {
-            return QuickSelect<T>(array, left, right, k, (x, y) => x.CompareTo(y)); // Comparer<T>.Default.Compare
+            return QuickSelect(array, left, right, k, (x, y) => x.CompareTo(y)); // Comparer<T>.Default.Compare
         }
 
         /// <summary>

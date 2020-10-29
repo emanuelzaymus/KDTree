@@ -1,10 +1,7 @@
 ﻿using DataStructure.Tests.RandomDataGenerator.TestClasses;
-using DataStructures;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace DSConsoleApp
+namespace DataStructures.ConsoleApp
 {
     class Program
     {

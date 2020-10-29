@@ -1,4 +1,4 @@
-﻿namespace CustomExtensions
+﻿namespace CustomAlgorithms.Extensions
 {
     public static class ArrayExtensions
     {

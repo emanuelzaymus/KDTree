@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace CustomExtensions
+namespace CustomAlgorithms.Extensions
 {
     public static class StringExtensions
     {

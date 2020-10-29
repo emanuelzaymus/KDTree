@@ -6,8 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CustomCalculations\CustomCalculations.csproj" />
-    <ProjectReference Include="..\CustomExtensions\CustomExtensions.csproj" />
+    <ProjectReference Include="..\CustomAlgorithms\CustomAlgorithms.csproj" />
   </ItemGroup>
 
 </Project>
