@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataGeneration\RandomDataGenerator.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +59,7 @@
     <Compile Include="Model\Parcel.cs" />
     <Compile Include="Model\ParcelLocation.cs" />
     <Compile Include="Model\PropertyLocation.cs" />
+    <Compile Include="Presenter\GeodeticPdaPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Property.cs" />
@@ -91,7 +93,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Presenter\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

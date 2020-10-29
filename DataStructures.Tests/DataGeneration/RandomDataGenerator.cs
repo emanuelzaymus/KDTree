@@ -7,7 +7,7 @@ namespace DataStructures.Tests.DataGeneration
 {
     public class RandomDataGenerator
     {
-        private static readonly Random random = new Random(1234);
+        private static readonly Random _random = new Random(1234);
 
         public static Town GenerateTown()
         {
@@ -42,11 +42,11 @@ namespace DataStructures.Tests.DataGeneration
         private static string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            return new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+            return new string(Enumerable.Repeat(chars, length).Select(s => s[_random.Next(s.Length)]).ToArray());
         }
 
-        private static int RandomInt() => random.Next(int.MinValue, int.MaxValue);
+        private static int RandomInt() => _random.Next(int.MinValue, int.MaxValue);
 
-        private static double RandomDouble() => random.NextDouble() * RandomInt();
+        private static double RandomDouble() => _random.NextDouble() * RandomInt();
     }
 }

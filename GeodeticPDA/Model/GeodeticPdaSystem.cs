@@ -9,6 +9,10 @@ namespace GeodeticPDA.Model
         private readonly KDTree<Property> _properties = new KDTree<Property>(Property.GetComparers());
         private readonly KDTree<Parcel> _parcels = new KDTree<Parcel>(Parcel.GetComparers());
 
+        public GeodeticPdaSystem()
+        {
+        }
+
         public GeodeticPdaSystem(IEnumerable<Property> properties, IEnumerable<Parcel> parcels)
         {
             _properties.AddRange(properties.ToArray());
