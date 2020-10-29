@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DataStructures.KDTree
 {
-    public class KDTree<T>
+    public class KDTree<T> : IEnumerable<T>
     {
         public int Count { get; private set; } = 0;
 
@@ -395,6 +395,28 @@ namespace DataStructures.KDTree
                 }
             }
             return ret;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            var nodesToTraverse = new Queue<KDTreeNode<T>>();
+            nodesToTraverse.Enqueue(_root);
+
+            while (nodesToTraverse.Count > 0)
+            {
+                var node = nodesToTraverse.Dequeue();
+                if (node != null)
+                {
+                    yield return node.Data;
+                    nodesToTraverse.Enqueue(node.LeftChild);
+                    nodesToTraverse.Enqueue(node.RightChild);
+                }
+            }
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         public void PrintTree()

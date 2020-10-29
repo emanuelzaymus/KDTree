@@ -52,13 +52,15 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="GeodeticPdaSystem.cs" />
-    <Compile Include="GpsCoordinates.cs" />
-    <Compile Include="GpsLocation.cs" />
-    <Compile Include="Parcel.cs" />
+    <Compile Include="Model\GeodeticPdaSystem.cs" />
+    <Compile Include="Model\GpsCoordinates.cs" />
+    <Compile Include="Model\GpsLocationObject.cs" />
+    <Compile Include="Model\Parcel.cs" />
+    <Compile Include="Model\ParcelLocation.cs" />
+    <Compile Include="Model\PropertyLocation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Property.cs" />
+    <Compile Include="Model\Property.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -87,6 +89,10 @@
       <Project>{d28d20b9-8229-4cd7-a86b-4e47a78ea84f}</Project>
       <Name>DataStructures</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Presenter\" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
