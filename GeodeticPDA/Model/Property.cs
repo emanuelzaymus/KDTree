@@ -2,7 +2,7 @@
 
 namespace GeodeticPDA.Model
 {
-    class Property : GpsLocationObject
+    public class Property : GpsLocationObject
     {
         private static int _nextPropertyId = 1;
 

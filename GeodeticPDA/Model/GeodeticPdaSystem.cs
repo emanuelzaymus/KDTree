@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace GeodeticPDA.Model
 {
-    class GeodeticPdaSystem
+    public class GeodeticPdaSystem
     {
         private readonly KDTree<Property> _properties = new KDTree<Property>(Property.GetComparers());
         private readonly KDTree<Parcel> _parcels = new KDTree<Parcel>(Parcel.GetComparers());

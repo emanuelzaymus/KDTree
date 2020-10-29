@@ -2,7 +2,7 @@
 
 namespace GeodeticPDA.Model
 {
-    class Parcel : GpsLocationObject
+    public class Parcel : GpsLocationObject
     {
         private static int _nextParcelId = -1;
 

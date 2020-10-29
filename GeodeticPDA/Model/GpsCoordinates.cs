@@ -1,6 +1,6 @@
 ﻿namespace GeodeticPDA.Model
 {
-    class GpsCoordinates
+    public class GpsCoordinates
     {
         public double Latitude { get; set; }
         public double Longitude { get; set; }

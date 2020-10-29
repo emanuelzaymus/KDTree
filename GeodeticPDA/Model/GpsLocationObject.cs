@@ -2,7 +2,7 @@
 
 namespace GeodeticPDA.Model
 {
-    abstract class GpsLocationObject
+    public abstract class GpsLocationObject
     {
         private readonly int _id;
         public int Number { get; set; }

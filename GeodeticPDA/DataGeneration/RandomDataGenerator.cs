@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace GeodeticPDA.DataGeneration
 {
-    class RandomDataGenerator
+    public class RandomDataGenerator
     {
         public static IEnumerable<Property> GenerateProperties(int count)
         {
