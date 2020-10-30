@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.gpsCoordinates1Label = new System.Windows.Forms.Label();
-            this.latitude1TextBox = new System.Windows.Forms.TextBox();
-            this.findPropertiesButton = new System.Windows.Forms.Button();
             this.latitude1Label = new System.Windows.Forms.Label();
+            this.latitude1TextBox = new System.Windows.Forms.TextBox();
             this.longitude1Label = new System.Windows.Forms.Label();
             this.longitude1TextBox = new System.Windows.Forms.TextBox();
             this.secondGpsCoordinateCheckBox = new System.Windows.Forms.CheckBox();
+            this.gpsCoordinates2Label = new System.Windows.Forms.Label();
             this.longitude2Label = new System.Windows.Forms.Label();
             this.longitude2TextBox = new System.Windows.Forms.TextBox();
             this.latitude2Label = new System.Windows.Forms.Label();
             this.latitude2TextBox = new System.Windows.Forms.TextBox();
-            this.gpsCoordinates2Label = new System.Windows.Forms.Label();
+            this.findPropertiesButton = new System.Windows.Forms.Button();
             this.findParcelsButton = new System.Windows.Forms.Button();
             this.findAllButton = new System.Windows.Forms.Button();
             this.addPropertyButton = new System.Windows.Forms.Button();
@@ -56,23 +56,6 @@
             this.gpsCoordinates1Label.TabIndex = 0;
             this.gpsCoordinates1Label.Text = "GPS Coordinates";
             // 
-            // latitude1TextBox
-            // 
-            this.latitude1TextBox.Location = new System.Drawing.Point(81, 29);
-            this.latitude1TextBox.Name = "latitude1TextBox";
-            this.latitude1TextBox.Size = new System.Drawing.Size(100, 22);
-            this.latitude1TextBox.TabIndex = 1;
-            // 
-            // findPropertiesButton
-            // 
-            this.findPropertiesButton.Location = new System.Drawing.Point(15, 129);
-            this.findPropertiesButton.Name = "findPropertiesButton";
-            this.findPropertiesButton.Size = new System.Drawing.Size(355, 23);
-            this.findPropertiesButton.TabIndex = 2;
-            this.findPropertiesButton.Text = "Find properties";
-            this.findPropertiesButton.UseVisualStyleBackColor = true;
-            this.findPropertiesButton.Click += new System.EventHandler(this.findPropertiesButton_Click);
-            // 
             // latitude1Label
             // 
             this.latitude1Label.AutoSize = true;
@@ -81,6 +64,13 @@
             this.latitude1Label.Size = new System.Drawing.Size(63, 17);
             this.latitude1Label.TabIndex = 3;
             this.latitude1Label.Text = "Latitude:";
+            // 
+            // latitude1TextBox
+            // 
+            this.latitude1TextBox.Location = new System.Drawing.Point(81, 29);
+            this.latitude1TextBox.Name = "latitude1TextBox";
+            this.latitude1TextBox.Size = new System.Drawing.Size(100, 22);
+            this.latitude1TextBox.TabIndex = 1;
             // 
             // longitude1Label
             // 
@@ -96,7 +86,7 @@
             this.longitude1TextBox.Location = new System.Drawing.Point(270, 29);
             this.longitude1TextBox.Name = "longitude1TextBox";
             this.longitude1TextBox.Size = new System.Drawing.Size(100, 22);
-            this.longitude1TextBox.TabIndex = 4;
+            this.longitude1TextBox.TabIndex = 2;
             // 
             // secondGpsCoordinateCheckBox
             // 
@@ -104,10 +94,20 @@
             this.secondGpsCoordinateCheckBox.Location = new System.Drawing.Point(15, 57);
             this.secondGpsCoordinateCheckBox.Name = "secondGpsCoordinateCheckBox";
             this.secondGpsCoordinateCheckBox.Size = new System.Drawing.Size(230, 21);
-            this.secondGpsCoordinateCheckBox.TabIndex = 6;
+            this.secondGpsCoordinateCheckBox.TabIndex = 3;
             this.secondGpsCoordinateCheckBox.Text = "Search by two GPS coordinates";
             this.secondGpsCoordinateCheckBox.UseVisualStyleBackColor = true;
             this.secondGpsCoordinateCheckBox.CheckedChanged += new System.EventHandler(this.secondGpsCoordinateCheckBox_CheckedChanged);
+            // 
+            // gpsCoordinates2Label
+            // 
+            this.gpsCoordinates2Label.AutoSize = true;
+            this.gpsCoordinates2Label.Enabled = false;
+            this.gpsCoordinates2Label.Location = new System.Drawing.Point(12, 81);
+            this.gpsCoordinates2Label.Name = "gpsCoordinates2Label";
+            this.gpsCoordinates2Label.Size = new System.Drawing.Size(129, 17);
+            this.gpsCoordinates2Label.TabIndex = 7;
+            this.gpsCoordinates2Label.Text = "GPS Coordinates 2";
             // 
             // longitude2Label
             // 
@@ -125,7 +125,7 @@
             this.longitude2TextBox.Location = new System.Drawing.Point(270, 101);
             this.longitude2TextBox.Name = "longitude2TextBox";
             this.longitude2TextBox.Size = new System.Drawing.Size(100, 22);
-            this.longitude2TextBox.TabIndex = 10;
+            this.longitude2TextBox.TabIndex = 5;
             // 
             // latitude2Label
             // 
@@ -143,42 +143,44 @@
             this.latitude2TextBox.Location = new System.Drawing.Point(81, 101);
             this.latitude2TextBox.Name = "latitude2TextBox";
             this.latitude2TextBox.Size = new System.Drawing.Size(100, 22);
-            this.latitude2TextBox.TabIndex = 8;
+            this.latitude2TextBox.TabIndex = 4;
             // 
-            // gpsCoordinates2Label
+            // findPropertiesButton
             // 
-            this.gpsCoordinates2Label.AutoSize = true;
-            this.gpsCoordinates2Label.Enabled = false;
-            this.gpsCoordinates2Label.Location = new System.Drawing.Point(12, 81);
-            this.gpsCoordinates2Label.Name = "gpsCoordinates2Label";
-            this.gpsCoordinates2Label.Size = new System.Drawing.Size(129, 17);
-            this.gpsCoordinates2Label.TabIndex = 7;
-            this.gpsCoordinates2Label.Text = "GPS Coordinates 2";
+            this.findPropertiesButton.Location = new System.Drawing.Point(15, 129);
+            this.findPropertiesButton.Name = "findPropertiesButton";
+            this.findPropertiesButton.Size = new System.Drawing.Size(355, 23);
+            this.findPropertiesButton.TabIndex = 6;
+            this.findPropertiesButton.Text = "Find properties";
+            this.findPropertiesButton.UseVisualStyleBackColor = true;
+            this.findPropertiesButton.Click += new System.EventHandler(this.findPropertiesButton_Click);
             // 
             // findParcelsButton
             // 
             this.findParcelsButton.Location = new System.Drawing.Point(15, 158);
             this.findParcelsButton.Name = "findParcelsButton";
             this.findParcelsButton.Size = new System.Drawing.Size(355, 23);
-            this.findParcelsButton.TabIndex = 12;
+            this.findParcelsButton.TabIndex = 7;
             this.findParcelsButton.Text = "Find parcels";
             this.findParcelsButton.UseVisualStyleBackColor = true;
+            this.findParcelsButton.Click += new System.EventHandler(this.findParcelsButton_Click);
             // 
             // findAllButton
             // 
             this.findAllButton.Location = new System.Drawing.Point(15, 187);
             this.findAllButton.Name = "findAllButton";
             this.findAllButton.Size = new System.Drawing.Size(355, 23);
-            this.findAllButton.TabIndex = 13;
+            this.findAllButton.TabIndex = 8;
             this.findAllButton.Text = "Find all";
             this.findAllButton.UseVisualStyleBackColor = true;
+            this.findAllButton.Click += new System.EventHandler(this.findAllButton_Click);
             // 
             // addPropertyButton
             // 
             this.addPropertyButton.Location = new System.Drawing.Point(15, 218);
             this.addPropertyButton.Name = "addPropertyButton";
             this.addPropertyButton.Size = new System.Drawing.Size(166, 23);
-            this.addPropertyButton.TabIndex = 14;
+            this.addPropertyButton.TabIndex = 9;
             this.addPropertyButton.Text = "Add property";
             this.addPropertyButton.UseVisualStyleBackColor = true;
             this.addPropertyButton.Click += new System.EventHandler(this.addPropertyButton_Click);
@@ -188,7 +190,7 @@
             this.addParcelButton.Location = new System.Drawing.Point(192, 218);
             this.addParcelButton.Name = "addParcelButton";
             this.addParcelButton.Size = new System.Drawing.Size(178, 23);
-            this.addParcelButton.TabIndex = 15;
+            this.addParcelButton.TabIndex = 10;
             this.addParcelButton.Text = "Add parcel";
             this.addParcelButton.UseVisualStyleBackColor = true;
             this.addParcelButton.Click += new System.EventHandler(this.addParcelButton_Click);
@@ -198,7 +200,7 @@
             this.populateButton.Location = new System.Drawing.Point(12, 247);
             this.populateButton.Name = "populateButton";
             this.populateButton.Size = new System.Drawing.Size(355, 23);
-            this.populateButton.TabIndex = 16;
+            this.populateButton.TabIndex = 11;
             this.populateButton.Text = "Populate with random data";
             this.populateButton.UseVisualStyleBackColor = true;
             this.populateButton.Click += new System.EventHandler(this.populateButton_Click);

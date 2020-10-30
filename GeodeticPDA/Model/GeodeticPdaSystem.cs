@@ -49,6 +49,11 @@ namespace GeodeticPDA.Model
             return _parcels.FindRange(new ParcelLocation(lowerCoordinates), new ParcelLocation(upperCoordinates));
         }
 
+        public List<GpsLocationObject> FindAll(GpsCoordinates coordinates)
+        {
+            return FindAll(coordinates, coordinates);
+        }
+
         public List<GpsLocationObject> FindAll(GpsCoordinates lowerCoordinates, GpsCoordinates upperCoordinates)
         {
             var properties = FindProperties(lowerCoordinates, upperCoordinates);

@@ -2,7 +2,7 @@
 {
     public class ParcelLocation : Parcel
     {
-        public ParcelLocation(GpsCoordinates coordinates) : base(0, null, coordinates)
+        public ParcelLocation(GpsCoordinates coordinates) : base(coordinates)
         {
         }
     }

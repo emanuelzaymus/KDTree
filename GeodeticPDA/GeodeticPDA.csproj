@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5E598300-8074-497E-8534-72E6FD380F18}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>GeodeticPDA</RootNamespace>
     <AssemblyName>GeodeticPDA</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,7 +55,14 @@
     <Compile Include="ChooseForm.Designer.cs">
       <DependentUpon>ChooseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataGeneration\PreparedData.cs" />
     <Compile Include="DataGeneration\RandomDataGenerator.cs" />
+    <Compile Include="DetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetailForm.Designer.cs">
+      <DependentUpon>DetailForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,15 +72,23 @@
     <Compile Include="Model\GeodeticPdaSystem.cs" />
     <Compile Include="Model\GpsCoordinates.cs" />
     <Compile Include="Model\GpsLocationObject.cs" />
+    <Compile Include="Model\HashSetExtensions.cs" />
     <Compile Include="Model\Parcel.cs" />
     <Compile Include="Model\ParcelLocation.cs" />
     <Compile Include="Model\PropertyLocation.cs" />
     <Compile Include="Presenter\GeodeticPdaPresenter.cs" />
+    <Compile Include="Presenter\ParcelInputData.cs" />
+    <Compile Include="Presenter\PropertyInputData.cs" />
+    <Compile Include="Presenter\UserInputData.cs" />
+    <Compile Include="Presenter\UserInputDataFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Property.cs" />
     <EmbeddedResource Include="ChooseForm.resx">
       <DependentUpon>ChooseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetailForm.resx">
+      <DependentUpon>DetailForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

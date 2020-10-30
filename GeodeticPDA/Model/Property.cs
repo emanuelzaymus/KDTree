@@ -6,12 +6,15 @@ namespace GeodeticPDA.Model
     {
         private static int _nextPropertyId = 1;
 
-        public List<Parcel> Parcels { get; } = new List<Parcel>(); // Set ?
+        public HashSet<Parcel> Parcels { get; } = new HashSet<Parcel>();
 
         public Property(int number, string description, GpsCoordinates coordinates)
             : base(_nextPropertyId++, number, description, coordinates)
         {
         }
+
+        // Only for PropertyPosition
+        protected Property(GpsCoordinates coordinates) : base(0, 0, null, coordinates) { }
 
         public static Comparer<Property>[] GetComparers()
         {
@@ -29,14 +32,14 @@ namespace GeodeticPDA.Model
         {
             return obj is Property property &&
                    base.Equals(obj) &&
-                   EqualityComparer<List<Parcel>>.Default.Equals(Parcels, property.Parcels);
+                   EqualityComparer<HashSet<Parcel>>.Default.Equals(Parcels, property.Parcels);
         }
 
         public override int GetHashCode()
         {
             int hashCode = -326724672;
             hashCode = hashCode * -1521134295 + base.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<Parcel>>.Default.GetHashCode(Parcels);
+            hashCode = hashCode * -1521134295 + EqualityComparer<HashSet<Parcel>>.Default.GetHashCode(Parcels);
             return hashCode;
         }
     }

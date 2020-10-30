@@ -28,27 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.chooseFromComboBox = new System.Windows.Forms.ComboBox();
             this.chooseButton = new System.Windows.Forms.Button();
             this.chooseFromFoundLabel = new System.Windows.Forms.Label();
+            this.chooseFromListBox = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
-            // 
-            // chooseFromComboBox
-            // 
-            this.chooseFromComboBox.FormattingEnabled = true;
-            this.chooseFromComboBox.Location = new System.Drawing.Point(12, 29);
-            this.chooseFromComboBox.Name = "chooseFromComboBox";
-            this.chooseFromComboBox.Size = new System.Drawing.Size(338, 24);
-            this.chooseFromComboBox.TabIndex = 0;
             // 
             // chooseButton
             // 
-            this.chooseButton.Location = new System.Drawing.Point(275, 228);
+            this.chooseButton.Location = new System.Drawing.Point(350, 318);
             this.chooseButton.Name = "chooseButton";
-            this.chooseButton.Size = new System.Drawing.Size(75, 23);
+            this.chooseButton.Size = new System.Drawing.Size(120, 23);
             this.chooseButton.TabIndex = 1;
             this.chooseButton.Text = "Choose";
             this.chooseButton.UseVisualStyleBackColor = true;
+            this.chooseButton.Click += new System.EventHandler(this.chooseButton_Click);
             // 
             // chooseFromFoundLabel
             // 
@@ -59,19 +52,29 @@
             this.chooseFromFoundLabel.TabIndex = 2;
             this.chooseFromFoundLabel.Text = "Choose from found:";
             // 
+            // chooseFromListBox
+            // 
+            this.chooseFromListBox.FormattingEnabled = true;
+            this.chooseFromListBox.ItemHeight = 16;
+            this.chooseFromListBox.Location = new System.Drawing.Point(12, 29);
+            this.chooseFromListBox.Name = "chooseFromListBox";
+            this.chooseFromListBox.Size = new System.Drawing.Size(458, 276);
+            this.chooseFromListBox.TabIndex = 3;
+            // 
             // ChooseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(362, 263);
+            this.ClientSize = new System.Drawing.Size(482, 353);
+            this.Controls.Add(this.chooseFromListBox);
             this.Controls.Add(this.chooseFromFoundLabel);
             this.Controls.Add(this.chooseButton);
-            this.Controls.Add(this.chooseFromComboBox);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(380, 310);
+            this.MaximumSize = new System.Drawing.Size(500, 400);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(380, 310);
+            this.MinimumSize = new System.Drawing.Size(500, 400);
             this.Name = "ChooseForm";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Found";
             this.ResumeLayout(false);
@@ -80,9 +83,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox chooseFromComboBox;
         private System.Windows.Forms.Button chooseButton;
         private System.Windows.Forms.Label chooseFromFoundLabel;
+        private System.Windows.Forms.ListBox chooseFromListBox;
     }
 }

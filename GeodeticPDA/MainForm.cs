@@ -2,38 +2,20 @@
 using GeodeticPDA.Presenter;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GeodeticPDA
 {
     public partial class MainForm : Form
     {
-        private readonly GeodeticPdaPresenter _presenter = new GeodeticPdaPresenter();
+        private readonly GeodeticPdaPresenter _presenter;
 
-        public MainForm()
+        public MainForm(GeodeticPdaPresenter geodeticPdaPresenter)
         {
             InitializeComponent();
-        }
-
-        private void populateButton_Click(object sender, EventArgs e)
-        {
-            _presenter.Populate();
-        }
-
-        private void addPropertyButton_Click(object sender, EventArgs e)
-        {
-            latitude1TextBox.Text = "Ahoj";
-        }
-
-        private void addParcelButton_Click(object sender, EventArgs e)
-        {
-            longitude1TextBox.Text = latitude1TextBox.Text;
+            _presenter = geodeticPdaPresenter;
+            _presenter.PopulateWithPreparedData();
         }
 
         private void secondGpsCoordinateCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -48,19 +30,50 @@ namespace GeodeticPDA
 
         private void findPropertiesButton_Click(object sender, EventArgs e)
         {
-            ICollection<Property> foundProperties;
-            if (!secondGpsCoordinateCheckBox.Checked)
-            {
-                foundProperties = _presenter.FindProperties(latitude1TextBox.Text, longitude1TextBox.Text);
-            }
-            else
-            {
-                foundProperties = _presenter.FindProperties(latitude1TextBox.Text, longitude1TextBox.Text,
+            ICollection<Property> foundProperties = !secondGpsCoordinateCheckBox.Checked
+                ? _presenter.FindProperties(latitude1TextBox.Text, longitude1TextBox.Text)
+                : _presenter.FindProperties(latitude1TextBox.Text, longitude1TextBox.Text,
                     latitude2TextBox.Text, longitude2TextBox.Text);
-            }
+            CreateChooseForm(foundProperties.ToArray());
+        }
 
-            var chooseForm = new ChooseForm(_presenter, foundProperties);
+        private void findParcelsButton_Click(object sender, EventArgs e)
+        {
+            ICollection<Parcel> foundParcels = !secondGpsCoordinateCheckBox.Checked
+                ? _presenter.FindParcels(latitude1TextBox.Text, longitude1TextBox.Text)
+                : _presenter.FindParcels(latitude1TextBox.Text, longitude1TextBox.Text,
+                    latitude2TextBox.Text, longitude2TextBox.Text);
+            CreateChooseForm(foundParcels.ToArray());
+        }
+
+        private void findAllButton_Click(object sender, EventArgs e)
+        {
+            ICollection<GpsLocationObject> foundAllObjects = !secondGpsCoordinateCheckBox.Checked
+               ? _presenter.FindAll(latitude1TextBox.Text, longitude1TextBox.Text)
+               : _presenter.FindAll(latitude1TextBox.Text, longitude1TextBox.Text,
+                   latitude2TextBox.Text, longitude2TextBox.Text);
+            CreateChooseForm(foundAllObjects.ToArray());
+        }
+
+        private void CreateChooseForm(object[] foundItems)
+        {
+            var chooseForm = new ChooseForm(_presenter, foundItems);
             chooseForm.ShowDialog();
+        }
+
+        private void addPropertyButton_Click(object sender, EventArgs e) => CreateDetailForm(new PropertyInputData());
+
+        private void addParcelButton_Click(object sender, EventArgs e) => CreateDetailForm(new ParcelInputData());
+
+        private void CreateDetailForm(UserInputData data)
+        {
+            var detailForm = new DetailForm(_presenter, data);
+            detailForm.ShowDialog();
+        }
+
+        private void populateButton_Click(object sender, EventArgs e)
+        {
+            _presenter.Populate();
         }
 
     }
