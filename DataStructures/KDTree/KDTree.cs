@@ -107,15 +107,7 @@ namespace DataStructures.KDTree
 
         public ICollection<T> Find(T exactData)
         {
-            var exactMatches = new List<T>();
-            foreach (var data in FindAt(exactData))
-            {
-                if (data != null && data.Equals(exactData) || data == null && exactData == null)
-                {
-                    exactMatches.Add(data);
-                }
-            }
-            return exactMatches;
+            return FindRange(exactData, exactData, equalsWithLowerBound: true);
         }
 
         public ICollection<T> FindAt(T dataPosition)
@@ -125,50 +117,15 @@ namespace DataStructures.KDTree
 
         public ICollection<T> FindRange(T posLowerBound, T posUpperBound)
         {
-            return FindNodes(posLowerBound, posUpperBound).Select(x => x.Node.Data).ToList();
+            return FindRange(posLowerBound, posUpperBound, equalsWithLowerBound: false);
         }
 
-        private ICollection<DimensionalKDTreeNode<T>> FindNodes(T posLowerBound, T posUpperBound)
+        private ICollection<T> FindRange(T posLowerBound, T posUpperBound, bool equalsWithLowerBound)
         {
-            var foundNodes = new List<DimensionalKDTreeNode<T>>();
-
-            if (_root != null)
-            {
-                var nodeStack = new Stack<KDTreeNode<T>>();
-                nodeStack.Push(_root);
-                var nodeDimensionStack = new Stack<int>();
-                nodeDimensionStack.Push(0);
-
-                while (nodeStack.Count > 0)
-                {
-                    var node = nodeStack.Pop();
-                    int currDimension = nodeDimensionStack.Pop();
-
-                    currDimension = ToDimension(currDimension);
-
-                    bool higherOrEqualThanLowerBound = _comparers[currDimension].Compare(node.Data, posLowerBound) >= 0;
-                    if (higherOrEqualThanLowerBound && node.HasLeftChild())
-                    {
-                        nodeStack.Push(node.LeftChild);
-                        nodeDimensionStack.Push(currDimension + 1);
-                    }
-                    bool lowerThanUpperBound = _comparers[currDimension].Compare(node.Data, posUpperBound) < 0;
-                    if (lowerThanUpperBound && node.HasRightChild())
-                    {
-                        nodeStack.Push(node.RightChild);
-                        nodeDimensionStack.Push(currDimension + 1);
-                    }
-
-                    if (IsInBounds(node.Data, posLowerBound, posUpperBound))
-                    {
-                        foundNodes.Add(new DimensionalKDTreeNode<T>(currDimension, node));
-                    }
-                }
-            }
-            return foundNodes;
+            return FindNodes(posLowerBound, posUpperBound, equalsWithLowerBound).Select(x => x.Node.Data).ToList();
         }
 
-        private DimensionalKDTreeNode<T> FindFirst(T posLowerBound, T posUpperBound)
+        private IEnumerable<DimensionalKDTreeNode<T>> FindNodes(T posLowerBound, T posUpperBound, bool equalsWithLowerBound)
         {
             if (_root != null)
             {
@@ -199,11 +156,16 @@ namespace DataStructures.KDTree
 
                     if (IsInBounds(node.Data, posLowerBound, posUpperBound))
                     {
-                        return new DimensionalKDTreeNode<T>(currDimension, node);
+                        if (!equalsWithLowerBound || Equals(node.Data, posLowerBound))
+                            yield return new DimensionalKDTreeNode<T>(currDimension, node);
                     }
                 }
             }
-            return null;
+        }
+
+        private DimensionalKDTreeNode<T> FindFirst(T posLowerBound, T posUpperBound, bool equalsWithLowerBound)
+        {
+            return FindNodes(posLowerBound, posUpperBound, equalsWithLowerBound).FirstOrDefault();
         }
 
         private bool IsInBounds(T nodeData, T posLowerBound, T posUpperBound)
@@ -230,25 +192,12 @@ namespace DataStructures.KDTree
 
         public int ContainsRange(T posLowerBound, T posUpperBound)
         {
-            return FindNodes(posLowerBound, posUpperBound).Count;
+            return FindNodes(posLowerBound, posUpperBound, equalsWithLowerBound: false).Count();
         }
 
         public int Remove(T exactData)
         {
-            int countRemoved = 0;
-            var dimensionalNodeToRemove = FindFirst(exactData, exactData);
-            while (dimensionalNodeToRemove != null && DataEqual(dimensionalNodeToRemove.Node.Data, exactData))
-            {
-                if (RemoveNode(dimensionalNodeToRemove))
-                    countRemoved++;
-
-                dimensionalNodeToRemove = FindFirst(exactData, exactData);
-            }
-            Count -= countRemoved;
-            return countRemoved;
-
-            bool DataEqual(T foundData, T exactData) =>
-                foundData != null && foundData.Equals(exactData) || foundData == null && exactData == null;
+            return RemoveRange(exactData, exactData, equalsWithLowerBound: true);
         }
 
         public int RemoveAt(T dataPosition)
@@ -258,14 +207,19 @@ namespace DataStructures.KDTree
 
         public int RemoveRange(T posLowerBound, T posUpperBound)
         {
+            return RemoveRange(posLowerBound, posUpperBound, equalsWithLowerBound: false);
+        }
+
+        private int RemoveRange(T posLowerBound, T posUpperBound, bool equalsWithLowerBound)
+        {
             int countRemoved = 0;
-            var dimensionalNodeToRemove = FindFirst(posLowerBound, posUpperBound);
+            var dimensionalNodeToRemove = FindFirst(posLowerBound, posUpperBound, equalsWithLowerBound);
             while (dimensionalNodeToRemove != null)
             {
                 if (RemoveNode(dimensionalNodeToRemove))
                     countRemoved++;
 
-                dimensionalNodeToRemove = FindFirst(posLowerBound, posUpperBound);
+                dimensionalNodeToRemove = FindFirst(posLowerBound, posUpperBound, equalsWithLowerBound);
             }
             Count -= countRemoved;
             return countRemoved;
@@ -378,9 +332,8 @@ namespace DataStructures.KDTree
             return LevelOrderTraversal().Select(x => x.Data).ToList();
         }
 
-        private List<KDTreeNode<T>> LevelOrderTraversal() // InOrderTraversal, PreOrderTraversal, PostOrderTraversal
+        private IEnumerable<KDTreeNode<T>> LevelOrderTraversal() // InOrderTraversal, PreOrderTraversal, PostOrderTraversal
         {
-            var ret = new List<KDTreeNode<T>>(Count);
             var nodesToTraverse = new Queue<KDTreeNode<T>>();
             nodesToTraverse.Enqueue(_root);
 
@@ -389,29 +342,19 @@ namespace DataStructures.KDTree
                 var node = nodesToTraverse.Dequeue();
                 if (node != null)
                 {
-                    ret.Add(node);
+                    yield return node;
                     nodesToTraverse.Enqueue(node.LeftChild);
                     nodesToTraverse.Enqueue(node.RightChild);
                 }
             }
-            return ret;
         }
 
+        /// <summary>
+        /// Enumerates in Level Order Traversal.
+        /// </summary>
         public IEnumerator<T> GetEnumerator()
         {
-            var nodesToTraverse = new Queue<KDTreeNode<T>>();
-            nodesToTraverse.Enqueue(_root);
-
-            while (nodesToTraverse.Count > 0)
-            {
-                var node = nodesToTraverse.Dequeue();
-                if (node != null)
-                {
-                    yield return node.Data;
-                    nodesToTraverse.Enqueue(node.LeftChild);
-                    nodesToTraverse.Enqueue(node.RightChild);
-                }
-            }
+            return LevelOrderTraversal().Select(x => x.Data).GetEnumerator();
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()

@@ -103,8 +103,7 @@ namespace GeodeticPDA.Model
         public void RemoveProperty(Property propertyToRemove)
         {
             // Detach the propertyToRemove
-            var belongingParcels = FindParcels(propertyToRemove.Coordinates);
-            foreach (var parcel in belongingParcels)
+            foreach (var parcel in propertyToRemove.Parcels)
             {
                 parcel.Properties.Remove(propertyToRemove);
             }
@@ -114,8 +113,7 @@ namespace GeodeticPDA.Model
         public void RemoveParcel(Parcel parcelToRemove)
         {
             // Detach the parcelToRemove
-            var belongingProperties = FindProperties(parcelToRemove.Coordinates);
-            foreach (var property in belongingProperties)
+            foreach (var property in parcelToRemove.Properties)
             {
                 property.Parcels.Remove(parcelToRemove);
             }

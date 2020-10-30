@@ -31,7 +31,8 @@ namespace GeodeticPDA.DataGeneration
 
         private static GpsCoordinates GenerateGpsCoordinates(Random r)
         {
-            return new GpsCoordinates(RandomDouble(r), RandomDouble(r));
+            return new GpsCoordinates(r.Next(-100, 100), r.Next(-100, 100));
+            //return new GpsCoordinates(RandomDouble(r), RandomDouble(r));
         }
 
         private static string RandomString(Random r)
@@ -40,7 +41,7 @@ namespace GeodeticPDA.DataGeneration
             return new string(Enumerable.Repeat(chars, r.Next(4, 10)).Select(s => s[r.Next(s.Length)]).ToArray());
         }
 
-        private static double RandomDouble(Random r) => r.NextDouble() * r.Next();
+        private static double RandomDouble(Random r) => r.NextDouble() * r.Next(-100, 100);
 
     }
 }

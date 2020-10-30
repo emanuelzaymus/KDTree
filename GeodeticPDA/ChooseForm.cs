@@ -18,9 +18,22 @@ namespace GeodeticPDA
         private void chooseButton_Click(object sender, EventArgs e)
         {
             object o = chooseFromListBox.SelectedItem;
-            Close();
-            var detailForm = new DetailForm(_presenter, UserInputDataFactory.GetUserInputData(o));
-            detailForm.ShowDialog();
+            if (o != null)
+            {
+                Close();
+                var detailForm = new DetailForm(_presenter, UserInputDataFactory.GetUserInputData(o));
+                detailForm.ShowDialog();
+            }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                Close();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
     }
