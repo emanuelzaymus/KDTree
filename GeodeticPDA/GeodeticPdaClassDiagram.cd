@@ -8,32 +8,124 @@
     </TypeIdentifier>
   </Class>
   <Class Name="GeodeticPDA.Model.GeodeticPdaSystem">
-    <Position X="2.75" Y="0.5" Width="3.75" />
+    <Position X="2.5" Y="2.75" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>CAAAACAAASAAECAAAAAQEBAEAAAAAAAYAAAAAABAACA=</HashCode>
+      <HashCode>CAAAGCABASAAECAAAAAQEBAEAAAAAAAcAAAAAABAEmA=</HashCode>
       <FileName>Model\GeodeticPdaSystem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GeodeticPDA.Model.Parcel">
-    <Position X="7.25" Y="0.5" Width="2.75" />
+    <Position X="6.75" Y="4.75" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <InheritanceLine Type="GeodeticPDA.Model.GpsLocationObject" ManuallyRouted="true">
+      <Path>
+        <Point X="6.625" Y="3.699" />
+        <Point X="6.625" Y="4.462" />
+        <Point X="8" Y="4.462" />
+        <Point X="8" Y="4.75" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAIAAIAAAQAAAAACAAA=</HashCode>
       <FileName>Model\Parcel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GeodeticPDA.Model.Property">
-    <Position X="7.75" Y="3.75" Width="3" />
+    <Position X="4.25" Y="4.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <InheritanceLine Type="GeodeticPDA.Model.GpsLocationObject" ManuallyRouted="true">
+      <Path>
+        <Point X="6.625" Y="3.699" />
+        <Point X="6.625" Y="4.508" />
+        <Point X="5.25" Y="4.508" />
+        <Point X="5.25" Y="4.75" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAQAAAAAAEgAAAAAAAAAAAAIAgAQAAAAAAAAA=</HashCode>
       <FileName>Model\Property.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GeodeticPDA.Model.GpsLocationObject">
-    <Position X="5" Y="3.75" Width="2.25" />
+    <Position X="5.5" Y="1.5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAEgEBAAAAAIAAAAIAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgQAAEgEBAAAAAIAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\GpsLocationObject.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
+  <Class Name="GeodeticPDA.Presenter.GeodeticPdaPresenter">
+    <Position X="2.5" Y="0.75" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>CAAACIABAQAAADAAAAAQBBAEACAAAAAIAgAAAADAAkA=</HashCode>
+      <FileName>Presenter\GeodeticPdaPresenter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeodeticPDA.MainForm" Collapsed="true">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FAAAAAAgVCdAYBAAgAWCEBBC4AImAICAKAAIABIhAQA=</HashCode>
+      <FileName>MainForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeodeticPDA.DetailForm" Collapsed="true">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAghADQAACAQADCAEAACQAgIEAAACAAAAAAAAAA=</HashCode>
+      <FileName>DetailForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeodeticPDA.ChooseForm" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACQACAAAQACAAAACAAAIIAAACAAAAAAAAAA=</HashCode>
+      <FileName>ChooseForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeodeticPDA.Model.GpsCoordinates">
+    <Position X="8.25" Y="2.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAQAAEgAAIAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\GpsCoordinates.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GeodeticPDA.DataGeneration.RandomDataGenerator" Collapsed="true">
+    <Position X="5.5" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAgQAAAAAAAAgAAAAAAAAAAAAAAAAQCUA=</HashCode>
+      <FileName>DataGeneration\RandomDataGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataStructures.KDTree.KDTree&lt;T&gt;" Collapsed="true">
+    <Position X="2" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="GeodeticPDA.Model.ICsvSerializable">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ICsvSerializable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
