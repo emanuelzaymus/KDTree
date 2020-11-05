@@ -47,13 +47,13 @@
             this.propertiesCountTextBox = new System.Windows.Forms.TextBox();
             this.parcelsCountTextBox = new System.Windows.Forms.TextBox();
             this.populateButton = new System.Windows.Forms.Button();
-            this.propertiesCsvFileTextBox = new System.Windows.Forms.TextBox();
+            this.propertyCsvFileTextBox = new System.Windows.Forms.TextBox();
             this.savePropertiesButton = new System.Windows.Forms.Button();
             this.loadPropertiesButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.loadParcelsButton = new System.Windows.Forms.Button();
-            this.parcelsCsvFileTextBox = new System.Windows.Forms.TextBox();
+            this.parcelCsvFileTextBox = new System.Windows.Forms.TextBox();
             this.saveParcelsButton = new System.Windows.Forms.Button();
             this.propertiesCountLabel = new System.Windows.Forms.Label();
             this.parcelsCountLabel = new System.Windows.Forms.Label();
@@ -139,7 +139,7 @@
             this.longitude2TextBox.Name = "longitude2TextBox";
             this.longitude2TextBox.Size = new System.Drawing.Size(205, 22);
             this.longitude2TextBox.TabIndex = 5;
-            this.longitude2TextBox.Text = "1000";
+            this.longitude2TextBox.Text = "100";
             // 
             // latitude2Label
             // 
@@ -156,7 +156,7 @@
             this.latitude2TextBox.Name = "latitude2TextBox";
             this.latitude2TextBox.Size = new System.Drawing.Size(205, 22);
             this.latitude2TextBox.TabIndex = 4;
-            this.latitude2TextBox.Text = "1000";
+            this.latitude2TextBox.Text = "100";
             // 
             // findPropertiesButton
             // 
@@ -234,13 +234,13 @@
             this.populateButton.UseVisualStyleBackColor = true;
             this.populateButton.Click += new System.EventHandler(this.PopulateButton_Click);
             // 
-            // propertiesCsvFileTextBox
+            // propertyCsvFileTextBox
             // 
-            this.propertiesCsvFileTextBox.Location = new System.Drawing.Point(147, 247);
-            this.propertiesCsvFileTextBox.Name = "propertiesCsvFileTextBox";
-            this.propertiesCsvFileTextBox.Size = new System.Drawing.Size(423, 22);
-            this.propertiesCsvFileTextBox.TabIndex = 15;
-            this.propertiesCsvFileTextBox.Text = "properties.csv";
+            this.propertyCsvFileTextBox.Location = new System.Drawing.Point(147, 247);
+            this.propertyCsvFileTextBox.Name = "propertyCsvFileTextBox";
+            this.propertyCsvFileTextBox.Size = new System.Drawing.Size(423, 22);
+            this.propertyCsvFileTextBox.TabIndex = 15;
+            this.propertyCsvFileTextBox.Text = "properties.csv";
             // 
             // savePropertiesButton
             // 
@@ -250,6 +250,7 @@
             this.savePropertiesButton.TabIndex = 16;
             this.savePropertiesButton.Text = "Save";
             this.savePropertiesButton.UseVisualStyleBackColor = true;
+            this.savePropertiesButton.Click += new System.EventHandler(this.SavePropertiesButton_Click);
             // 
             // loadPropertiesButton
             // 
@@ -259,6 +260,7 @@
             this.loadPropertiesButton.TabIndex = 17;
             this.loadPropertiesButton.Text = "Load";
             this.loadPropertiesButton.UseVisualStyleBackColor = true;
+            this.loadPropertiesButton.Click += new System.EventHandler(this.LoadPropertiesButton_Click);
             // 
             // label1
             // 
@@ -286,14 +288,15 @@
             this.loadParcelsButton.TabIndex = 20;
             this.loadParcelsButton.Text = "Load";
             this.loadParcelsButton.UseVisualStyleBackColor = true;
+            this.loadParcelsButton.Click += new System.EventHandler(this.LoadParcelsButton_Click);
             // 
-            // parcelsCsvFileTextBox
+            // parcelCsvFileTextBox
             // 
-            this.parcelsCsvFileTextBox.Location = new System.Drawing.Point(147, 307);
-            this.parcelsCsvFileTextBox.Name = "parcelsCsvFileTextBox";
-            this.parcelsCsvFileTextBox.Size = new System.Drawing.Size(423, 22);
-            this.parcelsCsvFileTextBox.TabIndex = 18;
-            this.parcelsCsvFileTextBox.Text = "parcels.csv";
+            this.parcelCsvFileTextBox.Location = new System.Drawing.Point(147, 307);
+            this.parcelCsvFileTextBox.Name = "parcelCsvFileTextBox";
+            this.parcelCsvFileTextBox.Size = new System.Drawing.Size(423, 22);
+            this.parcelCsvFileTextBox.TabIndex = 18;
+            this.parcelCsvFileTextBox.Text = "parcels.csv";
             // 
             // saveParcelsButton
             // 
@@ -303,6 +306,7 @@
             this.saveParcelsButton.TabIndex = 19;
             this.saveParcelsButton.Text = "Save";
             this.saveParcelsButton.UseVisualStyleBackColor = true;
+            this.saveParcelsButton.Click += new System.EventHandler(this.SaveParcelsButton_Click);
             // 
             // propertiesCountLabel
             // 
@@ -331,11 +335,11 @@
             this.Controls.Add(this.propertiesCountLabel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.loadParcelsButton);
-            this.Controls.Add(this.parcelsCsvFileTextBox);
+            this.Controls.Add(this.parcelCsvFileTextBox);
             this.Controls.Add(this.saveParcelsButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.loadPropertiesButton);
-            this.Controls.Add(this.propertiesCsvFileTextBox);
+            this.Controls.Add(this.propertyCsvFileTextBox);
             this.Controls.Add(this.savePropertiesButton);
             this.Controls.Add(this.parcelsCountTextBox);
             this.Controls.Add(this.populateButton);
@@ -389,13 +393,13 @@
         private System.Windows.Forms.TextBox propertiesCountTextBox;
         private System.Windows.Forms.TextBox parcelsCountTextBox;
         private System.Windows.Forms.Button populateButton;
-        private System.Windows.Forms.TextBox propertiesCsvFileTextBox;
+        private System.Windows.Forms.TextBox propertyCsvFileTextBox;
         private System.Windows.Forms.Button savePropertiesButton;
         private System.Windows.Forms.Button loadPropertiesButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button loadParcelsButton;
-        private System.Windows.Forms.TextBox parcelsCsvFileTextBox;
+        private System.Windows.Forms.TextBox parcelCsvFileTextBox;
         private System.Windows.Forms.Button saveParcelsButton;
         private System.Windows.Forms.Label propertiesCountLabel;
         private System.Windows.Forms.Label parcelsCountLabel;

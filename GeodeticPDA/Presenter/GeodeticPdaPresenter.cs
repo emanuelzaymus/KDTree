@@ -111,6 +111,14 @@ namespace GeodeticPDA.Presenter
             }
         }
 
+        internal void SavePropertiesToFile(string fileName) => _pdaSystem.SavePropertiesToFile(fileName);
+
+        internal void SaveParcelsToFile(string fileName) => _pdaSystem.SaveParcelsToFile(fileName);
+
+        internal void LoadPropertiesFromFile(string fileName) => _pdaSystem.LoadPropertiesFromFile(fileName);
+
+        internal void LoadParcelsFromFile(string fileName) => _pdaSystem.LoadParcelsFromFile(fileName);
+
         private void AddProperty(PropertyInputData propertyInputData)
         {
             int? number = GetInt(propertyInputData.Number);

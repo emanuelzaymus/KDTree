@@ -1,22 +1,18 @@
 ﻿using DataStructures.KDTree;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace GeodeticPDA.Model
 {
     public class GeodeticPdaSystem
     {
+        private const char Delimiter = ',';
+
         private readonly KDTree<Property> _properties = new KDTree<Property>(Property.GetComparers());
         private readonly KDTree<Parcel> _parcels = new KDTree<Parcel>(Parcel.GetComparers());
-
-        public GeodeticPdaSystem()
-        {
-        }
-
-        public GeodeticPdaSystem(IEnumerable<Property> properties, IEnumerable<Parcel> parcels)
-        {
-            Populate(properties, parcels);
-        }
 
         public void Populate(IEnumerable<Property> properties, IEnumerable<Parcel> parcels)
         {
@@ -120,6 +116,38 @@ namespace GeodeticPDA.Model
                 property.Parcels.Remove(parcelToRemove);
             }
             _parcels.Remove(parcelToRemove);
+        }
+
+        internal void SavePropertiesToFile(string fileName) => WriteToFile(_properties, fileName);
+
+        internal void SaveParcelsToFile(string fileName) => WriteToFile(_parcels, fileName);
+
+        internal void LoadPropertiesFromFile(string fileName) => LoadFromFile(fileName, words => AddProperty(new Property(words)));
+
+        internal void LoadParcelsFromFile(string fileName) => LoadFromFile(fileName, words => AddParcel(new Parcel(words)));
+
+        private void WriteToFile(IEnumerable<ICsvSerializable> csvSerializables, string fileName)
+        {
+            var builder = new StringBuilder(csvSerializables.Count() * 35); // 35 should be average of length of one line 
+            foreach (var item in csvSerializables)
+            {
+                builder.AppendLine(item.ToCsv(Delimiter));
+            }
+            File.WriteAllText(fileName, builder.ToString());
+        }
+
+        private void LoadFromFile(string fileName, Action<string[]> addObject)
+        {
+            if (File.Exists(fileName))
+            {
+                using StreamReader streamReader = File.OpenText(fileName);
+                string line;
+                while ((line = streamReader.ReadLine()) != null)
+                {
+                    string[] words = line.Split(Delimiter);
+                    addObject(words);
+                }
+            }
         }
 
         private void AttachProperty(Property newProperty)

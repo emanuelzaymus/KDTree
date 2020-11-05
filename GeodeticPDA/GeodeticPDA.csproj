@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -73,6 +75,7 @@
     <Compile Include="Model\GpsCoordinates.cs" />
     <Compile Include="Model\GpsLocationObject.cs" />
     <Compile Include="Model\HashSetExtensions.cs" />
+    <Compile Include="Model\ICsvSerializable.cs" />
     <Compile Include="Model\Parcel.cs" />
     <Compile Include="Model\ParcelLocation.cs" />
     <Compile Include="Model\PropertyLocation.cs" />

@@ -1,6 +1,6 @@
 ﻿namespace GeodeticPDA.Model
 {
-    public class GpsCoordinates
+    public class GpsCoordinates : ICsvSerializable
     {
         public double Latitude { get; set; }
         public double Longitude { get; set; }
@@ -9,6 +9,17 @@
         {
             Latitude = latitude;
             Longitude = longitude;
+        }
+
+        public GpsCoordinates(string[] csvData)
+        {
+            Latitude = double.Parse(csvData[0]);
+            Longitude = double.Parse(csvData[1]);
+        }
+
+        public string ToCsv(char d)
+        {
+            return $"{Latitude}{d}{Longitude}";
         }
 
         public override string ToString()
@@ -30,5 +41,6 @@
             hashCode = hashCode * -1521134295 + Longitude.GetHashCode();
             return hashCode;
         }
+
     }
 }

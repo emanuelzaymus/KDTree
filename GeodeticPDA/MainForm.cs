@@ -15,7 +15,6 @@ namespace GeodeticPDA
         {
             InitializeComponent();
             _presenter = geodeticPdaPresenter;
-            //_presenter.PopulateWithPreparedData();
         }
 
         private void SecondGpsCoordinateCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -74,6 +73,26 @@ namespace GeodeticPDA
         private void PopulateButton_Click(object sender, EventArgs e)
         {
             _presenter.Populate(propertiesCountTextBox.Text, parcelsCountTextBox.Text);
+        }
+
+        private void SavePropertiesButton_Click(object sender, EventArgs e)
+        {
+            _presenter.SavePropertiesToFile(propertyCsvFileTextBox.Text);
+        }
+
+        private void SaveParcelsButton_Click(object sender, EventArgs e)
+        {
+            _presenter.SaveParcelsToFile(parcelCsvFileTextBox.Text);
+        }
+
+        private void LoadPropertiesButton_Click(object sender, EventArgs e)
+        {
+            _presenter.LoadPropertiesFromFile(propertyCsvFileTextBox.Text);
+        }
+
+        private void LoadParcelsButton_Click(object sender, EventArgs e)
+        {
+            _presenter.LoadParcelsFromFile(parcelCsvFileTextBox.Text);
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

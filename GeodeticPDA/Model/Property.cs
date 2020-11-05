@@ -13,6 +13,15 @@ namespace GeodeticPDA.Model
         {
         }
 
+        public Property(string[] csvData) : base(csvData)
+        {
+            int id = int.Parse(csvData[0]);
+            if (id >= _nextPropertyId)
+            {
+                _nextPropertyId = id + 1;
+            }
+        }
+
         // Only for PropertyPosition
         protected Property(GpsCoordinates coordinates) : base(0, 0, null, coordinates) { }
 

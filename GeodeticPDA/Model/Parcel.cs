@@ -12,6 +12,15 @@ namespace GeodeticPDA.Model
             : base(_nextParcelId--, number, description, coordinates)
         {
         }
+        
+        public Parcel(string[] csvData) : base(csvData)
+        {
+            int id = int.Parse(csvData[0]);
+            if (id <= _nextParcelId)
+            {
+                _nextParcelId = id - 1;
+            }
+        }
 
         // Only for ParcelPosition
         protected Parcel(GpsCoordinates coordinates) : base(0, 0, null, coordinates) { }
