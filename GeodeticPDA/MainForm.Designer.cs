@@ -81,14 +81,14 @@
             // 
             this.latitude1TextBox.Location = new System.Drawing.Point(81, 29);
             this.latitude1TextBox.Name = "latitude1TextBox";
-            this.latitude1TextBox.Size = new System.Drawing.Size(100, 22);
+            this.latitude1TextBox.Size = new System.Drawing.Size(205, 22);
             this.latitude1TextBox.TabIndex = 1;
             this.latitude1TextBox.Text = "0";
             // 
             // longitude1Label
             // 
             this.longitude1Label.AutoSize = true;
-            this.longitude1Label.Location = new System.Drawing.Point(189, 32);
+            this.longitude1Label.Location = new System.Drawing.Point(289, 32);
             this.longitude1Label.Name = "longitude1Label";
             this.longitude1Label.Size = new System.Drawing.Size(75, 17);
             this.longitude1Label.TabIndex = 5;
@@ -96,9 +96,9 @@
             // 
             // longitude1TextBox
             // 
-            this.longitude1TextBox.Location = new System.Drawing.Point(270, 29);
+            this.longitude1TextBox.Location = new System.Drawing.Point(365, 29);
             this.longitude1TextBox.Name = "longitude1TextBox";
-            this.longitude1TextBox.Size = new System.Drawing.Size(100, 22);
+            this.longitude1TextBox.Size = new System.Drawing.Size(205, 22);
             this.longitude1TextBox.TabIndex = 2;
             this.longitude1TextBox.Text = "0";
             // 
@@ -127,7 +127,7 @@
             // longitude2Label
             // 
             this.longitude2Label.AutoSize = true;
-            this.longitude2Label.Location = new System.Drawing.Point(189, 104);
+            this.longitude2Label.Location = new System.Drawing.Point(289, 104);
             this.longitude2Label.Name = "longitude2Label";
             this.longitude2Label.Size = new System.Drawing.Size(75, 17);
             this.longitude2Label.TabIndex = 11;
@@ -135,9 +135,9 @@
             // 
             // longitude2TextBox
             // 
-            this.longitude2TextBox.Location = new System.Drawing.Point(270, 101);
+            this.longitude2TextBox.Location = new System.Drawing.Point(365, 101);
             this.longitude2TextBox.Name = "longitude2TextBox";
-            this.longitude2TextBox.Size = new System.Drawing.Size(100, 22);
+            this.longitude2TextBox.Size = new System.Drawing.Size(205, 22);
             this.longitude2TextBox.TabIndex = 5;
             this.longitude2TextBox.Text = "1000";
             // 
@@ -154,7 +154,7 @@
             // 
             this.latitude2TextBox.Location = new System.Drawing.Point(81, 101);
             this.latitude2TextBox.Name = "latitude2TextBox";
-            this.latitude2TextBox.Size = new System.Drawing.Size(100, 22);
+            this.latitude2TextBox.Size = new System.Drawing.Size(205, 22);
             this.latitude2TextBox.TabIndex = 4;
             this.latitude2TextBox.Text = "1000";
             // 
@@ -162,7 +162,7 @@
             // 
             this.findPropertiesButton.Location = new System.Drawing.Point(15, 129);
             this.findPropertiesButton.Name = "findPropertiesButton";
-            this.findPropertiesButton.Size = new System.Drawing.Size(355, 23);
+            this.findPropertiesButton.Size = new System.Drawing.Size(180, 23);
             this.findPropertiesButton.TabIndex = 6;
             this.findPropertiesButton.Text = "Find properties";
             this.findPropertiesButton.UseVisualStyleBackColor = true;
@@ -170,9 +170,9 @@
             // 
             // findParcelsButton
             // 
-            this.findParcelsButton.Location = new System.Drawing.Point(15, 158);
+            this.findParcelsButton.Location = new System.Drawing.Point(201, 129);
             this.findParcelsButton.Name = "findParcelsButton";
-            this.findParcelsButton.Size = new System.Drawing.Size(355, 23);
+            this.findParcelsButton.Size = new System.Drawing.Size(183, 23);
             this.findParcelsButton.TabIndex = 7;
             this.findParcelsButton.Text = "Find parcels";
             this.findParcelsButton.UseVisualStyleBackColor = true;
@@ -180,9 +180,9 @@
             // 
             // findAllButton
             // 
-            this.findAllButton.Location = new System.Drawing.Point(15, 187);
+            this.findAllButton.Location = new System.Drawing.Point(390, 129);
             this.findAllButton.Name = "findAllButton";
-            this.findAllButton.Size = new System.Drawing.Size(355, 23);
+            this.findAllButton.Size = new System.Drawing.Size(180, 23);
             this.findAllButton.TabIndex = 8;
             this.findAllButton.Text = "Find all";
             this.findAllButton.UseVisualStyleBackColor = true;
@@ -190,9 +190,9 @@
             // 
             // addPropertyButton
             // 
-            this.addPropertyButton.Location = new System.Drawing.Point(15, 218);
+            this.addPropertyButton.Location = new System.Drawing.Point(15, 158);
             this.addPropertyButton.Name = "addPropertyButton";
-            this.addPropertyButton.Size = new System.Drawing.Size(166, 23);
+            this.addPropertyButton.Size = new System.Drawing.Size(271, 23);
             this.addPropertyButton.TabIndex = 9;
             this.addPropertyButton.Text = "Add property";
             this.addPropertyButton.UseVisualStyleBackColor = true;
@@ -200,9 +200,9 @@
             // 
             // addParcelButton
             // 
-            this.addParcelButton.Location = new System.Drawing.Point(192, 218);
+            this.addParcelButton.Location = new System.Drawing.Point(292, 158);
             this.addParcelButton.Name = "addParcelButton";
-            this.addParcelButton.Size = new System.Drawing.Size(178, 23);
+            this.addParcelButton.Size = new System.Drawing.Size(278, 23);
             this.addParcelButton.TabIndex = 10;
             this.addParcelButton.Text = "Add parcel";
             this.addParcelButton.UseVisualStyleBackColor = true;
@@ -210,25 +210,25 @@
             // 
             // propertiesCountTextBox
             // 
-            this.propertiesCountTextBox.Location = new System.Drawing.Point(93, 248);
+            this.propertiesCountTextBox.Location = new System.Drawing.Point(164, 190);
             this.propertiesCountTextBox.Name = "propertiesCountTextBox";
-            this.propertiesCountTextBox.Size = new System.Drawing.Size(88, 22);
+            this.propertiesCountTextBox.Size = new System.Drawing.Size(122, 22);
             this.propertiesCountTextBox.TabIndex = 11;
             this.propertiesCountTextBox.Text = "10000";
             // 
             // parcelsCountTextBox
             // 
-            this.parcelsCountTextBox.Location = new System.Drawing.Point(270, 248);
+            this.parcelsCountTextBox.Location = new System.Drawing.Point(448, 190);
             this.parcelsCountTextBox.Name = "parcelsCountTextBox";
-            this.parcelsCountTextBox.Size = new System.Drawing.Size(100, 22);
+            this.parcelsCountTextBox.Size = new System.Drawing.Size(122, 22);
             this.parcelsCountTextBox.TabIndex = 13;
             this.parcelsCountTextBox.Text = "10000";
             // 
             // populateButton
             // 
-            this.populateButton.Location = new System.Drawing.Point(15, 277);
+            this.populateButton.Location = new System.Drawing.Point(15, 218);
             this.populateButton.Name = "populateButton";
-            this.populateButton.Size = new System.Drawing.Size(355, 23);
+            this.populateButton.Size = new System.Drawing.Size(555, 23);
             this.populateButton.TabIndex = 14;
             this.populateButton.Text = "Populate with random data";
             this.populateButton.UseVisualStyleBackColor = true;
@@ -236,26 +236,26 @@
             // 
             // propertiesCsvFileTextBox
             // 
-            this.propertiesCsvFileTextBox.Location = new System.Drawing.Point(270, 306);
+            this.propertiesCsvFileTextBox.Location = new System.Drawing.Point(147, 247);
             this.propertiesCsvFileTextBox.Name = "propertiesCsvFileTextBox";
-            this.propertiesCsvFileTextBox.Size = new System.Drawing.Size(100, 22);
+            this.propertiesCsvFileTextBox.Size = new System.Drawing.Size(423, 22);
             this.propertiesCsvFileTextBox.TabIndex = 15;
             this.propertiesCsvFileTextBox.Text = "properties.csv";
             // 
             // savePropertiesButton
             // 
-            this.savePropertiesButton.Location = new System.Drawing.Point(15, 306);
+            this.savePropertiesButton.Location = new System.Drawing.Point(15, 275);
             this.savePropertiesButton.Name = "savePropertiesButton";
-            this.savePropertiesButton.Size = new System.Drawing.Size(60, 23);
+            this.savePropertiesButton.Size = new System.Drawing.Size(271, 23);
             this.savePropertiesButton.TabIndex = 16;
             this.savePropertiesButton.Text = "Save";
             this.savePropertiesButton.UseVisualStyleBackColor = true;
             // 
             // loadPropertiesButton
             // 
-            this.loadPropertiesButton.Location = new System.Drawing.Point(81, 306);
+            this.loadPropertiesButton.Location = new System.Drawing.Point(293, 275);
             this.loadPropertiesButton.Name = "loadPropertiesButton";
-            this.loadPropertiesButton.Size = new System.Drawing.Size(60, 23);
+            this.loadPropertiesButton.Size = new System.Drawing.Size(277, 23);
             this.loadPropertiesButton.TabIndex = 17;
             this.loadPropertiesButton.Text = "Load";
             this.loadPropertiesButton.UseVisualStyleBackColor = true;
@@ -263,7 +263,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(140, 309);
+            this.label1.Location = new System.Drawing.Point(12, 250);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(129, 17);
             this.label1.TabIndex = 20;
@@ -272,7 +272,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(142, 339);
+            this.label2.Location = new System.Drawing.Point(12, 310);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 17);
             this.label2.TabIndex = 24;
@@ -280,26 +280,26 @@
             // 
             // loadParcelsButton
             // 
-            this.loadParcelsButton.Location = new System.Drawing.Point(81, 336);
+            this.loadParcelsButton.Location = new System.Drawing.Point(293, 338);
             this.loadParcelsButton.Name = "loadParcelsButton";
-            this.loadParcelsButton.Size = new System.Drawing.Size(60, 23);
+            this.loadParcelsButton.Size = new System.Drawing.Size(277, 23);
             this.loadParcelsButton.TabIndex = 20;
             this.loadParcelsButton.Text = "Load";
             this.loadParcelsButton.UseVisualStyleBackColor = true;
             // 
             // parcelsCsvFileTextBox
             // 
-            this.parcelsCsvFileTextBox.Location = new System.Drawing.Point(270, 336);
+            this.parcelsCsvFileTextBox.Location = new System.Drawing.Point(147, 307);
             this.parcelsCsvFileTextBox.Name = "parcelsCsvFileTextBox";
-            this.parcelsCsvFileTextBox.Size = new System.Drawing.Size(100, 22);
+            this.parcelsCsvFileTextBox.Size = new System.Drawing.Size(423, 22);
             this.parcelsCsvFileTextBox.TabIndex = 18;
             this.parcelsCsvFileTextBox.Text = "parcels.csv";
             // 
             // saveParcelsButton
             // 
-            this.saveParcelsButton.Location = new System.Drawing.Point(15, 336);
+            this.saveParcelsButton.Location = new System.Drawing.Point(15, 338);
             this.saveParcelsButton.Name = "saveParcelsButton";
-            this.saveParcelsButton.Size = new System.Drawing.Size(60, 23);
+            this.saveParcelsButton.Size = new System.Drawing.Size(271, 23);
             this.saveParcelsButton.TabIndex = 19;
             this.saveParcelsButton.Text = "Save";
             this.saveParcelsButton.UseVisualStyleBackColor = true;
@@ -307,26 +307,26 @@
             // propertiesCountLabel
             // 
             this.propertiesCountLabel.AutoSize = true;
-            this.propertiesCountLabel.Location = new System.Drawing.Point(12, 251);
+            this.propertiesCountLabel.Location = new System.Drawing.Point(12, 193);
             this.propertiesCountLabel.Name = "propertiesCountLabel";
-            this.propertiesCountLabel.Size = new System.Drawing.Size(77, 17);
+            this.propertiesCountLabel.Size = new System.Drawing.Size(146, 17);
             this.propertiesCountLabel.TabIndex = 25;
-            this.propertiesCountLabel.Text = "Properties:";
+            this.propertiesCountLabel.Text = "Number of properties:";
             // 
             // parcelsCountLabel
             // 
             this.parcelsCountLabel.AutoSize = true;
-            this.parcelsCountLabel.Location = new System.Drawing.Point(190, 251);
+            this.parcelsCountLabel.Location = new System.Drawing.Point(290, 193);
             this.parcelsCountLabel.Name = "parcelsCountLabel";
-            this.parcelsCountLabel.Size = new System.Drawing.Size(59, 17);
+            this.parcelsCountLabel.Size = new System.Drawing.Size(128, 17);
             this.parcelsCountLabel.TabIndex = 26;
-            this.parcelsCountLabel.Text = "Parcels:";
+            this.parcelsCountLabel.Text = "Number of parcels:";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(382, 373);
+            this.ClientSize = new System.Drawing.Size(582, 373);
             this.Controls.Add(this.parcelsCountLabel);
             this.Controls.Add(this.propertiesCountLabel);
             this.Controls.Add(this.label2);
@@ -357,7 +357,7 @@
             this.Controls.Add(this.latitude1TextBox);
             this.Controls.Add(this.gpsCoordinates1Label);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(400, 420);
+            this.MaximumSize = new System.Drawing.Size(600, 420);
             this.MinimumSize = new System.Drawing.Size(400, 420);
             this.Name = "MainForm";
             this.ShowIcon = false;
