@@ -12,7 +12,11 @@ namespace GeodeticPDA.Model
             : base(_nextParcelId--, number, description, coordinates)
         {
         }
-        
+
+        /// <summary>
+        /// Creates <c>Parcel</c> from CSV file values.
+        /// </summary>
+        /// <param name="csvData">One line from CSV file - Splitted values</param>
         public Parcel(string[] csvData) : base(csvData)
         {
             int id = int.Parse(csvData[0]);
@@ -22,9 +26,15 @@ namespace GeodeticPDA.Model
             }
         }
 
-        // Only for ParcelPosition
+        /// <summary>
+        /// Constructor only for decsendant <c>ParcelPosition</c>.
+        /// </summary>
         protected Parcel(GpsCoordinates coordinates) : base(0, 0, null, coordinates) { }
 
+        /// <summary>
+        /// Gets comparers for dimensional comparing Parcels bases on their <c>GpsCoordinates</c> location.
+        /// </summary>
+        /// <returns><c>Parcel</c> comparers array</returns>
         public static Comparer<Parcel>[] GetComparers()
         {
             var latitudeComparer = Comparer<Parcel>.Create((x, y) => x.Coordinates.Latitude.CompareTo(y.Coordinates.Latitude));

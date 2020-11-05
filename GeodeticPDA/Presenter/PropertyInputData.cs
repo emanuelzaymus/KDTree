@@ -3,13 +3,16 @@ using System.Linq;
 
 namespace GeodeticPDA.Presenter
 {
+    /// <summary>
+    /// Input data from user for <c>Property</c>.
+    /// </summary>
     public class PropertyInputData : UserInputData
     {
         public Property OriginalObject { get; }
 
         public PropertyInputData(Property property) : base(property)
         {
-            RelatedObjects = property.Parcels.ToArray();
+            base.RelatedObjects = property.Parcels.ToArray();
             OriginalObject = property;
         }
 

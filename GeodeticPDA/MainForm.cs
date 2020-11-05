@@ -7,10 +7,17 @@ using System.Windows.Forms;
 
 namespace GeodeticPDA
 {
+    /// <summary>
+    /// Main windows of the program.
+    /// </summary>
     public partial class MainForm : Form
     {
         private readonly GeodeticPdaPresenter _presenter;
 
+        /// <summary>
+        /// Main windows of the program.
+        /// </summary>
+        /// <param name="geodeticPdaPresenter">Presenter of the program</param>
         public MainForm(GeodeticPdaPresenter geodeticPdaPresenter)
         {
             InitializeComponent();

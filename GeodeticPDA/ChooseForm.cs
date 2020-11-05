@@ -4,10 +4,18 @@ using System.Windows.Forms;
 
 namespace GeodeticPDA
 {
+    /// <summary>
+    /// Window for choosing/selecting from found properties or parcels.
+    /// </summary>
     public partial class ChooseForm : Form
     {
         private readonly GeodeticPdaPresenter _presenter;
 
+        /// <summary>
+        /// Window for choosing/selecting from found properties or parcels.
+        /// </summary>
+        /// <param name="presenter">Presenter of the program</param>
+        /// <param name="foundItems">Found objects to show</param>
         public ChooseForm(GeodeticPdaPresenter presenter, object[] foundItems)
         {
             InitializeComponent();

@@ -5,6 +5,11 @@ namespace GeodeticPDA.Presenter
 {
     public class UserInputDataFactory
     {
+        /// <summary>
+        /// Creates pertaining object to <paramref name="gpsLocationObject"/>.
+        /// </summary>
+        /// <param name="gpsLocationObject"></param>
+        /// <returns><c>PropertyInputData</c> or <c>ParcelInputData</c></returns>
         public static UserInputData GetUserInputData(object gpsLocationObject)
         {
             if (gpsLocationObject is Property property)

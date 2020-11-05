@@ -6,8 +6,15 @@ using System.Linq;
 
 namespace DataStructures.KDTree
 {
+    /// <summary>
+    /// K-Dimensional Tree
+    /// </summary>
+    /// <typeparam name="T">Any type</typeparam>
     public class KDTree<T> : IEnumerable<T>
     {
+        /// <summary>
+        /// Count of present elements in this tree.
+        /// </summary>
         public int Count { get; private set; } = 0;
 
         private readonly Comparer<T>[] _comparers;
@@ -17,9 +24,10 @@ namespace DataStructures.KDTree
         private KDTreeNode<T> _root;
 
         /// <summary>
-        /// TODO: Add comments to every public method
+        /// K-Dimensional Tree
         /// </summary>
-        /// <param name="comparers"></param>
+        /// <param name="comparers">K <paramref name="comparers"/> for comparing input data <c>T</c>. 
+        /// Number of K <paramref name="comparers"/> corresponds to K dimensions of the tree.</param>
         public KDTree(params Comparer<T>[] comparers)
         {
             if (comparers == null)
@@ -34,11 +42,21 @@ namespace DataStructures.KDTree
             _numberOfDimensions = comparers.Length;
         }
 
+        /// <summary>
+        /// K-Dimensional Tree
+        /// </summary>
+        /// <param name="data">Input <paramref name="data"/> will be added by medians.</param>
+        /// <param name="comparers">K <paramref name="comparers"/> for comparing input data <c>T</c>. 
+        /// Number of K <paramref name="comparers"/> corresponds to K dimensions of the tree.</param>
         public KDTree(IEnumerable<T> data, params Comparer<T>[] comparers) : this(comparers)
         {
             AddRange(data.ToArray());
         }
 
+        /// <summary>
+        /// Adds <paramref name="data"/> into the tree.
+        /// </summary>
+        /// <param name="data">Input <paramref name="data"/></param>
         public void Add(T data)
         {
             var newNode = new KDTreeNode<T>(data);
@@ -81,6 +99,10 @@ namespace DataStructures.KDTree
             Count++;
         }
 
+        /// <summary>
+        /// Adds all <paramref name="dataArray"/> into the tree by medians.
+        /// </summary>
+        /// <param name="dataArray">Input data array</param>
         public void AddRange(T[] dataArray)
         {
             var rangesQueue = new Queue<MedianRange>();
@@ -105,16 +127,32 @@ namespace DataStructures.KDTree
             }
         }
 
+        /// <summary>
+        /// Finds all elements that are equal with <paramref name="exactData"/>.
+        /// </summary>
+        /// <param name="exactData">Exact data to find</param>
+        /// <returns>All found exact elements</returns>
         public ICollection<T> Find(T exactData)
         {
             return FindRange(exactData, exactData, equalsWithLowerBound: true);
         }
 
+        /// <summary>
+        /// Finds all elements that are on the sme position as <paramref name="dataPosition"/>.
+        /// </summary>
+        /// <param name="dataPosition">Data position</param>
+        /// <returns>All elements on the position <paramref name="dataPosition"/></returns>
         public ICollection<T> FindAt(T dataPosition)
         {
             return FindRange(dataPosition, dataPosition);
         }
 
+        /// <summary>
+        /// Finds all elements between lower position <paramref name="posLowerBound"/> and upper position <paramref name="posUpperBound"/>.
+        /// </summary>
+        /// <param name="posLowerBound">Lower position inclusive</param>
+        /// <param name="posUpperBound">Upper position inclusive</param>
+        /// <returns>All elemnts that lie in bounds</returns>
         public ICollection<T> FindRange(T posLowerBound, T posUpperBound)
         {
             return FindRange(posLowerBound, posUpperBound, equalsWithLowerBound: false);
@@ -180,31 +218,63 @@ namespace DataStructures.KDTree
             return true;
         }
 
+        /// <summary>
+        /// Returns number of elements that are equal with <paramref name="exactData"/>.
+        /// </summary>
+        /// <param name="exactData">Exact data to find</param>
+        /// <returns>Count of found exact elements</returns>
         public int Contains(T exactData)
         {
             return Find(exactData).Count;
         }
 
+        /// <summary>
+        /// Returns number of elements that are on the sme position as <paramref name="dataPosition"/>.
+        /// </summary>
+        /// <param name="dataPosition">Data position</param>
+        /// <returns>Count of elements on the position <paramref name="dataPosition"/></returns>
         public int ContainsAt(T dataPosition)
         {
             return ContainsRange(dataPosition, dataPosition);
         }
 
+        /// <summary>
+        /// Returns number of elements between lower position <paramref name="posLowerBound"/> and upper position <paramref name="posUpperBound"/>.
+        /// </summary>
+        /// <param name="posLowerBound">Lower position inclusive</param>
+        /// <param name="posUpperBound">Upper position inclusive</param>
+        /// <returns>Count of elemnts that lie in bounds</returns>
         public int ContainsRange(T posLowerBound, T posUpperBound)
         {
             return FindNodes(posLowerBound, posUpperBound, equalsWithLowerBound: false).Count();
         }
 
+        /// <summary>
+        /// Removes all elements that are equal with <paramref name="exactData"/>.
+        /// </summary>
+        /// <param name="exactData">Exact data to remove</param>
+        /// <returns>Count of removed elements</returns>
         public int Remove(T exactData)
         {
             return RemoveRange(exactData, exactData, equalsWithLowerBound: true);
         }
 
+        /// <summary>
+        /// Removes all elements that are on the sme position as <paramref name="dataPosition"/>.
+        /// </summary>
+        /// <param name="dataPosition">Data position on which will be removed all elements</param>
+        /// <returns>Count of removed elements</returns>
         public int RemoveAt(T dataPosition)
         {
             return RemoveRange(dataPosition, dataPosition);
         }
 
+        /// <summary>
+        /// Removes all elements between lower position <paramref name="posLowerBound"/> and upper position <paramref name="posUpperBound"/>.
+        /// </summary>
+        /// <param name="posLowerBound">Remove elements from <paramref name="posLowerBound"/> (inclusive)</param>
+        /// <param name="posUpperBound">Remove elements to <paramref name="posUpperBound"/> (inclusive)</param>
+        /// <returns>Count of removed elements</returns>
         public int RemoveRange(T posLowerBound, T posUpperBound)
         {
             return RemoveRange(posLowerBound, posUpperBound, equalsWithLowerBound: false);
@@ -311,22 +381,37 @@ namespace DataStructures.KDTree
             return new DimensionalKDTreeNode<T>(maxDimenNodeDimension, maxDimensionNode);
         }
 
+        /// <summary>
+        /// Deletes all elments.
+        /// </summary>
         public void Clear()
         {
             _root = null;
             Count = 0;
         }
 
+        /// <summary>
+        /// Converts the tree to list.
+        /// </summary>
+        /// <returns>All elements in level order traversal</returns>
         public List<T> ToList()
         {
             return ToLevelOrderTraversalList();
         }
 
+        /// <summary>
+        /// Converts the tree to array.
+        /// </summary>
+        /// <returns>All elements in level order traversal</returns>
         public T[] ToArray()
         {
             return LevelOrderTraversal().Select(x => x.Data).ToArray();
         }
 
+        /// <summary>
+        /// Returns all elemnts in level order traversal.
+        /// </summary>
+        /// <returns>All elements in level order traversal in <c>List</c></returns>
         public List<T> ToLevelOrderTraversalList()
         {
             return LevelOrderTraversal().Select(x => x.Data).ToList();
@@ -350,8 +435,9 @@ namespace DataStructures.KDTree
         }
 
         /// <summary>
-        /// Enumerates in Level Order Traversal.
+        /// Gets enumerator for all elements in level order traversal.
         /// </summary>
+        /// <returns>Tree enumerator</returns>
         public IEnumerator<T> GetEnumerator()
         {
             return LevelOrderTraversal().Select(x => x.Data).GetEnumerator();
@@ -362,6 +448,9 @@ namespace DataStructures.KDTree
             return GetEnumerator();
         }
 
+        /// <summary>
+        /// Prints the tree to the console.
+        /// </summary>
         public void PrintTree()
         {
             var height = GetHeight();

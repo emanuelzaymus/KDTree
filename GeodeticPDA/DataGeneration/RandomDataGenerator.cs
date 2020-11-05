@@ -5,12 +5,20 @@ using System.Linq;
 
 namespace GeodeticPDA.DataGeneration
 {
+    /// <summary>
+    /// Generating random data.
+    /// </summary>
     public class RandomDataGenerator
     {
         public List<Property> PreparedProperties { get; }
 
         public List<Parcel> PreparedParels { get; }
 
+        /// <summary>
+        /// Generates random data internally which depend on each other.
+        /// </summary>
+        /// <param name="propertiesCount">Count of generated properties</param>
+        /// <param name="parcelsCount">Count of generated parcels</param>
         public RandomDataGenerator(int propertiesCount, int parcelsCount)
         {
             PreparedProperties = new List<Property>(propertiesCount);

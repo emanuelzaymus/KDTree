@@ -13,6 +13,10 @@ namespace GeodeticPDA.Model
         {
         }
 
+        /// <summary>
+        /// Creates <c>Property</c> from CSV file values.
+        /// </summary>
+        /// <param name="csvData">One line from CSV file - Splitted values</param>
         public Property(string[] csvData) : base(csvData)
         {
             int id = int.Parse(csvData[0]);
@@ -22,9 +26,15 @@ namespace GeodeticPDA.Model
             }
         }
 
-        // Only for PropertyPosition
+        /// <summary>
+        /// Constructor only for decsendant <c>PropertyPosition</c>.
+        /// </summary>
         protected Property(GpsCoordinates coordinates) : base(0, 0, null, coordinates) { }
 
+        /// <summary>
+        /// Gets comparers for dimensional comparing Properties bases on their <c>GpsCoordinates</c> location.
+        /// </summary>
+        /// <returns><c>Property</c> comparers array</returns>
         public static Comparer<Property>[] GetComparers()
         {
             var latitudeComparer = Comparer<Property>.Create((x, y) => x.Coordinates.Latitude.CompareTo(y.Coordinates.Latitude));

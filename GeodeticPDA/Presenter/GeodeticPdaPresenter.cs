@@ -5,10 +5,18 @@ using System.Collections.Generic;
 
 namespace GeodeticPDA.Presenter
 {
+    /// <summary>
+    /// Presenter for Geodetic PDA software.
+    /// </summary>
     public class GeodeticPdaPresenter
     {
         private readonly GeodeticPdaSystem _pdaSystem = new GeodeticPdaSystem();
 
+        /// <summary>
+        /// Populates the system.
+        /// </summary>
+        /// <param name="properties">Count of properties to generate</param>
+        /// <param name="parcels">Count of parcels to generate</param>
         public void Populate(string propertiesCount, string parcelsCount)
         {
             int? properties = GetInt(propertiesCount);
@@ -20,6 +28,9 @@ namespace GeodeticPDA.Presenter
             }
         }
 
+        /// <summary>
+        /// Populate with prepared data.
+        /// </summary>
         public void PopulateWithPreparedData()
         {
             var randomProperties = PreparedData.GetPreparedProperties();
@@ -27,6 +38,9 @@ namespace GeodeticPDA.Presenter
             _pdaSystem.Populate(randomProperties, randomParcels);
         }
 
+        /// <summary>
+        /// Finds all properties on location [<paramref name="latitudeStr"/>, <paramref name="longitudeStr"/>].
+        /// </summary>
         public ICollection<Property> FindProperties(string latitudeStr, string longitudeStr)
         {
             var gps = GetGpsCoordinates(latitudeStr, longitudeStr);
@@ -37,6 +51,10 @@ namespace GeodeticPDA.Presenter
             return new Property[0];
         }
 
+        /// <summary>
+        /// Finds all properties between [<paramref name="latitudeStr"/>, <paramref name="longitudeStr"/>] 
+        /// and [<paramref name="latitude2Str"/>, <paramref name="longitude2Str"/>].
+        /// </summary>
         public ICollection<Property> FindProperties(string latitudeStr, string longitudeStr,
             string latitude2Str, string longitude2Str)
         {
@@ -49,6 +67,9 @@ namespace GeodeticPDA.Presenter
             return new Property[0];
         }
 
+        /// <summary>
+        /// Finds all parcels on location [<paramref name="latitudeStr"/>, <paramref name="longitudeStr"/>].
+        /// </summary>
         public ICollection<Parcel> FindParcels(string latitudeStr, string longitudeStr)
         {
             var gps = GetGpsCoordinates(latitudeStr, longitudeStr);
@@ -59,6 +80,10 @@ namespace GeodeticPDA.Presenter
             return new Parcel[0];
         }
 
+        /// <summary>
+        /// Finds all parcels between [<paramref name="latitudeStr"/>, <paramref name="longitudeStr"/>] 
+        /// and [<paramref name="latitude2Str"/>, <paramref name="longitude2Str"/>].
+        /// </summary>
         public ICollection<Parcel> FindParcels(string latitudeStr, string longitudeStr,
             string latitude2Str, string longitude2Str)
         {
@@ -71,6 +96,9 @@ namespace GeodeticPDA.Presenter
             return new Parcel[0];
         }
 
+        /// <summary>
+        /// Finds all objects on location [<paramref name="latitudeStr"/>, <paramref name="longitudeStr"/>].
+        /// </summary>
         public ICollection<GpsLocationObject> FindAll(string latitudeStr, string longitudeStr)
         {
             var gps = GetGpsCoordinates(latitudeStr, longitudeStr);
@@ -81,6 +109,10 @@ namespace GeodeticPDA.Presenter
             return new GpsLocationObject[0];
         }
 
+        /// <summary>
+        /// Finds all objects between [<paramref name="latitudeStr"/>, <paramref name="longitudeStr"/>] 
+        /// and [<paramref name="latitude2Str"/>, <paramref name="longitude2Str"/>].
+        /// </summary>
         public ICollection<GpsLocationObject> FindAll(string latitudeStr, string longitudeStr,
             string latitude2Str, string longitude2Str)
         {
@@ -93,6 +125,10 @@ namespace GeodeticPDA.Presenter
             return new GpsLocationObject[0];
         }
 
+        /// <summary>
+        /// Saves all changes or new object of Property/Parcel.
+        /// </summary>
+        /// <param name="userInputData">User Input Data to save</param>
         public void Save(UserInputData userInputData)
         {
             if (userInputData is PropertyInputData propertyInputData)
@@ -111,12 +147,28 @@ namespace GeodeticPDA.Presenter
             }
         }
 
+        /// <summary>
+        /// Exports all properties into <paramref name="fileName"/> file.
+        /// </summary>
+        /// <param name="fileName">CSV file path name</param>
         internal void SavePropertiesToFile(string fileName) => _pdaSystem.SavePropertiesToFile(fileName);
 
+        /// <summary>
+        /// Exports all parcels into <paramref name="fileName"/> file.
+        /// </summary>
+        /// <param name="fileName">CSV file path name</param>
         internal void SaveParcelsToFile(string fileName) => _pdaSystem.SaveParcelsToFile(fileName);
 
+        /// <summary>
+        /// Imports properties from <paramref name="fileName"/> file.
+        /// </summary>
+        /// <param name="fileName">CSV file path name</param>
         internal void LoadPropertiesFromFile(string fileName) => _pdaSystem.LoadPropertiesFromFile(fileName);
 
+        /// <summary>
+        /// Imports parcels from <paramref name="fileName"/> file.
+        /// </summary>
+        /// <param name="fileName">CSV file path name</param>
         internal void LoadParcelsFromFile(string fileName) => _pdaSystem.LoadParcelsFromFile(fileName);
 
         private void AddProperty(PropertyInputData propertyInputData)

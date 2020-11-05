@@ -4,11 +4,19 @@ using System.Windows.Forms;
 
 namespace GeodeticPDA
 {
+    /// <summary>
+    /// Detail window for viewing, editing or creating <c>Property</c> and <c>Parcel</c>.
+    /// </summary>
     public partial class DetailForm : Form
     {
         private readonly GeodeticPdaPresenter _presenter;
         private readonly UserInputData _userInputData;
 
+        /// <summary>
+        /// Detail window for viewing, editing or creating <c>Property</c> and <c>Parcel</c>.
+        /// </summary>
+        /// <param name="presenter">Presenter of the program</param>
+        /// <param name="userInputData">User Input Data to view, edit or create</param>
         public DetailForm(GeodeticPdaPresenter presenter, UserInputData userInputData)
         {
             InitializeComponent();

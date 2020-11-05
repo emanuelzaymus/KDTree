@@ -6,7 +6,7 @@
         /// Makes CSV representation from <c>this</c> object.
         /// </summary>
         /// <param name="d">Delimiter</param>
-        /// <returns></returns>
+        /// <returns>CSV representation</returns>
         string ToCsv(char d);
     }
 }
