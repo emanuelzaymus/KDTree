@@ -15,10 +15,10 @@ namespace GeodeticPDA
         {
             InitializeComponent();
             _presenter = geodeticPdaPresenter;
-            _presenter.PopulateWithPreparedData();
+            //_presenter.PopulateWithPreparedData();
         }
 
-        private void secondGpsCoordinateCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void SecondGpsCoordinateCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             bool secondGpsChecked = secondGpsCoordinateCheckBox.Checked;
             gpsCoordinates2Label.Enabled = secondGpsChecked;
@@ -28,7 +28,7 @@ namespace GeodeticPDA
             longitude2TextBox.Enabled = secondGpsChecked;
         }
 
-        private void findPropertiesButton_Click(object sender, EventArgs e)
+        private void FindPropertiesButton_Click(object sender, EventArgs e)
         {
             ICollection<Property> foundProperties = !secondGpsCoordinateCheckBox.Checked
                 ? _presenter.FindProperties(latitude1TextBox.Text, longitude1TextBox.Text)
@@ -37,7 +37,7 @@ namespace GeodeticPDA
             CreateChooseForm(foundProperties.ToArray());
         }
 
-        private void findParcelsButton_Click(object sender, EventArgs e)
+        private void FindParcelsButton_Click(object sender, EventArgs e)
         {
             ICollection<Parcel> foundParcels = !secondGpsCoordinateCheckBox.Checked
                 ? _presenter.FindParcels(latitude1TextBox.Text, longitude1TextBox.Text)
@@ -46,7 +46,7 @@ namespace GeodeticPDA
             CreateChooseForm(foundParcels.ToArray());
         }
 
-        private void findAllButton_Click(object sender, EventArgs e)
+        private void FindAllButton_Click(object sender, EventArgs e)
         {
             ICollection<GpsLocationObject> foundAllObjects = !secondGpsCoordinateCheckBox.Checked
                ? _presenter.FindAll(latitude1TextBox.Text, longitude1TextBox.Text)
@@ -61,9 +61,9 @@ namespace GeodeticPDA
             chooseForm.ShowDialog();
         }
 
-        private void addPropertyButton_Click(object sender, EventArgs e) => CreateDetailForm(new PropertyInputData());
+        private void AddPropertyButton_Click(object sender, EventArgs e) => CreateDetailForm(new PropertyInputData());
 
-        private void addParcelButton_Click(object sender, EventArgs e) => CreateDetailForm(new ParcelInputData());
+        private void AddParcelButton_Click(object sender, EventArgs e) => CreateDetailForm(new ParcelInputData());
 
         private void CreateDetailForm(UserInputData data)
         {
@@ -71,9 +71,9 @@ namespace GeodeticPDA
             detailForm.ShowDialog();
         }
 
-        private void populateButton_Click(object sender, EventArgs e)
+        private void PopulateButton_Click(object sender, EventArgs e)
         {
-            _presenter.Populate();
+            _presenter.Populate(propertiesCountTextBox.Text, parcelsCountTextBox.Text);
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

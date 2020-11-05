@@ -35,13 +35,13 @@
             // 
             // chooseButton
             // 
-            this.chooseButton.Location = new System.Drawing.Point(350, 318);
+            this.chooseButton.Location = new System.Drawing.Point(750, 423);
             this.chooseButton.Name = "chooseButton";
             this.chooseButton.Size = new System.Drawing.Size(120, 23);
             this.chooseButton.TabIndex = 1;
             this.chooseButton.Text = "Choose";
             this.chooseButton.UseVisualStyleBackColor = true;
-            this.chooseButton.Click += new System.EventHandler(this.chooseButton_Click);
+            this.chooseButton.Click += new System.EventHandler(this.ChooseButton_Click);
             // 
             // chooseFromFoundLabel
             // 
@@ -58,21 +58,21 @@
             this.chooseFromListBox.ItemHeight = 16;
             this.chooseFromListBox.Location = new System.Drawing.Point(12, 29);
             this.chooseFromListBox.Name = "chooseFromListBox";
-            this.chooseFromListBox.Size = new System.Drawing.Size(458, 276);
+            this.chooseFromListBox.Size = new System.Drawing.Size(858, 388);
             this.chooseFromListBox.TabIndex = 3;
             // 
             // ChooseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 353);
+            this.ClientSize = new System.Drawing.Size(882, 453);
             this.Controls.Add(this.chooseFromListBox);
             this.Controls.Add(this.chooseFromFoundLabel);
             this.Controls.Add(this.chooseButton);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(500, 400);
+            this.MaximumSize = new System.Drawing.Size(900, 500);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(500, 400);
+            this.MinimumSize = new System.Drawing.Size(900, 500);
             this.Name = "ChooseForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

@@ -9,11 +9,15 @@ namespace GeodeticPDA.Presenter
     {
         private readonly GeodeticPdaSystem _pdaSystem = new GeodeticPdaSystem();
 
-        public void Populate()
+        public void Populate(string propertiesCount, string parcelsCount)
         {
-            var randomProperties = RandomDataGenerator.GenerateProperties(1000);
-            var randomParcels = RandomDataGenerator.GenerateParcels(1000);
-            _pdaSystem.Populate(randomProperties, randomParcels);
+            int? properties = GetInt(propertiesCount);
+            int? parcels = GetInt(parcelsCount);
+            if (properties.HasValue && parcels.HasValue)
+            {
+                RandomDataGenerator generator = new RandomDataGenerator(properties.Value, parcels.Value);
+                _pdaSystem.Populate(generator.PreparedProperties, generator.PreparedParels);
+            }
         }
 
         public void PopulateWithPreparedData()

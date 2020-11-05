@@ -15,7 +15,7 @@ namespace GeodeticPDA
             chooseFromListBox.Items.AddRange(foundItems);
         }
 
-        private void chooseButton_Click(object sender, EventArgs e)
+        private void ChooseButton_Click(object sender, EventArgs e)
         {
             object o = chooseFromListBox.SelectedItem;
             if (o != null)

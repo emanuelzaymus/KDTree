@@ -46,7 +46,7 @@
             // numberLabel
             // 
             this.numberLabel.AutoSize = true;
-            this.numberLabel.Location = new System.Drawing.Point(14, 7);
+            this.numberLabel.Location = new System.Drawing.Point(14, 12);
             this.numberLabel.Name = "numberLabel";
             this.numberLabel.Size = new System.Drawing.Size(62, 17);
             this.numberLabel.TabIndex = 0;
@@ -54,22 +54,22 @@
             // 
             // numberTextBox
             // 
-            this.numberTextBox.Location = new System.Drawing.Point(102, 4);
+            this.numberTextBox.Location = new System.Drawing.Point(108, 9);
             this.numberTextBox.Name = "numberTextBox";
-            this.numberTextBox.Size = new System.Drawing.Size(368, 22);
+            this.numberTextBox.Size = new System.Drawing.Size(325, 22);
             this.numberTextBox.TabIndex = 1;
             // 
             // descriptTextBox
             // 
-            this.descriptTextBox.Location = new System.Drawing.Point(102, 29);
+            this.descriptTextBox.Location = new System.Drawing.Point(545, 9);
             this.descriptTextBox.Name = "descriptTextBox";
-            this.descriptTextBox.Size = new System.Drawing.Size(368, 22);
+            this.descriptTextBox.Size = new System.Drawing.Size(325, 22);
             this.descriptTextBox.TabIndex = 3;
             // 
             // descriptLabel
             // 
             this.descriptLabel.AutoSize = true;
-            this.descriptLabel.Location = new System.Drawing.Point(13, 32);
+            this.descriptLabel.Location = new System.Drawing.Point(439, 11);
             this.descriptLabel.Name = "descriptLabel";
             this.descriptLabel.Size = new System.Drawing.Size(83, 17);
             this.descriptLabel.TabIndex = 2;
@@ -78,7 +78,7 @@
             // longitudeLabel
             // 
             this.longitudeLabel.AutoSize = true;
-            this.longitudeLabel.Location = new System.Drawing.Point(239, 79);
+            this.longitudeLabel.Location = new System.Drawing.Point(440, 56);
             this.longitudeLabel.Name = "longitudeLabel";
             this.longitudeLabel.Size = new System.Drawing.Size(75, 17);
             this.longitudeLabel.TabIndex = 10;
@@ -86,15 +86,15 @@
             // 
             // longitudeTextBox
             // 
-            this.longitudeTextBox.Location = new System.Drawing.Point(320, 76);
+            this.longitudeTextBox.Location = new System.Drawing.Point(545, 53);
             this.longitudeTextBox.Name = "longitudeTextBox";
-            this.longitudeTextBox.Size = new System.Drawing.Size(150, 22);
+            this.longitudeTextBox.Size = new System.Drawing.Size(325, 22);
             this.longitudeTextBox.TabIndex = 8;
             // 
             // latitudeLabel
             // 
             this.latitudeLabel.AutoSize = true;
-            this.latitudeLabel.Location = new System.Drawing.Point(14, 79);
+            this.latitudeLabel.Location = new System.Drawing.Point(14, 56);
             this.latitudeLabel.Name = "latitudeLabel";
             this.latitudeLabel.Size = new System.Drawing.Size(63, 17);
             this.latitudeLabel.TabIndex = 9;
@@ -102,15 +102,15 @@
             // 
             // latitudeTextBox
             // 
-            this.latitudeTextBox.Location = new System.Drawing.Point(81, 76);
+            this.latitudeTextBox.Location = new System.Drawing.Point(108, 55);
             this.latitudeTextBox.Name = "latitudeTextBox";
-            this.latitudeTextBox.Size = new System.Drawing.Size(150, 22);
+            this.latitudeTextBox.Size = new System.Drawing.Size(325, 22);
             this.latitudeTextBox.TabIndex = 7;
             // 
             // gpsCoordinatesLabel
             // 
             this.gpsCoordinatesLabel.AutoSize = true;
-            this.gpsCoordinatesLabel.Location = new System.Drawing.Point(14, 58);
+            this.gpsCoordinatesLabel.Location = new System.Drawing.Point(14, 35);
             this.gpsCoordinatesLabel.Name = "gpsCoordinatesLabel";
             this.gpsCoordinatesLabel.Size = new System.Drawing.Size(117, 17);
             this.gpsCoordinatesLabel.TabIndex = 6;
@@ -118,28 +118,28 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(350, 318);
+            this.saveButton.Location = new System.Drawing.Point(750, 418);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(120, 23);
             this.saveButton.TabIndex = 12;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // removeButton
             // 
-            this.removeButton.Location = new System.Drawing.Point(16, 318);
+            this.removeButton.Location = new System.Drawing.Point(17, 418);
             this.removeButton.Name = "removeButton";
             this.removeButton.Size = new System.Drawing.Size(120, 23);
             this.removeButton.TabIndex = 13;
             this.removeButton.Text = "Remove";
             this.removeButton.UseVisualStyleBackColor = true;
-            this.removeButton.Click += new System.EventHandler(this.removeButton_Click);
+            this.removeButton.Click += new System.EventHandler(this.RemoveButton_Click);
             // 
             // relatedObjectsLabel
             // 
             this.relatedObjectsLabel.AutoSize = true;
-            this.relatedObjectsLabel.Location = new System.Drawing.Point(14, 106);
+            this.relatedObjectsLabel.Location = new System.Drawing.Point(14, 82);
             this.relatedObjectsLabel.Name = "relatedObjectsLabel";
             this.relatedObjectsLabel.Size = new System.Drawing.Size(61, 17);
             this.relatedObjectsLabel.TabIndex = 14;
@@ -149,16 +149,17 @@
             // 
             this.relatedObjectsListBox.FormattingEnabled = true;
             this.relatedObjectsListBox.ItemHeight = 16;
-            this.relatedObjectsListBox.Location = new System.Drawing.Point(17, 126);
+            this.relatedObjectsListBox.Location = new System.Drawing.Point(17, 102);
             this.relatedObjectsListBox.Name = "relatedObjectsListBox";
-            this.relatedObjectsListBox.Size = new System.Drawing.Size(453, 180);
+            this.relatedObjectsListBox.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.relatedObjectsListBox.Size = new System.Drawing.Size(853, 308);
             this.relatedObjectsListBox.TabIndex = 15;
             // 
             // DetailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 353);
+            this.ClientSize = new System.Drawing.Size(882, 453);
             this.Controls.Add(this.relatedObjectsListBox);
             this.Controls.Add(this.relatedObjectsLabel);
             this.Controls.Add(this.removeButton);
@@ -173,9 +174,9 @@
             this.Controls.Add(this.numberTextBox);
             this.Controls.Add(this.numberLabel);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(500, 400);
+            this.MaximumSize = new System.Drawing.Size(900, 500);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(500, 400);
+            this.MinimumSize = new System.Drawing.Size(900, 500);
             this.Name = "DetailForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

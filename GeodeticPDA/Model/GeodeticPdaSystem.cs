@@ -83,6 +83,7 @@ namespace GeodeticPDA.Model
             if (!editedProperty.Coordinates.Equals(newCoordinates))
             {
                 RemoveProperty(editedProperty);
+                editedProperty.Parcels.Clear();
                 editedProperty.Coordinates = newCoordinates;
                 AddProperty(editedProperty);
             }
@@ -95,6 +96,7 @@ namespace GeodeticPDA.Model
             if (!editedParcel.Coordinates.Equals(newCoordinates))
             {
                 RemoveParcel(editedParcel);
+                editedParcel.Properties.Clear();
                 editedParcel.Coordinates = newCoordinates;
                 AddParcel(editedParcel);
             }

@@ -27,7 +27,7 @@ namespace GeodeticPDA
             relatedObjectsListBox.Items.AddRange(userInputData.RelatedObjects);
         }
 
-        private void saveButton_Click(object sender, EventArgs e)
+        private void SaveButton_Click(object sender, EventArgs e)
         {
             _userInputData.Number = numberTextBox.Text;
             _userInputData.Description = descriptTextBox.Text;
@@ -38,7 +38,7 @@ namespace GeodeticPDA
             Close();
         }
 
-        private void removeButton_Click(object sender, EventArgs e)
+        private void RemoveButton_Click(object sender, EventArgs e)
         {
             _presenter.Remove(_userInputData);
             Close();

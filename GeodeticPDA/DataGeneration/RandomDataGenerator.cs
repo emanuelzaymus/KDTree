@@ -7,41 +7,68 @@ namespace GeodeticPDA.DataGeneration
 {
     public class RandomDataGenerator
     {
-        public static IEnumerable<Property> GenerateProperties(int count)
+        public List<Property> PreparedProperties { get; }
+
+        public List<Parcel> PreparedParels { get; }
+
+        public RandomDataGenerator(int propertiesCount, int parcelsCount)
+        {
+            PreparedProperties = new List<Property>(propertiesCount);
+            PreparedParels = new List<Parcel>(parcelsCount);
+            PrepareData(propertiesCount, parcelsCount);
+        }
+
+        private void PrepareData(int propertiesCount, int parcelsCount)
         {
             var r = new Random();
-            for (int i = 0; i < count; i++) yield return GenerateProperty(r);
+            GpsCoordinates gpsCoordinates = GenerateGpsCoordinates(r);
+            for (int i = 0; i < propertiesCount || i < parcelsCount; i++)
+            {
+                if (r.NextDouble() < 0.9)
+                {
+                    gpsCoordinates = GenerateGpsCoordinates(r);
+                }
+                if (i < parcelsCount)
+                {
+                    if (r.NextDouble() < 0.2)
+                    {
+                        gpsCoordinates = GenerateGpsCoordinates(r);
+                    }
+                    PreparedParels.Add(GenerateParcel(r, gpsCoordinates));
+                }
+                if (i < propertiesCount)
+                {
+                    if (r.NextDouble() < 0.2)
+                    {
+                        gpsCoordinates = GenerateGpsCoordinates(r);
+                    }
+                    PreparedProperties.Add(GenerateProperty(r, gpsCoordinates));
+                }
+            }
         }
 
-        public static IEnumerable<Parcel> GenerateParcels(int count)
+        private Property GenerateProperty(Random r, GpsCoordinates gpsCoordinates)
         {
-            var r = new Random();
-            for (int i = 0; i < count; i++) yield return GenerateParcel(r);
+            return new Property(r.Next(), "PROP-" + RandomString(r), gpsCoordinates);
         }
 
-        private static Property GenerateProperty(Random r)
+        private Parcel GenerateParcel(Random r, GpsCoordinates gpsCoordinates)
         {
-            return new Property(r.Next(), "PROP-" + RandomString(r), GenerateGpsCoordinates(r));
+            return new Parcel(r.Next(), "PARC-" + RandomString(r), gpsCoordinates);
         }
 
-        private static Parcel GenerateParcel(Random r)
+        private GpsCoordinates GenerateGpsCoordinates(Random r)
         {
-            return new Parcel(r.Next(), "PARC-" + RandomString(r), GenerateGpsCoordinates(r));
+            return new GpsCoordinates(RandomDouble(r), RandomDouble(r));
         }
 
-        private static GpsCoordinates GenerateGpsCoordinates(Random r)
-        {
-            return new GpsCoordinates(r.Next(-100, 100), r.Next(-100, 100));
-            //return new GpsCoordinates(RandomDouble(r), RandomDouble(r));
-        }
-
-        private static string RandomString(Random r)
+        private string RandomString(Random r)
         {
             const string chars = "abcdefghijklmnopqrstuvwxyz";
             return new string(Enumerable.Repeat(chars, r.Next(4, 10)).Select(s => s[r.Next(s.Length)]).ToArray());
         }
 
-        private static double RandomDouble(Random r) => r.NextDouble() * r.Next(-100, 100);
+        private double RandomDouble(Random r) => r.NextDouble() * r.Next(-10000, 10000);
 
     }
 }
