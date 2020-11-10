@@ -26,6 +26,7 @@ namespace GeodeticPDA.Presenter
                 RandomDataGenerator generator = new RandomDataGenerator(properties.Value, parcels.Value);
                 _pdaSystem.Populate(generator.PreparedProperties, generator.PreparedParels);
             }
+            Console.WriteLine("Populated.");
         }
 
         /// <summary>
@@ -145,31 +146,48 @@ namespace GeodeticPDA.Presenter
                 else
                     EditParcel(parcelInputData);
             }
+            Console.WriteLine("Saved.");
         }
 
         /// <summary>
         /// Exports all properties into <paramref name="fileName"/> file.
         /// </summary>
         /// <param name="fileName">CSV file path name</param>
-        internal void SavePropertiesToFile(string fileName) => _pdaSystem.SavePropertiesToFile(fileName);
+        internal void SavePropertiesToFile(string fileName)
+        {
+            _pdaSystem.SavePropertiesToFile(fileName);
+            Console.WriteLine("Saved");
+        }
 
         /// <summary>
         /// Exports all parcels into <paramref name="fileName"/> file.
         /// </summary>
         /// <param name="fileName">CSV file path name</param>
-        internal void SaveParcelsToFile(string fileName) => _pdaSystem.SaveParcelsToFile(fileName);
+        internal void SaveParcelsToFile(string fileName)
+        {
+            _pdaSystem.SaveParcelsToFile(fileName);
+            Console.WriteLine("Saved");
+        }
 
         /// <summary>
         /// Imports properties from <paramref name="fileName"/> file.
         /// </summary>
         /// <param name="fileName">CSV file path name</param>
-        internal void LoadPropertiesFromFile(string fileName) => _pdaSystem.LoadPropertiesFromFile(fileName);
+        internal void LoadPropertiesFromFile(string fileName)
+        {
+            _pdaSystem.LoadPropertiesFromFile(fileName);
+            Console.WriteLine("Loaded");
+        }
 
         /// <summary>
         /// Imports parcels from <paramref name="fileName"/> file.
         /// </summary>
         /// <param name="fileName">CSV file path name</param>
-        internal void LoadParcelsFromFile(string fileName) => _pdaSystem.LoadParcelsFromFile(fileName);
+        internal void LoadParcelsFromFile(string fileName)
+        {
+            _pdaSystem.LoadParcelsFromFile(fileName);
+            Console.WriteLine("Loaded");
+        }
 
         private void AddProperty(PropertyInputData propertyInputData)
         {

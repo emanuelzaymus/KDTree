@@ -67,7 +67,8 @@ namespace GeodeticPDA.DataGeneration
 
         private GpsCoordinates GenerateGpsCoordinates(Random r)
         {
-            return new GpsCoordinates(RandomDouble(r), RandomDouble(r));
+            return new GpsCoordinates(r.Next(1, 15), r.Next(1, 15));
+            //return new GpsCoordinates(RandomDouble(r), RandomDouble(r));
         }
 
         private string RandomString(Random r)

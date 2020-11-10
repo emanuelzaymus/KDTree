@@ -214,7 +214,7 @@
             this.propertiesCountTextBox.Name = "propertiesCountTextBox";
             this.propertiesCountTextBox.Size = new System.Drawing.Size(122, 22);
             this.propertiesCountTextBox.TabIndex = 11;
-            this.propertiesCountTextBox.Text = "10000";
+            this.propertiesCountTextBox.Text = "20000";
             // 
             // parcelsCountTextBox
             // 
@@ -222,7 +222,7 @@
             this.parcelsCountTextBox.Name = "parcelsCountTextBox";
             this.parcelsCountTextBox.Size = new System.Drawing.Size(122, 22);
             this.parcelsCountTextBox.TabIndex = 13;
-            this.parcelsCountTextBox.Text = "10000";
+            this.parcelsCountTextBox.Text = "20000";
             // 
             // populateButton
             // 
