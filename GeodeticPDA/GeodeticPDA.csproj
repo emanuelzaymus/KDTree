@@ -74,7 +74,6 @@
     <Compile Include="Model\GeodeticPdaSystem.cs" />
     <Compile Include="Model\GpsCoordinates.cs" />
     <Compile Include="Model\GpsLocationObject.cs" />
-    <Compile Include="Model\HashSetExtensions.cs" />
     <Compile Include="Model\ICsvSerializable.cs" />
     <Compile Include="Model\Parcel.cs" />
     <Compile Include="Model\ParcelLocation.cs" />
