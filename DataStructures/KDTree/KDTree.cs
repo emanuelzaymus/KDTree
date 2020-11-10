@@ -1,5 +1,7 @@
 ﻿using CustomAlgorithms.Extensions;
 using CustomAlgorithms.Statistics;
+using DataStructures.CustomQueue;
+using DataStructures.CustomStack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -105,7 +107,7 @@ namespace DataStructures.KDTree
         /// <param name="dataArray">Input data array</param>
         public void AddRange(T[] dataArray)
         {
-            var rangesQueue = new Queue<MedianRange>();
+            var rangesQueue = new CustomQueue<MedianRange>();
             rangesQueue.Enqueue(new MedianRange(0, dataArray.Length - 1, byDimension: 0)); // The whole range
 
             while (rangesQueue.Count > 0)
@@ -167,9 +169,9 @@ namespace DataStructures.KDTree
         {
             if (_root != null)
             {
-                var nodeStack = new Stack<KDTreeNode<T>>();
+                var nodeStack = new CustomStack<KDTreeNode<T>>();
                 nodeStack.Push(_root);
-                var nodeDimensionStack = new Stack<int>();
+                var nodeDimensionStack = new CustomStack<int>();
                 nodeDimensionStack.Push(0);
 
                 while (nodeStack.Count > 0)
@@ -352,9 +354,9 @@ namespace DataStructures.KDTree
             var maxDimensionNode = subtreeRoot;
             int maxDimenNodeDimension = ToDimension(byDimension + 1);
 
-            var nodesToSearch = new Queue<KDTreeNode<T>>();
+            var nodesToSearch = new CustomQueue<KDTreeNode<T>>();
             nodesToSearch.Enqueue(maxDimensionNode);
-            var nodeDimensions = new Queue<int>();
+            var nodeDimensions = new CustomQueue<int>();
             nodeDimensions.Enqueue(maxDimenNodeDimension);
 
             while (nodesToSearch.Count > 0)
@@ -419,7 +421,7 @@ namespace DataStructures.KDTree
 
         private IEnumerable<KDTreeNode<T>> LevelOrderTraversal() // InOrderTraversal, PreOrderTraversal, PostOrderTraversal
         {
-            var nodesToTraverse = new Queue<KDTreeNode<T>>();
+            var nodesToTraverse = new CustomQueue<KDTreeNode<T>>();
             nodesToTraverse.Enqueue(_root);
 
             while (nodesToTraverse.Count != 0)
@@ -455,8 +457,8 @@ namespace DataStructures.KDTree
         {
             var height = GetHeight();
             var indentations = GetIndentations(height);
-
-            var nodesToTraverse = new Queue<KDTreeNode<T>>();
+            
+            var nodesToTraverse = new CustomQueue<KDTreeNode<T>>();
             nodesToTraverse.Enqueue(_root);
 
             for (int h = 0; h < height; h++)
@@ -512,9 +514,9 @@ namespace DataStructures.KDTree
         {
             int maxHeight = 0;
 
-            var nodeQueue = new Queue<KDTreeNode<T>>();
+            var nodeQueue = new CustomQueue<KDTreeNode<T>>();
             nodeQueue.Enqueue(subtreeRootNode);
-            var heightQueue = new Queue<int>();
+            var heightQueue = new CustomQueue<int>();
             heightQueue.Enqueue(nodeHeight);
 
             while (nodeQueue.Count > 0)
