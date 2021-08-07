@@ -16,6 +16,7 @@ namespace GeodeticPDA.Model
 
         private readonly KDTree<Property> _properties = new KDTree<Property>(Property.GetComparers());
         private readonly KDTree<Parcel> _parcels = new KDTree<Parcel>(Parcel.GetComparers());
+        private readonly KDTree<Element> _elements = new KDTree<Element>(Element.GetComparers());
 
         /// <summary>
         /// Populates the system with <paramref name="properties"/> and <paramref name="parcels"/>.
@@ -86,6 +87,11 @@ namespace GeodeticPDA.Model
             return gpsLocationObjects;
         }
 
+        public ICollection<Element> FindAllElements(string key1_1, string key2_1, string key1_2, string key2_2)
+        {
+            return _elements.FindRange(new ElementPosition(key1_1, key2_1), new ElementPosition(key1_2, key2_2));
+        }
+
         /// <summary>
         /// Adds <paramref name="newProperty"/> with creating dependancies on it's parcels.
         /// </summary>
@@ -102,6 +108,11 @@ namespace GeodeticPDA.Model
         {
             _parcels.Add(newParcel);
             AttachParcel(newParcel);
+        }
+
+        public void AddElement(Element element)
+        {
+            _elements.Add(element);
         }
 
         /// <summary>
@@ -160,6 +171,11 @@ namespace GeodeticPDA.Model
                 property.Parcels.Remove(parcelToRemove);
             }
             _parcels.Remove(parcelToRemove);
+        }
+
+        public void RemoveElement(Element element)
+        {
+            _elements.Remove(element);
         }
 
         /// <summary>

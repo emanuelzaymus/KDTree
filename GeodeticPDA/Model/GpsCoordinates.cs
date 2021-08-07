@@ -34,13 +34,5 @@
                    Longitude == coordinates.Longitude;
         }
 
-        public override int GetHashCode()
-        {
-            int hashCode = -1416534245;
-            hashCode = hashCode * -1521134295 + Latitude.GetHashCode();
-            hashCode = hashCode * -1521134295 + Longitude.GetHashCode();
-            return hashCode;
-        }
-
     }
 }

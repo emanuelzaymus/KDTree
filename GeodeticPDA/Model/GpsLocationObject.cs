@@ -45,15 +45,5 @@ namespace GeodeticPDA.Model
                    EqualityComparer<GpsCoordinates>.Default.Equals(Coordinates, gpsLocationObject.Coordinates);
         }
 
-        public override int GetHashCode()
-        {
-            int hashCode = -23422471;
-            hashCode = hashCode * -1521134295 + _id.GetHashCode();
-            hashCode = hashCode * -1521134295 + Number.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Description);
-            hashCode = hashCode * -1521134295 + EqualityComparer<GpsCoordinates>.Default.GetHashCode(Coordinates);
-            return hashCode;
-        }
-
     }
 }

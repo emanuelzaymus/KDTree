@@ -57,6 +57,18 @@
             this.saveParcelsButton = new System.Windows.Forms.Button();
             this.propertiesCountLabel = new System.Windows.Forms.Label();
             this.parcelsCountLabel = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.elem1key2TextBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.elem1key1TextBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.findElementsButton = new System.Windows.Forms.Button();
+            this.addElementButton = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.elem2key2textBox = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.elem2Key1textBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // gpsCoordinates1Label
@@ -326,11 +338,125 @@
             this.parcelsCountLabel.TabIndex = 26;
             this.parcelsCountLabel.Text = "Number of parcels:";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(289, 394);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 17);
+            this.label3.TabIndex = 31;
+            this.label3.Text = "Key2:";
+            // 
+            // elem1key2TextBox
+            // 
+            this.elem1key2TextBox.Location = new System.Drawing.Point(365, 391);
+            this.elem1key2TextBox.Name = "elem1key2TextBox";
+            this.elem1key2TextBox.Size = new System.Drawing.Size(205, 22);
+            this.elem1key2TextBox.TabIndex = 29;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 394);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(44, 17);
+            this.label4.TabIndex = 30;
+            this.label4.Text = "Key1:";
+            // 
+            // elem1key1TextBox
+            // 
+            this.elem1key1TextBox.Location = new System.Drawing.Point(81, 391);
+            this.elem1key1TextBox.Name = "elem1key1TextBox";
+            this.elem1key1TextBox.Size = new System.Drawing.Size(205, 22);
+            this.elem1key1TextBox.TabIndex = 28;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 371);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(59, 17);
+            this.label5.TabIndex = 32;
+            this.label5.Text = "Element";
+            // 
+            // findElementsButton
+            // 
+            this.findElementsButton.Location = new System.Drawing.Point(292, 478);
+            this.findElementsButton.Name = "findElementsButton";
+            this.findElementsButton.Size = new System.Drawing.Size(278, 23);
+            this.findElementsButton.TabIndex = 36;
+            this.findElementsButton.Text = "Find elements";
+            this.findElementsButton.UseVisualStyleBackColor = true;
+            this.findElementsButton.Click += new System.EventHandler(this.FindElementsButton_Click);
+            // 
+            // addElementButton
+            // 
+            this.addElementButton.Location = new System.Drawing.Point(12, 478);
+            this.addElementButton.Name = "addElementButton";
+            this.addElementButton.Size = new System.Drawing.Size(274, 23);
+            this.addElementButton.TabIndex = 35;
+            this.addElementButton.Text = "Add element";
+            this.addElementButton.UseVisualStyleBackColor = true;
+            this.addElementButton.Click += new System.EventHandler(this.AddElementButton_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 420);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(71, 17);
+            this.label8.TabIndex = 41;
+            this.label8.Text = "Element 2";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(289, 443);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(44, 17);
+            this.label9.TabIndex = 40;
+            this.label9.Text = "Key2:";
+            // 
+            // elem2key2textBox
+            // 
+            this.elem2key2textBox.Location = new System.Drawing.Point(365, 440);
+            this.elem2key2textBox.Name = "elem2key2textBox";
+            this.elem2key2textBox.Size = new System.Drawing.Size(205, 22);
+            this.elem2key2textBox.TabIndex = 38;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(12, 443);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(44, 17);
+            this.label10.TabIndex = 39;
+            this.label10.Text = "Key1:";
+            // 
+            // elem2Key1textBox
+            // 
+            this.elem2Key1textBox.Location = new System.Drawing.Point(81, 440);
+            this.elem2Key1textBox.Name = "elem2Key1textBox";
+            this.elem2Key1textBox.Size = new System.Drawing.Size(205, 22);
+            this.elem2Key1textBox.TabIndex = 37;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(582, 373);
+            this.ClientSize = new System.Drawing.Size(582, 513);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.elem2key2textBox);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.elem2Key1textBox);
+            this.Controls.Add(this.findElementsButton);
+            this.Controls.Add(this.addElementButton);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.elem1key2TextBox);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.elem1key1TextBox);
             this.Controls.Add(this.parcelsCountLabel);
             this.Controls.Add(this.propertiesCountLabel);
             this.Controls.Add(this.label2);
@@ -361,8 +487,8 @@
             this.Controls.Add(this.latitude1TextBox);
             this.Controls.Add(this.gpsCoordinates1Label);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(600, 420);
-            this.MinimumSize = new System.Drawing.Size(400, 420);
+            this.MaximumSize = new System.Drawing.Size(600, 560);
+            this.MinimumSize = new System.Drawing.Size(600, 560);
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -403,6 +529,18 @@
         private System.Windows.Forms.Button saveParcelsButton;
         private System.Windows.Forms.Label propertiesCountLabel;
         private System.Windows.Forms.Label parcelsCountLabel;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox elem1key2TextBox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox elem1key1TextBox;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button findElementsButton;
+        private System.Windows.Forms.Button addElementButton;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox elem2key2textBox;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox elem2Key1textBox;
     }
 }
 

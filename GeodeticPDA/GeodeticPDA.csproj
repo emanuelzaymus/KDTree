@@ -59,6 +59,12 @@
     </Compile>
     <Compile Include="DataGeneration\PreparedData.cs" />
     <Compile Include="DataGeneration\RandomDataGenerator.cs" />
+    <Compile Include="DetailElementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetailElementForm.Designer.cs">
+      <DependentUpon>DetailElementForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DetailForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +77,8 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Element.cs" />
+    <Compile Include="Model\ElementPosition.cs" />
     <Compile Include="Model\GeodeticPdaSystem.cs" />
     <Compile Include="Model\GpsCoordinates.cs" />
     <Compile Include="Model\GpsLocationObject.cs" />
@@ -78,6 +86,7 @@
     <Compile Include="Model\Parcel.cs" />
     <Compile Include="Model\ParcelLocation.cs" />
     <Compile Include="Model\PropertyLocation.cs" />
+    <Compile Include="Presenter\ElementInputData.cs" />
     <Compile Include="Presenter\GeodeticPdaPresenter.cs" />
     <Compile Include="Presenter\ParcelInputData.cs" />
     <Compile Include="Presenter\PropertyInputData.cs" />
@@ -88,6 +97,9 @@
     <Compile Include="Model\Property.cs" />
     <EmbeddedResource Include="ChooseForm.resx">
       <DependentUpon>ChooseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetailElementForm.resx">
+      <DependentUpon>DetailElementForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DetailForm.resx">
       <DependentUpon>DetailForm.cs</DependentUpon>

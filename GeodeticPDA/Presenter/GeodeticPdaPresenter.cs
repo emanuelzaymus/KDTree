@@ -126,6 +126,11 @@ namespace GeodeticPDA.Presenter
             return new GpsLocationObject[0];
         }
 
+        public ICollection<Element> FindAllElements(string key1_1, string key2_1, string key1_2, string key2_2)
+        {
+            return _pdaSystem.FindAllElements(key1_1, key2_1, key1_2, key2_2);
+        }
+
         /// <summary>
         /// Saves all changes or new object of Property/Parcel.
         /// </summary>
@@ -147,6 +152,18 @@ namespace GeodeticPDA.Presenter
                     EditParcel(parcelInputData);
             }
             Console.WriteLine("Saved.");
+        }
+
+        public void Save(ElementInputData elementInputData)
+        {
+            int? val = GetInt(elementInputData.Value);
+            if (val.HasValue)
+            {
+                var newElem = new Element(elementInputData.Key1, elementInputData.Key2, val.Value);
+                _pdaSystem.AddElement(newElem);
+                Console.WriteLine("ELEMENT added.");
+            }
+            else Console.WriteLine("ELEMENT was not added - bad Value.");
         }
 
         /// <summary>
@@ -257,6 +274,11 @@ namespace GeodeticPDA.Presenter
                 _pdaSystem.RemoveParcel(parcelInputData.OriginalObject);
                 Console.WriteLine("Parcel removed.");
             }
+        }
+
+        public void RemoveElement(ElementInputData elementInputData)
+        {
+            _pdaSystem.RemoveElement(elementInputData.OriginalElement);
         }
 
         private GpsCoordinates GetGpsCoordinates(string latitudeStr, string longitudeStr)

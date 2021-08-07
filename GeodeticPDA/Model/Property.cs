@@ -54,12 +54,5 @@ namespace GeodeticPDA.Model
                    EqualityComparer<List<Parcel>>.Default.Equals(Parcels, property.Parcels);
         }
 
-        public override int GetHashCode()
-        {
-            int hashCode = -326724672;
-            hashCode = hashCode * -1521134295 + base.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<Parcel>>.Default.GetHashCode(Parcels);
-            return hashCode;
-        }
     }
 }

@@ -112,5 +112,19 @@ namespace GeodeticPDA
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
+        private void AddElementButton_Click(object sender, EventArgs e)
+        {
+            var detailForm = new DetailElementForm(_presenter, new ElementInputData(), newElem: true);
+            detailForm.ShowDialog();
+        }
+
+        private void FindElementsButton_Click(object sender, EventArgs e)
+        {
+            var found = _presenter.FindAllElements(elem1key1TextBox.Text, elem1key2TextBox.Text,
+                elem2Key1textBox.Text, elem2key2textBox.Text);
+
+            var chooseForm = new ChooseForm(_presenter, found.ToArray());
+            chooseForm.ShowDialog();
+        }
     }
 }

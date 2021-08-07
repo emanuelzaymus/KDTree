@@ -1,4 +1,5 @@
-﻿using GeodeticPDA.Presenter;
+﻿using GeodeticPDA.Model;
+using GeodeticPDA.Presenter;
 using System;
 using System.Windows.Forms;
 
@@ -44,5 +45,17 @@ namespace GeodeticPDA
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
+        private void ChooseElementButton_Click(object sender, EventArgs e)
+        {
+            object o = chooseFromListBox.SelectedItem;
+            if (o != null)
+            {
+                Close();
+                Element elem = (Element)o;
+                ElementInputData input = new ElementInputData(elem.Key1, elem.Key2, elem.Value.ToString()) { OriginalElement = elem };
+                var detailForm = new DetailElementForm(_presenter, input, newElem: false);
+                detailForm.ShowDialog();
+            }
+        }
     }
 }

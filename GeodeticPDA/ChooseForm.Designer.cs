@@ -31,6 +31,7 @@
             this.chooseButton = new System.Windows.Forms.Button();
             this.chooseFromFoundLabel = new System.Windows.Forms.Label();
             this.chooseFromListBox = new System.Windows.Forms.ListBox();
+            this.chooseElementButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // chooseButton
@@ -61,11 +62,22 @@
             this.chooseFromListBox.Size = new System.Drawing.Size(858, 388);
             this.chooseFromListBox.TabIndex = 3;
             // 
+            // chooseElementButton
+            // 
+            this.chooseElementButton.Location = new System.Drawing.Point(581, 423);
+            this.chooseElementButton.Name = "chooseElementButton";
+            this.chooseElementButton.Size = new System.Drawing.Size(163, 23);
+            this.chooseElementButton.TabIndex = 4;
+            this.chooseElementButton.Text = "Choose Element";
+            this.chooseElementButton.UseVisualStyleBackColor = true;
+            this.chooseElementButton.Click += new System.EventHandler(this.ChooseElementButton_Click);
+            // 
             // ChooseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(882, 453);
+            this.Controls.Add(this.chooseElementButton);
             this.Controls.Add(this.chooseFromListBox);
             this.Controls.Add(this.chooseFromFoundLabel);
             this.Controls.Add(this.chooseButton);
@@ -86,5 +98,6 @@
         private System.Windows.Forms.Button chooseButton;
         private System.Windows.Forms.Label chooseFromFoundLabel;
         private System.Windows.Forms.ListBox chooseFromListBox;
+        private System.Windows.Forms.Button chooseElementButton;
     }
 }
